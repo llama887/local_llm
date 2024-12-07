@@ -1,0 +1,17 @@
+[endpoints]
+bin_directory = "bin"
+cgi_directory = "cgi"
+
+[build_instructions]
+# $FILE_NAME$ is the name of the file before the file extension
+# $COPY$ is used for copying binary files directly into the bin directory
+go = "go build $FILE_NAME$.go"
+cpp = "g++ $FILE_NAME$.cpp -o $FILE_NAME$"
+c = "gcc $FILE_NAME$.c -o $FILE_NAME$"
+sh = "$COPY$"
+py = "$COPY$"
+
+[[jinja_static_html_template]]
+template = "public/jinja_templates/navbar_template.html"
+output = "public/jinja_generated_html/navbar_links.html"
+

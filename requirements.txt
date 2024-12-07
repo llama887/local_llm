@@ -1,0 +1,7 @@
+jinja2
+requests
+langchain
+chromadb
+openai
+pydantic
+lxml
