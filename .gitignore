@@ -78,3 +78,4 @@ venv/
 searxng-docker/
 chroma_db/
 *.AppImage
+venv/

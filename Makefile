@@ -11,7 +11,3 @@ run: server/server.go
 
 install: requirements.txt
 	pip install uv && uv pip install -r requirements.txt
-
-clean: scripts/delete_jinja_generated.sh
-	# rm -rf bin
-	@chmod +x scripts/delete_jinja_generated.sh && ./scripts/delete_jinja_generated.sh

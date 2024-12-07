@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"syscall"
 )
 
 func main() {
@@ -26,8 +25,8 @@ func main() {
 	http.Handle("/", fs)
 
 	// Start the server
-	log.Println("Server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Println("Server started on :8081")
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
 
 // cgiHandler returns an http.Handler that serves CGI scripts
@@ -105,50 +104,46 @@ func sseHandler(dir string) http.Handler {
 }
 
 func childHandler(dir string) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        path := filepath.Join(dir, r.URL.Path)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		path := filepath.Join(dir, r.URL.Path)
 
-        // Check if the script exists
-        if _, err := os.Stat(path); os.IsNotExist(err) {
-            http.NotFound(w, r)
-            return
-        }
+		// Check if the script exists
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			http.NotFound(w, r)
+			return
+		}
 
-        // Set headers for the HTTP response
-        w.Header().Set("Content-Type", "text/html")
-        w.Header().Set("Connection", "close") // Force the connection to close
-        w.WriteHeader(http.StatusAccepted) // Immediately return 202 Accepted
-        w.Write([]byte("<html><body><h1>Request Accepted</h1></body></html>"))
+		// Set headers for the HTTP response
+		w.Header().Set("Content-Type", "text/html")
+		w.Header().Set("Connection", "close") // Force the connection to close
+		w.WriteHeader(http.StatusAccepted)    // Immediately return 202 Accepted
+		w.Write([]byte("<html><body><h1>Request Accepted</h1></body></html>"))
 
-        // Ensure the response is sent before starting the long-running process
-        if f, ok := w.(http.Flusher); ok {
-            f.Flush()
-        }
+		// Ensure the response is sent before starting the long-running process
+		if f, ok := w.(http.Flusher); ok {
+			f.Flush()
+		}
 
-        // Run the CGI script in a detached process using a goroutine
-        go func() {
-            cmd := exec.Command(path)
-            devnull, _ := os.OpenFile(os.DevNull, os.O_WRONLY, 0)
-            cmd.SysProcAttr = &syscall.SysProcAttr{
-                Setpgid: true,
-                Pgid:    0,
-            }
+		// Run the CGI script in a detached process using a goroutine
+		go func() {
+			cmd := exec.Command(path)
+			devnull, _ := os.OpenFile(os.DevNull, os.O_WRONLY, 0)
 
-            cmd.Stdout = devnull
-            cmd.Stderr = devnull
+			cmd.Stdout = devnull
+			cmd.Stderr = devnull
 
-            // Start the command
-            if err := cmd.Start(); err != nil {
-                log.Println("Error starting CGI script:", err)
-                return
-            }
+			// Start the command
+			if err := cmd.Start(); err != nil {
+				log.Println("Error starting CGI script:", err)
+				return
+			}
 
-            log.Println("CGI script started successfully with PID:", cmd.Process.Pid)
+			log.Println("CGI script started successfully with PID:", cmd.Process.Pid)
 
-            // Detach from the process
-            if err := cmd.Process.Release(); err != nil {
-                log.Println("Error releasing process:", err)
-            }
-        }()
-    })
+			// Detach from the process
+			if err := cmd.Process.Release(); err != nil {
+				log.Println("Error releasing process:", err)
+			}
+		}()
+	})
 }
