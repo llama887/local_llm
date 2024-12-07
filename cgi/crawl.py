@@ -15,7 +15,7 @@ from urllib.parse import urlparse, parse_qs, quote
 
 searched_links = set()
 
-def process_search_results(search_query, topic, client):
+def process_search_results(search_query, topic, client, database_name):
     valid_links = []
     encoded_query = quote(search_query)
     print("Getting valid links....")
@@ -38,9 +38,9 @@ def process_search_results(search_query, topic, client):
         answers_the_question: bool = Field(..., description="Whether the article answers the question")
     
     db_client = chromadb.PersistentClient(path="data/chroma_db")
-    collection = db_client.get_or_create_collection(f"db1")
+    collection = db_client.get_or_create_collection(f"{database_name}")
 
-    for link in valid_links:
+    for link in valid_links[:5]:
         print(f"Scraping {link}")  
         global searched_links
         if link in searched_links:
@@ -94,15 +94,13 @@ def process_search_results(search_query, topic, client):
             # Notify the client about progress
             sys.stdout.write(f"Stored chunk {idx+1}/{len(chunks)} for {link} in ChromaDB")
 
-def main(topic):
+def main(topic, database_name):
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
     subprocess.run(["lms", "load", "qwen2.5-1.5b-instruct", "-y"])
 
     class QuerySchema(BaseModel):
         '''Expects a list of queries and a topic summary phrase'''
-        queries: List[str] = Field(..., min_items=1, max_items=10)
-        one_to_five_word_topic_summary: constr(min_length=3, max_length=63) = Field(..., description="A one to five word summary of the topic")
-        
+        queries: List[str] = Field(..., min_items=1, max_items=10)        
 
     messages = [
         {"role": "system", "content": "You are a research assistant that focuses on generating search queries that are important for further exploring a topic. You return data strictly in the requested format."},
@@ -119,7 +117,7 @@ def main(topic):
     print(queries)
     for q in queries:
         print(f"Searching {q}")
-        process_search_results(q, topic, client)
+        process_search_results(q, topic, client, database_name)
 
 
 
@@ -135,4 +133,6 @@ if __name__ == "__main__":
     params = parse_qs(query_str)
     topic = params.get("topic", [""])[0]
     topic = topic if topic else "Machine Learning"
-    main(topic)
+    database_name = params.get("database_name", [""])[0]
+    database_name = database_name if database_name else "database"
+    main(topic, database_name)
