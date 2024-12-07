@@ -8,7 +8,7 @@ import sys
 import subprocess
 from openai import OpenAI
 import os
-from pydantic import BaseModel, constr, Field
+from pydantic import BaseModel, constr, Field, ValidationError
 from typing import List
 import urllib.request
 import lxml.html
@@ -22,6 +22,33 @@ chunk_json_path = data_path + "chunks_json/"
 os.makedirs(data_path, exist_ok=True)
 os.makedirs(chunk_json_path, exist_ok=True)
 
+def try_tpu(client, message, pydantic_model):
+    if not hasattr(try_tpu, "tpu_failed"):
+        try_tpu.tpu_failed = False
+    if not try_tpu.tpu_failed:
+        response = client.chat.completions.create(
+            model="llama-3.2-3b-qnn",
+            messages=message,
+            extra_body={
+                pydantic_model.model_json_schema()
+            }
+        )
+        raw_data = response.choices[0].message
+        try:
+            validated_data = pydantic_model.parse_obj(raw_data)
+        except ValidationError as e:
+            try_tpu.tpu_failed = True
+            print(f"The following does not conform to the model:\n{raw_data}")
+            print("Switching Models....")
+            subprocess.run(["lms", "unload", "--all"])
+            subprocess.run(["lms", "load", "qwen2.5-1.5b-instruct", "-y"])
+    if try_tpu.tpu_failed:
+        response = client.beta.chat.completions.parse(
+            model="qwen2.5-1.5b-instruct",
+            messages=message,
+            response_format=pydantic_model
+        )
+    return response
 
 def extract_title(link):
     try:
@@ -43,7 +70,7 @@ def write_chunks(link, chunks):
     print(f"Finished loading chunks for {link}")
 
 
-def process_search_results(search_query, client, database_title):
+def process_search_results(search_query, topic, client, database_title):
     valid_links = []
     encoded_query = quote(search_query)
     print("Getting valid links....")
@@ -118,11 +145,7 @@ def process_search_results(search_query, client, database_title):
                 {"role": "system", "content": "You are a research manager that will strictly evaluate the quality of the text based on the topic. You return data strictly in the requested format."},
                 {"role": "user", "content": f"Given the topic '{topic}' and the markdown below, determine if it contains useful information for the topic.\n\n{chunk}"}
             ]
-            response = client.beta.chat.completions.parse(
-                model="qwen2.5-1.5b-instruct",
-                messages=messages,
-                response_format=ChunkValidation
-            )
+            response = try_tpu(client, messages, ChunkValidation)
             if not response.choices[0].message.parsed.answers_the_question:
                 invalid_chunk_ids.append(id)
 
@@ -164,8 +187,11 @@ def process_search_results(search_query, client, database_title):
 
 def main(topic, database_name):
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
-    subprocess.run(["lms", "load", "qwen2.5-1.5b-instruct", "-y"])
-
+    try:
+        subprocess.run(["lms", "load", "llama-3.2-3b-qnn", "-y"])
+    except FileNotFoundError as e:
+        print("Can't access lms cli, hope you set your model to not need it :)")
+        try_tpu.tpu_failed = True
     class QuerySchema(BaseModel):
         '''Expects a list of queries and a topic summary phrase'''
         queries: List[str] = Field(..., min_items=1, max_items=10)        
@@ -175,11 +201,7 @@ def main(topic, database_name):
         {"role": "user", "content": f"Given the topic '{topic}' create a Python list of Google search queries that would help you to learn more about it."}
     ]
 
-    response = client.beta.chat.completions.parse(
-        model="qwen2.5-1.5b-instruct",
-        messages=messages,
-        response_format=QuerySchema
-    )
+    response = try_tpu(client, messages, QuerySchema)
 
     queries = response.choices[0].message.parsed.queries
     print(queries)
