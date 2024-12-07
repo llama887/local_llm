@@ -78,5 +78,7 @@ venv/
 searxng-docker/
 chroma_db/
 *.AppImage
-venv/
+
+# data dir
 data/
+output_chunks.md
