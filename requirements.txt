@@ -6,3 +6,5 @@ openai
 pydantic
 lxml
 bs4
+langchain-community
+langchain-openai

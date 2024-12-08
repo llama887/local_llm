@@ -3,8 +3,27 @@
 import asyncio
 import websockets
 import os
-import sys
 import socket
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.chains import RetrievalQA
+from openai import OpenAI  
+
+persist_directory = 'db'  
+embedding = OpenAIEmbeddings()
+vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
+
+MODEL = "Qwen2.5-1.5B-Instruct-GGUF"
+client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
+
+retriever = vectordb.as_retriever(search_kwargs={"k": 2}) 
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm=client,  
+    chain_type="stuff",
+    retriever=retriever,
+    return_source_documents=True
+)
 
 connected_clients = set()
 
@@ -13,6 +32,13 @@ def find_free_port():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("", 0))
         return s.getsockname()[1]
+
+def process_llm_response(llm_response):
+    """Format the LLM response with sources."""
+    result = f"Answer: {llm_response['result']}\n\nSources:\n"
+    for source in llm_response["source_documents"]:
+        result += f"- {source.metadata['source']}\n"
+    return result
 
 async def handle_websocket(websocket, path=None):
     """Handle WebSocket connections."""
@@ -26,7 +52,18 @@ async def handle_websocket(websocket, path=None):
                 print(f"Responding to heartbeat: {response}")
                 await websocket.send(response)
             else:
-                response = f"Echo: {message}"
+                try:
+                    print(f"Processing RAG query: {message}")
+
+                    llm_response = qa_chain.run(message)
+
+                    response = process_llm_response(llm_response)
+
+                    print(f"Generated response:\n{response}")
+                except Exception as e:
+                    response = f"Error processing your request: {str(e)}"
+                    print(f"Error during RAG processing: {e}")
+                
                 print(f"Sending response: {response}")
                 await websocket.send(response)
     except websockets.exceptions.ConnectionClosed as e:
@@ -50,10 +87,9 @@ async def main():
     try:
         async with websockets.serve(handle_websocket, "localhost", port):
             print(f"WebSocket server successfully bound to ws://localhost:{port}")
-            await asyncio.Future()  # Run forever
+            await asyncio.Future()
     except Exception as e:
         print(f"Error starting WebSocket server: {e}")
-        sys.exit(1)
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -3,7 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket Test</title>
+    <title>Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #3a3a3a;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffae42;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #444;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .message.server {
+            align-self: flex-start;
+            background-color: #555;
+            color: white;
+        }
+
+        .input-container {
+            display: flex;
+            background-color: #3a3a3a;
+            padding: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffae42;
+            color: #1a1a1a;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .input-container button:hover {
+            background-color: #ffa726;
+        }
+    </style>
     <script>
         let ws;
         let heartbeatInterval;
@@ -20,32 +113,46 @@
 
                         ws.onopen = function(event) {
                             console.log('WebSocket connection established.');
-                            document.getElementById('serverResponse').innerText = 'Connection established.';
+                            const serverResponse = document.createElement('div');
+                            serverResponse.className = 'message server';
+                            serverResponse.textContent = 'Connection established.';
+                            document.getElementById('messages').appendChild(serverResponse);
                             startHeartbeat();
                         };
 
                         ws.onmessage = function(event) {
                             const messages = document.getElementById('messages');
                             const message = document.createElement('div');
+                            message.className = 'message server';
                             message.textContent = event.data;
                             messages.appendChild(message);
+                            messages.scrollTop = messages.scrollHeight;
                         };
 
                         ws.onclose = function(event) {
                             console.log('WebSocket connection closed:', event.code, event.reason);
-                            document.getElementById('serverResponse').innerText = 'Connection lost. Reconnecting...';
                             stopHeartbeat();
+                            const serverResponse = document.createElement('div');
+                            serverResponse.className = 'message server';
+                            serverResponse.textContent = 'Connection lost. Reconnecting...';
+                            document.getElementById('messages').appendChild(serverResponse);
                             setTimeout(connect, 5000); 
                         };
 
                         ws.onerror = function(error) {
                             console.error('WebSocket error observed:', error);
-                            document.getElementById('serverResponse').innerText = 'An error occurred. Please refresh the page.';
+                            const serverResponse = document.createElement('div');
+                            serverResponse.className = 'message server';
+                            serverResponse.textContent = 'An error occurred. Please refresh the page.';
+                            document.getElementById('messages').appendChild(serverResponse);
                         };
                     })
                     .catch(error => {
                         console.error('Error fetching WebSocket URL:', error);
-                        document.getElementById('serverResponse').innerText = 'Failed to connect to the server.';
+                        const serverResponse = document.createElement('div');
+                        serverResponse.className = 'message server';
+                        serverResponse.textContent = 'Failed to connect to the server.';
+                        document.getElementById('messages').appendChild(serverResponse);
                     });
             }
 
@@ -53,10 +160,18 @@
         }
 
         function sendMessage() {
-            const message = document.getElementById('messageInput').value;
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
             if (ws && ws.readyState === WebSocket.OPEN) {
                 console.log('Sending message:', message);
                 ws.send(message);
+
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.textContent = message;
+                document.getElementById('messages').appendChild(userMessage);
+                document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+                messageInput.value = '';
             } else {
                 console.warn('WebSocket is not open. Unable to send message.');
             }
@@ -87,12 +202,13 @@
     </script>
 </head>
 <body>
-    <h1>WebSocket Test</h1>
-    <div>
-        <input type="text" id="messageInput" placeholder="Enter your message">
-        <button onclick="sendMessage()">Send</button>
+    <div class="chat-container">
+        <div class="header">Chatbot</div>
+        <div id="messages" class="messages"></div>
+        <div class="input-container">
+            <input type="text" id="messageInput" placeholder="Enter your message">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
-    <p id="serverResponse">Connection lost. Please refresh the page.</p>
-    <div id="messages"></div>
 </body>
 </html>
