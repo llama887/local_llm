@@ -1,48 +1,6 @@
 {
     "hits": [
         {
-            "id": 6700897910064819762,
-            "data": "[Foundational courses](https://developers.google.com/machine-learning/foundational-courses) [Advanced courses](https://developers.google.com/machine-learning/advanced-courses) [Guides](https://developers.google.com/machine-learning/guides) [Glossary](https://developers.google.com/machine-learning/glossary)[](https://developers.google.com/machine-learning/crash-course/prereqs-and-prework#)",
-            "url": "https://developers.google.com/machine-learning/crash-course/prereqs-and-prework",
-            "chunk_index": 2,
-            "total_chunks": 65
-        },
-        {
-            "id": -654512961758348939,
-            "data": "*   [Top 10 Applications of Machine Learning in Healthcare](https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php)\n    *   [ICD Vs DSM - Key Differences and Similarities](https://www.flatworldsolutions.com/healthcare/articles/icd-vs-dsm-key-differences-and-similarities.php)\n    *   [Top 10 Healthcare Applications that Can Leverage Machine Learning](https://www.flatworldsolutions.com/healthcare/articles/healthcare-applications-that-leverage-machine-learning.php)\n    *   [Virtual Reality Applications in Healthcare](https://www.flatworldsolutions.com/healthcare/articles/virtual-reality-applications-in-healthcare.php)\n    *   [8 Telemedicine Trends to Look Out for in the Years Ahead](https://www.flatworldsolutions.com/healthcare/articles/telemedicine-trends.php)\n    *   [8 Key Benefits of ICD-10 Implementation](https://www.flatworldsolutions.com/healthcare/articles/icd-10-implementation-benefits.php)",
-            "url": "https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php",
-            "chunk_index": 61,
-            "total_chunks": 145
-        },
-        {
-            "id": -4134756699956865668,
-            "data": "### 1\\. Microsoft Azure Machine Learning\n\n**Website:** [https://azure.microsoft.com/en-gb/products/machine-learning#overview](https://azure.microsoft.com/en-gb/products/machine-learning#overview)\n\nMicrosoft Azure Machine Learning is a fully managed cloud service created to empower data scientists and developers to build, deploy, and manage the lifecycle of their machine learning projects faster and with greater confidence. Namely, the platform seeks to accelerate time to value with its machine learning operations (MLOps), open-source interoperability, and integrated tools. It’s also designed with responsible AI in mind and heavily emphasizes security.\n\n#### Key Features",
-            "url": "https://www.datacamp.com/blog/most-popular-machine-learning-tools#1.-microsoft-azure-machine-learning-%3Cstro",
-            "chunk_index": 14,
-            "total_chunks": 70
-        },
-        {
-            "id": -7137417965861192241,
-            "data": "- [Computational engineering](https://en.wikipedia.org/wiki/Computational_engineering)\n- [Differentiable computing](https://en.wikipedia.org/wiki/Template:Differentiable_computing)\n- [Computational healthcare](https://en.wikipedia.org/wiki/Health_informatics)\n- [Digital art](https://en.wikipedia.org/wiki/Digital_art)\n- [Electronic publishing](https://en.wikipedia.org/wiki/Electronic_publishing)\n- [Cyberwarfare](https://en.wikipedia.org/wiki/Cyberwarfare)\n- [Electronic voting](https://en.wikipedia.org/wiki/Electronic_voting)\n- [Video games](https://en.wikipedia.org/wiki/Video_game)\n- [Word processing](https://en.wikipedia.org/wiki/Word_processor)\n- [Educational technology](https://en.wikipedia.org/wiki/Educational_technology)\n- [Document management](https://en.wikipedia.org/wiki/Document_management_system)\n- [Category](https://en.wikipedia.org/wiki/Category:Computer_science)\n- [Outline](https://en.wikipedia.org/wiki/Outline_of_computer_science)",
-            "url": "https://en.wikipedia.org/wiki/Machine_learning",
-            "chunk_index": 481,
-            "total_chunks": 486
-        },
-        {
-            "id": -5799552755677264733,
-            "data": "- [All terms](https://developers.google.com/machine-learning/glossary)\n- [Clustering](https://developers.google.com/machine-learning/glossary/clustering)\n- [Decision Forests](https://developers.google.com/machine-learning/glossary/df)\n- [Fundamentals](https://developers.google.com/machine-learning/glossary/fundamentals)\n- [GCP](https://developers.google.com/machine-learning/glossary/googlecloud)\n- [Generative AI](https://developers.google.com/machine-learning/glossary/generative)\n- [Image](https://developers.google.com/machine-learning/glossary/image)\n- [Lang Eval](https://developers.google.com/machine-learning/glossary/language)\n- [Recommendation Systems](https://developers.google.com/machine-learning/glossary/recsystems)\n- [Reinforcement Learning](https://developers.google.com/machine-learning/glossary/rl)\n- [Sequence Models](https://developers.google.com/machine-learning/glossary/sequence)\n- [TensorFlow](https://developers.google.com/machine-learning/glossary/tensorflow)",
-            "url": "https://developers.google.com/machine-learning/crash-course/linear-regression",
-            "chunk_index": 43,
-            "total_chunks": 58
-        },
-        {
-            "id": -1396924542350126465,
-            "data": "- [make_circles](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_circles.html#sklearn.datasets.make_circles)\n- [make_classification](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification)\n- [make_friedman1](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman1.html#sklearn.datasets.make_friedman1)\n- [make_friedman2](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman2.html#sklearn.datasets.make_friedman2)\n- [make_friedman3](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman3.html#sklearn.datasets.make_friedman3)\n- [make_gaussian_quantiles](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles)\n- [make_hastie_10_2](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_hastie_10_2.html#sklearn.datasets.make_hastie_10_2)",
-            "url": "https://scikit-learn.org/1.5/api/index.html",
-            "chunk_index": 187,
-            "total_chunks": 284
-        },
-        {
             "id": 512610031911035980,
             "data": "Machine learning is a necessary aspect of modern business and research for many organizations today. It uses algorithms and neural network models to assist computer systems in progressively improving their performance. Machine learning algorithms automatically build a mathematical model using sample data – also known as “training data” – to make decisions without being specifically programmed to make those decisions.\n\n[](https://training.dataversity.net/courses/dmf0125-dmbok-and-cdmp-preparation-data-management-fundamentals?utm_source=dataversity&utm_medium=inline_ad&utm_campaign=DMF0125_ILT_temp3&utm_content=copy1)\n\nMachine learning is, in part, [based on a model](http://www.dataversity.net/what-is-machine-learning/) of brain cell interaction. The model was created in 1949 by Donald Hebb in a book titled “The Organization of Behavior.” The book presents Hebb’s theories on neuron excitement and communication between neurons.",
             "url": "https://www.dataversity.net/a-brief-history-of-machine-learning/",
@@ -50,100 +8,212 @@
             "total_chunks": 31
         },
         {
-            "id": 621042273124238823,
-            "data": "*   [GitHub](https://github.com/scikit-learn/scikit-learn \"GitHub\")\n\nChoose version\n\n#### [Classification](https://scikit-learn.org/supervised_learning.html)\n\nIdentifying which category an object belongs to.\n\n**Applications:** Spam detection, image recognition.  \n**Algorithms:** [Gradient boosting](https://scikit-learn.org/modules/ensemble.html#histogram-based-gradient-boosting), [nearest neighbors](https://scikit-learn.org/modules/neighbors.html#classification), [random forest](https://scikit-learn.org/modules/ensemble.html#forest), [logistic regression](https://scikit-learn.org/modules/linear_model.html#logistic-regression), and [more...](https://scikit-learn.org/supervised_learning.html)\n\n[](https://scikit-learn.org/auto_examples/classification/plot_classifier_comparison.html)\n\n[Examples](https://scikit-learn.org/auto_examples/classification/index.html)\n\n#### [Regression](https://scikit-learn.org/supervised_learning.html)",
-            "url": "https://scikit-learn.org/",
-            "chunk_index": 4,
-            "total_chunks": 22
+            "id": 5297673978135301494,
+            "data": "- [\"Machine learning from quantum chemistry to predict experimental solvent effects on reaction rates\"](https://xlink.rsc.org/?DOI=D3SC05353A)\n- [10.1039/D3SC05353A](https://doi.org/10.1039%2FD3SC05353A)\n- [2041-6520](https://search.worldcat.org/issn/2041-6520)\n- [10.1007/s13753-024-00541-1](https://doi.org/10.1007%2Fs13753-024-00541-1)\n- [2303.06557](https://arxiv.org/abs/2303.06557)\n- [2024IJDRS..15..134S](https://ui.adsabs.harvard.edu/abs/2024IJDRS..15..134S)\n- [2192-6395](https://search.worldcat.org/issn/2192-6395)\n- [\"8 - AI for large-scale evacuation modeling: promises and challenges\"](https://www.sciencedirect.com/science/article/pii/B9780128240731000149)\n- [978-0-12-824073-1](https://en.wikipedia.org/wiki/Special:BookSources/978-0-12-824073-1)\n- [archived](https://web.archive.org/web/20170407051313/http://papers.nips.cc/paper/6227-an-algorithm-for-l1-nearest-neighbor-search-via-monotonic-embedding.pdf)",
+            "url": "https://en.wikipedia.org/wiki/Machine_learning",
+            "chunk_index": 442,
+            "total_chunks": 486
         },
         {
-            "id": 4898484796716835560,
-            "data": "*   [Video Testimonials](https://www.flatworldsolutions.com/customer-video-testimonials.php)\n    *   [Infographics](https://www.flatworldsolutions.com/infographics/)\n*   [Contact](https://www.flatworldsolutions.com/forms/healthcarecontactform.php?)",
-            "url": "https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php",
-            "chunk_index": 8,
-            "total_chunks": 145
+            "id": -1983624805896682271,
+            "data": "Machine learning also has intimate ties to [optimization](https://en.wikipedia.org/wiki/Mathematical_optimization \"Mathematical optimization\"): Many learning problems are formulated as minimization of some [loss function](https://en.wikipedia.org/wiki/Loss_function \"Loss function\") on a training set of examples. Loss functions express the discrepancy between the predictions of the model being trained and the actual problem instances (for example, in classification, one wants to assign a [label](https://en.wikipedia.org/wiki/Labeled_data \"Labeled data\") to instances, and models are trained to correctly predict the preassigned labels of a set of examples).[\\[34\\]](https://en.wikipedia.org/wiki/Machine_learning#cite_note-34)\n\nCharacterizing the generalization of various learning algorithms is an active topic of current research, especially for [deep learning](https://en.wikipedia.org/wiki/Deep_learning \"Deep learning\") algorithms.",
+            "url": "https://en.wikipedia.org/wiki/Machine_learning",
+            "chunk_index": 31,
+            "total_chunks": 486
         },
         {
-            "id": -1908418240789283777,
-            "data": "- [Recommendation systems](https://www.tensorflow.org/resources/recommendation-systems)\n- [Community](https://www.tensorflow.org/community)\n- [Groups](https://www.tensorflow.org/community/groups)\n- [Contribute](https://www.tensorflow.org/community/contribute)\n- [Blog](https://blog.tensorflow.org/)\n- [Forum](https://discuss.tensorflow.org/)\n- [About](https://www.tensorflow.org/about)\n- [Case studies](https://www.tensorflow.org/about/case-studies)\n- [GitHub](https://github.com/tensorflow/)\n- [Migrate to TF2](https://www.tensorflow.org/guide/migrate)\n- [TF 1 ↗](https://github.com/tensorflow/docs/tree/master/site/en/r1)\n- [Beginner quickstart](https://www.tensorflow.org/tutorials/quickstart/beginner)\n- [Advanced quickstart](https://www.tensorflow.org/tutorials/quickstart/advanced)\n- [Keras basics](https://www.tensorflow.org/tutorials/keras/classification)\n- [Basic text classification](https://www.tensorflow.org/tutorials/keras/text_classification)",
-            "url": "https://www.tensorflow.org/tutorials",
-            "chunk_index": 35,
-            "total_chunks": 51
-        },
-        {
-            "id": 4853371157297217150,
-            "data": "- [Weight Initialisation](https://www.javatpoint.com/weight-initialisation)\n- [Density Estimation](https://www.javatpoint.com/density-estimation)\n- [Overlay Network](https://www.javatpoint.com/overlay-network)\n- [Micro, Macro Weighted Averages of F1 Score](https://www.javatpoint.com/micro-macro-weighted-averages-of-f1-score)\n- [Assumptions of Linear Regression](https://www.javatpoint.com/assumptions-of-linear-regression)\n- [Evaluation Metrics for Clustering Algorithms](https://www.javatpoint.com/evaluation-metrics-for-clustering-algorithms)\n- [Frog Leap Algorithm](https://www.javatpoint.com/frog-leap-algorithm)\n- [Isolation Forest](https://www.javatpoint.com/isolation-forest)\n- [McNemar Test](https://www.javatpoint.com/mcnemar-test)\n- [Stochastic Optimization](https://www.javatpoint.com/stochastic-optimization)\n- [Geomagnetic Field Using Machine Learning](https://www.javatpoint.com/geomagnetic-field-using-machine-learning)",
+            "id": 3759344865782593974,
+            "data": "- [Machine Learning Models](https://www.javatpoint.com/machine-learning-models)\n- [Machine Learning Books](https://www.javatpoint.com/machine-learning-books)\n- [Linear Algebra for Machine learning](https://www.javatpoint.com/linear-algebra-for-machine-learning)\n- [Types of Machine Learning](https://www.javatpoint.com/types-of-machine-learning)\n- [Feature Engineering for Machine Learning](https://www.javatpoint.com/feature-engineering-for-machine-learning)\n- [Top 10 Machine Learning Courses in 2021](https://www.javatpoint.com/top-10-machine-learning-courses-in-2021)\n- [Epoch in Machine Learning](https://www.javatpoint.com/epoch-in-machine-learning)\n- [Machine Learning with Anomaly Detection](https://www.javatpoint.com/machine-learning-with-anomaly-detection)\n- [What is Epoch](https://www.javatpoint.com/epoch)\n- [Cost Function in Machine Learning](https://www.javatpoint.com/cost-function-in-machine-learning)",
             "url": "https://www.javatpoint.com/regression-vs-classification-in-machine-learning",
-            "chunk_index": 76,
+            "chunk_index": 40,
             "total_chunks": 87
         },
         {
-            "id": 6236482403290629472,
-            "data": "Links/Buttons:\n- [Skip to main content](https://scikit-learn.org/1.5/api/index.html#main-content)\n- [document.write(`<img src=\"../_static/scikit-learn-logo-small.png\" class=\"logo__image only-dark\" alt=\"scikit-learn homepage\"/>`);](https://scikit-learn.org/1.5/index.html)\n- [Install](https://scikit-learn.org/1.5/install.html)\n- [User Guide](https://scikit-learn.org/1.5/user_guide.html)\n- [API](https://scikit-learn.org/1.5/api/index.html#)\n- [Examples](https://scikit-learn.org/1.5/auto_examples/index.html)\n- [Community](https://blog.scikit-learn.org/)\n- [Getting Started](https://scikit-learn.org/1.5/getting_started.html)\n- [Release History](https://scikit-learn.org/1.5/whats_new.html)\n- [Glossary](https://scikit-learn.org/1.5/glossary.html)\n- [Development](https://scikit-learn.org/dev/developers/index.html)\n- [FAQ](https://scikit-learn.org/1.5/faq.html)\n- [Support](https://scikit-learn.org/1.5/support.html)\n- [Related Projects](https://scikit-learn.org/1.5/related_projects.html)",
-            "url": "https://scikit-learn.org/1.5/api/index.html",
-            "chunk_index": 168,
-            "total_chunks": 284
+            "id": -8725196600014821300,
+            "data": "- [Machine Learning](https://builtin.com/tag/machine-learning)\n- [Machine Learning Algorithms](https://builtin.com/tag/machine-learning-algorithms)\n- [Javaid Nabi](https://builtin.com/authors/javaid-nabi)\n- [Machine learning](https://builtin.com/machine-learning)\n- [Explore Built In’s AI Coverage](https://builtin.com/artificial-intelligence)\n- [supervised learning](https://builtin.com/machine-learning/supervised-learning)\n- [unsupervised learning](https://builtin.com/machine-learning/unsupervised-learning)\n- [reinforcement learning](https://builtin.com/artificial-intelligence/reinforcement-learning)\n- [1997 paper](https://www.cs.cmu.edu/~tom/mlbook.html)\n- [All Machine Learning Models Explained](https://builtin.com/machine-learning/machine-learning-models-explained)\n- [classification](https://builtin.com/data-science/supervised-machine-learning-classification)\n- [regression](https://builtin.com/data-science/regression-machine-learning)",
+            "url": "https://builtin.com/machine-learning/machine-learning-basics",
+            "chunk_index": 26,
+            "total_chunks": 31
         },
         {
-            "id": 780356566308634053,
-            "data": "32.  **[^](https://en.wikipedia.org/wiki/Machine_learning#cite_ref-32)** [\"Differentially private clustering for large-scale datasets\"](https://blog.research.google/2023/05/differentially-private-clustering-for.html). _blog.research.google_. 2023-05-25. Retrieved 2024-03-16.\n33.  **[^](https://en.wikipedia.org/wiki/Machine_learning#cite_ref-33)** Edwards, Benj (2023-09-28). [\"AI language models can exceed PNG and FLAC in lossless compression, says study\"](https://arstechnica.com/information-technology/2023/09/ai-language-models-can-exceed-png-and-flac-in-lossless-compression-says-study/). _Ars Technica_. Retrieved 2024-03-07.",
+            "id": 3801223655844467419,
+            "data": "- [Machine Learning Courses](https://www.datacamp.com/category/machine-learning)\n- [Download on the App Store](https://datacamp.onelink.me/xztQ/45dozwue?deep_link_sub1=%7B%22src_url%22%3A%22https%3A%2F%2Fwww.datacamp.com%2Fblog%2Fmost-popular-machine-learning-tools%22%7D)\n- [Get it on Google Play](https://datacamp.onelink.me/xztQ/go2f19ij?deep_link_sub1=%7B%22src_url%22%3A%22https%3A%2F%2Fwww.datacamp.com%2Fblog%2Fmost-popular-machine-learning-tools%22%7D)\n- [Learn Python](https://www.datacamp.com/blog/how-to-learn-python-expert-guide)\n- [Learn R](https://www.datacamp.com/learn/r)\n- [Learn AI](https://www.datacamp.com/blog/how-to-learn-ai)\n- [Learn SQL](https://www.datacamp.com/learn/sql)\n- [Learn Power BI](https://www.datacamp.com/learn/power-bi)\n- [Learn Tableau](https://www.datacamp.com/learn/tableau)\n- [Data Engineering Courses](https://www.datacamp.com/category/data-engineering)\n- [Assessments](https://www.datacamp.com/signal)",
+            "url": "https://www.datacamp.com/blog/most-popular-machine-learning-tools#1.-microsoft-azure-machine-learning-%3Cstro",
+            "chunk_index": 63,
+            "total_chunks": 70
+        },
+        {
+            "id": 4448337180010175409,
+            "data": "**Machine Learning and Artificial Intelligence Take Separate Paths**\n--------------------------------------------------------------------\n\nIn the late 1970s and early 1980s, [artificial intelligence](http://www.dataversity.net/artificial-intelligence-ai/) research focused on using logical, knowledge-based approaches rather than algorithms. Additionally, neural network research was abandoned by computer science and AI researchers. This caused a schism between artificial intelligence and machine learning. Until then, machine learning had been used as a training program for AI.",
+            "url": "https://www.dataversity.net/a-brief-history-of-machine-learning/",
+            "chunk_index": 10,
+            "total_chunks": 31
+        },
+        {
+            "id": 8465341144533754593,
+            "data": "### Machine learning engineer salary\n\nMachine learning professions are typically lucrative careers, earning [high salaries](https://www.coursera.org/articles/machine-learning-engineer-salary) depending on their experience and location. Like many high-level technology and [computer science](https://www.coursera.org/articles/entry-level-computer-science-jobs) jobs, machine learning engineers earn salaries in the six figures. In fact, as of March 2024, the average base salary for a machine learning engineer is $162,740, according to Indeed \\[[6](https://www.indeed.com/career/machine-learning-engineer/salaries)\\].\n\nHow to become a machine learning engineer\n-----------------------------------------\n\nIt's possible to obtain a career in machine learning through several paths discussed below. First, let's examine the three essential steps you'll need to take to become a machine learning engineer.\n\n### 1\\. Earn a bachelor's degree in computer science or a related field.",
+            "url": "https://www.coursera.org/articles/what-is-machine-learning-engineer",
+            "chunk_index": 6,
+            "total_chunks": 26
+        },
+        {
+            "id": 8835175369685271312,
+            "data": "Machine learning (ML), reorganized and recognized as its own field, started to flourish in the 1990s. The field changed its goal from achieving artificial intelligence to tackling solvable problems of a practical nature. It shifted focus away from the [symbolic approaches](https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence \"Symbolic artificial intelligence\") it had inherited from AI, and toward methods and models borrowed from statistics, [fuzzy logic](https://en.wikipedia.org/wiki/Fuzzy_logic \"Fuzzy logic\"), and [probability theory](https://en.wikipedia.org/wiki/Probability_theory \"Probability theory\").[\\[24\\]](https://en.wikipedia.org/wiki/Machine_learning#cite_note-changing-24)",
             "url": "https://en.wikipedia.org/wiki/Machine_learning",
-            "chunk_index": 194,
+            "chunk_index": 21,
             "total_chunks": 486
         },
         {
-            "id": 6060754012426745618,
-            "data": "> Looking forward to a successful career in AI and Machine learning. Enrol in our [Post Graduate Program In AI and ML](https://www.simplilearn.com/artificial-intelligence-masters-program-training-course?source=GhPreviewCTAText \"Post Graduate Program In AI and ML\") in collaboration with Caltech.\n\nThe future of machine learning tools is poised to be both transformative and expansive, touching nearly every aspect of technology, industry, and our daily lives. As we look ahead, several key trends and developments are expected to shape the evolution of ML tools, making them more powerful, accessible, and integral to solving complex challenges.\n\n### Integration with Other Technologies\n\nMachine learning tools and techniques are increasingly being integrated with other cutting-edge technologies, such as:",
-            "url": "https://www.simplilearn.com/best-machine-learning-tools-article",
-            "chunk_index": 21,
-            "total_chunks": 48
+            "id": 6966328829832872413,
+            "data": "Machine learning is a fascinating branch of artificial intelligence that involves predicting and adapting outcomes as more data is received. The demand for machine learning professionals has also grown exponentially in recent years. Recognized as the fifth most in-demand job of 2023, machine learning engineers have become highly sought-after by employers \\[[1](https://www.linkedin.com/pulse/humans-only-rising-demand-machine-learning-engineers-michiel-klompen)\\].\n\nIn this article, you'll learn more about machine learning engineers, including what they do, how much they earn, and how to become one. Afterward, if you're interested in pursuing this impactful career path, you might consider enrolling in IBM's [AI Engineering Professional Certificate](https://www.coursera.org/professional-certificates/ai-engineer). Throughout the program, you'll build a portfolio of projects to show your expertise.\n\nWhat is machine learning?\n-------------------------",
+            "url": "https://www.coursera.org/articles/what-is-machine-learning-engineer",
+            "chunk_index": 1,
+            "total_chunks": 26
         },
         {
-            "id": 6593618878131008193,
-            "data": "- [paired_euclidean_distances](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.paired_euclidean_distances.html#sklearn.metrics.pairwise.paired_euclidean_distances)\n- [paired_manhattan_distances](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.paired_manhattan_distances.html#sklearn.metrics.pairwise.paired_manhattan_distances)\n- [pairwise_kernels](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.pairwise_kernels.html#sklearn.metrics.pairwise.pairwise_kernels)\n- [polynomial_kernel](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.polynomial_kernel.html#sklearn.metrics.pairwise.polynomial_kernel)\n- [rbf_kernel](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.rbf_kernel.html#sklearn.metrics.pairwise.rbf_kernel)\n- [sigmoid_kernel](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.sigmoid_kernel.html#sklearn.metrics.pairwise.sigmoid_kernel)",
-            "url": "https://scikit-learn.org/1.5/api/index.html",
-            "chunk_index": 241,
-            "total_chunks": 284
+            "id": 5359240225641607540,
+            "data": "Machine learning (ML) is a process whereby a computer program learns from experience to improve its performance at a specified task [18]. ML algorithms are often classified under one of three broad categories: supervised learning, unsuper-vised learning and reinforcement learning (RL). Supervised learning algorithms are based on inductive inference where the model is typically trained using labelled data to perform classification or regression, whereas unsupervised learning en-compasses techniques such as density estimation or clustering applied to unlabelled data. By contrast, in the RL paradigm an autonomous agent learns to improve its performance at an assigned task by interacting with its environment. Russel and Norvig define an agent as “anything that can be viewed as perceiving its environment through sensors and acting upon that environment through actuators” [19]. RL agents are not told explicitly how to act by an expert; rather an agent’s performance is evaluated by a reward",
+            "url": "https://scholar.google.com/scholar_url?url=https://arxiv.org/pdf/2002.00444&hl=en&sa=X&ei=dgdVZ_OLKIWU6rQP_tHvuQc&scisig=AFWwaeayKq7i_CTPweQMv0TNKrIK&oi=scholarr",
+            "chunk_index": 17,
+            "total_chunks": 179
         },
         {
-            "id": 2466616943719596599,
-            "data": "From manufacturing to retail and banking to bakeries, even legacy companies are using machine learning to unlock new value or boost efficiency. “Machine learning is changing, or will change, every industry, and leaders need to understand the basic principles, the potential, and the limitations,” said MIT computer science professor [Aleksander Madry](https://people.csail.mit.edu/madry/), director of the [MIT Center for Deployable Machine Learning](https://www.csail.mit.edu/research/center-deployable-machine-learning-cdml).\n\nWhile not everyone needs to know the technical details, they should understand what the technology does and what it can and cannot do, Madry added. “I don’t think anyone can afford not to be aware of what’s happening.”",
-            "url": "https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-explained",
+            "id": 3644425362265976740,
+            "data": "**Machine Learning at Present**\n-------------------------------",
+            "url": "https://www.dataversity.net/a-brief-history-of-machine-learning/",
+            "chunk_index": 17,
+            "total_chunks": 31
+        },
+        {
+            "id": 5447910526679008545,
+            "data": "**Machine learning** (**ML**) is a [field of study](https://en.wikipedia.org/wiki/Field_of_study \"Field of study\") in [artificial intelligence](https://en.wikipedia.org/wiki/Artificial_intelligence \"Artificial intelligence\") concerned with the development and study of [statistical algorithms](https://en.wikipedia.org/wiki/Computational_statistics \"Computational statistics\") that can learn from [data](https://en.wikipedia.org/wiki/Data \"Data\") and [generalize](https://en.wikipedia.org/wiki/Generalize \"Generalize\") to unseen data, and thus perform [tasks](https://en.wikipedia.org/wiki/Task_(computing) \"Task (computing)\") without explicit [instructions](https://en.wikipedia.org/wiki/Machine_code \"Machine code\").[\\[1\\]](https://en.wikipedia.org/wiki/Machine_learning#cite_note-1) Advances in the field of [deep learning](https://en.wikipedia.org/wiki/Deep_learning \"Deep learning\") have allowed [neural networks](https://en.wikipedia.org/wiki/Neural_network_(machine_learning) \"Neural network",
+            "url": "https://en.wikipedia.org/wiki/Machine_learning",
             "chunk_index": 2,
-            "total_chunks": 45
+            "total_chunks": 486
         },
         {
-            "id": 5041667193365077629,
-            "data": "Save Cite[Cited by 146](https://scholar.google.com/scholar?cites=5579084922455744576&as_sdt=2005&sciodt=0,5&hl=en) [Related articles](https://scholar.google.com/scholar?q=related:QGC2fi3kbE0J:scholar.google.com/&scioq=The+role+of+machine+learning+in+autonomous+vehicles&hl=en&as_sdt=0,5&as_vis=1) [All 9 versions](https://scholar.google.com/scholar?cluster=5579084922455744576&hl=en&as_sdt=0,5&as_vis=1)\n\n[\\[PDF\\] redcrevistas.com](http://redcrevistas.com/index.php/Revista/article/download/218/235)\n\n### [AI-Driven Predictive Analytics for **Autonomous** Systems: A **Machine Learning** Approach](http://redcrevistas.com/index.php/Revista/article/view/218)\n\n[RG Goriparthi](https://scholar.google.com/citations?user=16Lmt10AAAAJ&hl=en&oi=sra) \\- Revista de Inteligencia Artificial en Medicina, 2024 - redcrevistas.com",
-            "url": "https://scholar.google.com/scholar?q=The+role+of+machine+learning+in+autonomous+vehicles&hl=en&as_sdt=0&as_vis=1&oi=scholart",
-            "chunk_index": 9,
-            "total_chunks": 30
+            "id": -8151710636759224734,
+            "data": "Machine Learning Explained\n--------------------------\n\nMachine learning is an application of artificial intelligence in which a machine learns from past experiences or input data to make future predictions. There are three common categories of machine learning: supervised learning, unsupervised learning and reinforcement learning.\n\nWhat Is Machine Learning?\n-------------------------\n\nIn 1959, Arthur Samuel, a computer scientist who pioneered the study of artificial intelligence, described machine learning as “the study that gives computers the ability to learn without being explicitly programmed.”\n\nAlan Turing’s seminal paper introduced a benchmark standard for demonstrating machine intelligence, such that a machine has to be intelligent and responsive in a manner that cannot be differentiated from that of a human being.",
+            "url": "https://builtin.com/machine-learning/machine-learning-basics",
+            "chunk_index": 1,
+            "total_chunks": 31
         },
         {
-            "id": 7304071938626693265,
-            "data": "In a recent study, McKinney and colleagues have implemented a deep learning algorithm to detect tumors based on Mammograms in earlier stages of growth. In comparison to traditional screening techniques used to identify tumors, these deep learning-based screen techniques allow for the identification and location of tumors in earlier stages of breast cancer, allowing for a better rate of resection. In a direct comparison, the deep learning-based approach was able to outperform experienced radiologists by an AUC score of 11.5% \\[[49](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r49)\\]. Several other studies have also implemented ML-based approaches for breast cancer detection with variable success, including models by Wang and colleagues \\[[50](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r50)\\], Amrane and colleagues \\[[51](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r51)\\], and Ahmad and colleagues \\[[52](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r52)\\].",
+            "id": -666868283608200268,
+            "data": "- [Machine Learning Courses](https://www.datacamp.com/category/machine-learning)\n- [Download on the App Store](https://datacamp.onelink.me/xztQ/45dozwue?deep_link_sub1=%7B%22src_url%22%3A%22https%3A%2F%2Fwww.datacamp.com%2Fblog%2Fmost-popular-machine-learning-tools%22%7D)\n- [Get it on Google Play](https://datacamp.onelink.me/xztQ/go2f19ij?deep_link_sub1=%7B%22src_url%22%3A%22https%3A%2F%2Fwww.datacamp.com%2Fblog%2Fmost-popular-machine-learning-tools%22%7D)\n- [Learn Python](https://www.datacamp.com/blog/how-to-learn-python-expert-guide)\n- [Learn R](https://www.datacamp.com/learn/r)\n- [Learn AI](https://www.datacamp.com/blog/how-to-learn-ai)\n- [Learn SQL](https://www.datacamp.com/learn/sql)\n- [Learn Power BI](https://www.datacamp.com/learn/power-bi)\n- [Learn Tableau](https://www.datacamp.com/learn/tableau)\n- [Data Engineering Courses](https://www.datacamp.com/category/data-engineering)\n- [Assessments](https://www.datacamp.com/signal)",
+            "url": "https://www.datacamp.com/blog/most-popular-machine-learning-tools#the-importance-of-machine-learning-tools-imagi",
+            "chunk_index": 63,
+            "total_chunks": 70
+        },
+        {
+            "id": -3059546356325186640,
+            "data": "Machine learning approaches are traditionally divided into three broad categories, which correspond to learning paradigms, depending on the nature of the \"signal\" or \"feedback\" available to the learning system:",
+            "url": "https://en.wikipedia.org/wiki/Machine_learning",
+            "chunk_index": 40,
+            "total_chunks": 486
+        },
+        {
+            "id": -10606626880535021,
+            "data": "Machine learning applications of genetic engineering have also been instrumental in the fight against COVID 19. In a recent study, Malone and colleagues utilized software based on machine learning algorithms to “predict which antigens have the required features of HLA-binding, processing, presentation to the cell surface, and the potential to be recognized by T cells to be good clinical targets for immunotherapy” \\[[15](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r15)\\]. The use of immunogenicity predictions from this software, along with the presentation of antigen to infected host-cells, allowed the team to successfully profile the “entire SARS-CoV2 proteome” as well as epitope hotspots. These discoveries help predict blueprints for designing universal vaccines against the virus that can be adapted across the global population.\n\n4\\. RISKS AND CHALLENGES\n------------------------",
             "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/",
-            "chunk_index": 35,
+            "chunk_index": 49,
             "total_chunks": 181
         },
         {
-            "id": -8050162094332435479,
-            "data": "*   Poole, David; [Mackworth, Alan](https://en.wikipedia.org/wiki/Alan_Mackworth \"Alan Mackworth\"); Goebel, Randy (1998). [_Computational Intelligence: A Logical Approach_](https://archive.org/details/computationalint00pool). New York: Oxford University Press. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) \"ISBN (identifier)\") [978-0-19-510270-3](https://en.wikipedia.org/wiki/Special:BookSources/978-0-19-510270-3 \"Special:BookSources/978-0-19-510270-3\"). [Archived](https://web.archive.org/web/20200726131436/https://archive.org/details/computationalint00pool) from the original on 26 July 2020. Retrieved 22 August 2020.",
+            "id": 864536434171392466,
+            "data": "Machine learning is a crucial component of data science, teaching computers to recognize patterns and make decisions with minimal human input.\n\nMachine learning uses algorithms, which are instructions that guide computers in analyzing and learning from data analytics. These algorithms help build a machine learning model that improves its knowledge and accuracy as it processes more data.\n\nAmazon’s “customers also bought” feature is an example of machine learning.\n\nWhen you shop online, machine learning algorithms analyze your purchases and suggest other products based on similar customers' purchases.\n\nThis personalization directly results from machine learning continuously adapting to buying patterns.\n\nDeep learning, a subset of machine learning, deals with even more complex tasks.\n\nFor instance, when you speak to a virtual assistant like Siri or Alexa, deep learning algorithms process your speech, recognize your voice’s nuances, and understand your commands.",
+            "url": "https://xperiencify.com/machine-learning-tools/",
+            "chunk_index": 1,
+            "total_chunks": 30
+        },
+        {
+            "id": 1662296261561910372,
+            "data": "- [Machine Learning Fundamentals with Python](https://www.datacamp.com/tracks/machine-learning-fundamentals-with-python)\n- [What is Machine Learning? Definition, Types, Tools & More](https://www.datacamp.com/blog/what-is-machine-learning)\n- [25 Machine Learning Projects for All Levels](https://www.datacamp.com/blog/machine-learning-projects-for-all-levels)\n- [Kurtis Pykes](https://www.datacamp.com/portfolio/kurtispykes)",
+            "url": "https://www.datacamp.com/blog/most-popular-machine-learning-tools",
+            "chunk_index": 63,
+            "total_chunks": 77
+        },
+        {
+            "id": -932172700602818783,
+            "data": "Machine learning has been used as a strategy to update the evidence related to a systematic review and increased reviewer burden related to the growth of biomedical literature. While it has improved with training sets, it has not yet developed sufficiently to reduce the workload burden without limiting the necessary sensitivity for the findings research themselves.[\\[123\\]](https://en.wikipedia.org/wiki/Machine_learning#cite_note-123)",
             "url": "https://en.wikipedia.org/wiki/Machine_learning",
-            "chunk_index": 317,
+            "chunk_index": 127,
             "total_chunks": 486
         },
         {
-            "id": -3690266417324905001,
-            "data": "*   [Test your knowledge (10 min)](https://developers.google.com/machine-learning/crash-course/numerical-data/test-your-knowledge)\n    *   [Conclusion (2 min)](https://developers.google.com/machine-learning/crash-course/numerical-data/conclusion)\n    *   [What's next](https://developers.google.com/machine-learning/crash-course/numerical-data/conclusion#whats_next)\n    \n*   Working with categorical data (50 min)\n    \n    *   [Introduction (10 min)](https://developers.google.com/machine-learning/crash-course/categorical-data)\n    *   [Vocabulary and one-hot encoding (5 min)](https://developers.google.com/machine-learning/crash-course/categorical-data/one-hot-encoding)\n    *   [Common issues with categorical data (5 min)](https://developers.google.com/machine-learning/crash-course/categorical-data/issues)\n    *   [Feature crosses (5 min)](https://developers.google.com/machine-learning/crash-course/categorical-data/feature-crosses)",
+            "id": 5700915732030740357,
+            "data": "- [Machine Learning Application in Defense/Military](https://www.javatpoint.com/machine-learning-application-in-defense-military)\n- [Machine Learning Applications in Media](https://www.javatpoint.com/machine-learning-applications-in-media)\n- [How can Machine Learning be used with Blockchain](https://www.javatpoint.com/how-can-machine-learning-be-used-with-blockchain)\n- [Prerequisites to Learn Artificial Intelligence and Machine Learning](https://www.javatpoint.com/prerequisites-to-learn-artificial-intelligence-and-machine-learning)\n- [List of Machine Learning Companies in India](https://www.javatpoint.com/list-of-machine-learning-companies-in-india)\n- [Mathematics Courses for Machine Learning](https://www.javatpoint.com/mathematics-courses-for-machine-learning)\n- [Probability and Statistics Books for Machine Learning](https://www.javatpoint.com/probability-and-statistics-books-for-machine-learning)\n- [Risks of Machine Learning](https://www.javatpoint.com/risks-of-machine-learning)",
+            "url": "https://www.javatpoint.com/regression-vs-classification-in-machine-learning",
+            "chunk_index": 44,
+            "total_chunks": 87
+        },
+        {
+            "id": 2946083824509442492,
+            "data": "Machine learning is also associated with several other artificial intelligence subfields:\n\n**Natural language processing**\n\nNatural language processing is a field of machine learning in which machines learn to understand natural language as spoken and written by humans, instead of the data and numbers normally used to program computers. This allows machines to recognize language, understand it, and respond to it, as well as create new text and translate between languages. Natural language processing enables familiar technology like chatbots and digital assistants like Siri or Alexa.\n\n**Neural networks**\n\n[Neural networks](https://news.mit.edu/2017/explained-neural-networks-deep-learning-0414) are a commonly used, specific class of machine learning algorithms. Artificial neural networks are modeled on the human brain, in which thousands or millions of processing nodes are interconnected and organized into layers.",
+            "url": "https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-explained",
+            "chunk_index": 12,
+            "total_chunks": 45
+        },
+        {
+            "id": 5080989247808123781,
+            "data": "Machine Learning and Data Science Certification\nWhat is Big Data and Machine Learning\nHow to Save a Machine Learning Model\nMachine Learning Model with Teachable Machine\nData Structure for Machine Learning\nHypothesis in Machine Learning\nGaussian Discriminant Analysis\nHow Machine Learning is used by Famous Companies\nIntroduction to Transfer Learning in ML\nLDA in Machine Learning\nStacking in Machine Learning\nCNB Algorithm\nDeploy a Machine Learning Model using Streamlit Library\nDifferent Types of Methods for Clustering Algorithms in ML\nEM Algorithm in Machine Learning\nMachine Learning Pipeline\nExploitation and Exploration in Machine Learning\nMachine Learning for Trading\nData Augmentation: A Tactic to Improve the Performance of ML\nDifference Between Coding in Data Science and Machine Learning\nData Labelling in Machine Learning\nImpact of Deep Learning on Personalization\nMajor Business Applications of Convolutional Neural Network\nMini Batch K-means clustering algorithm",
+            "url": "https://www.javatpoint.com/regression-vs-classification-in-machine-learning",
+            "chunk_index": 5,
+            "total_chunks": 87
+        },
+        {
+            "id": -2903306242685208545,
+            "data": "*   [Machine Learning](https://developers.google.com/machine-learning)\n\n*   [ML Concepts](https://developers.google.com/machine-learning/crash-course)\n    \n    *   More\n    \n    *   [Home](https://developers.google.com/machine-learning/crash-course)\n    *   [Crash Course](https://developers.google.com/machine-learning/crash-course/prereqs-and-prework)\n*   [Foundational courses](https://developers.google.com/machine-learning/foundational-courses)\n*   [Advanced courses](https://developers.google.com/machine-learning/advanced-courses)\n*   [Guides](https://developers.google.com/machine-learning/guides)\n*   [Glossary](https://developers.google.com/machine-learning/glossary)\n    *   More",
+            "url": "https://developers.google.com/machine-learning/crash-course/neural-networks",
+            "chunk_index": 6,
+            "total_chunks": 57
+        },
+        {
+            "id": 618239105231124148,
+            "data": "*   [Machine Learning](https://developers.google.com/machine-learning)\n\n*   [ML Concepts](https://developers.google.com/machine-learning/crash-course)\n    \n    *   More\n    \n    *   [Home](https://developers.google.com/machine-learning/crash-course)\n    *   [Crash Course](https://developers.google.com/machine-learning/crash-course/prereqs-and-prework)\n*   [Foundational courses](https://developers.google.com/machine-learning/foundational-courses)\n*   [Advanced courses](https://developers.google.com/machine-learning/advanced-courses)\n*   [Guides](https://developers.google.com/machine-learning/guides)\n*   [Glossary](https://developers.google.com/machine-learning/glossary)\n    *   More",
+            "url": "https://developers.google.com/machine-learning/crash-course/linear-regression",
+            "chunk_index": 6,
+            "total_chunks": 58
+        },
+        {
+            "id": 6533176358118713989,
+            "data": "Machine learning starts with data — numbers, photos, or text, like bank transactions, pictures of people or even [bakery items](https://www.newyorker.com/tech/annals-of-technology/the-pastry-ai-that-learned-to-fight-cancer), repair records, time series data from sensors, or sales reports. The data is gathered and prepared to be used as training data, or the information the machine learning model will be trained on. The more data, the better the program.",
+            "url": "https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-explained",
+            "chunk_index": 6,
+            "total_chunks": 45
+        },
+        {
+            "id": 3495153938421631554,
+            "data": "*   [Machine Learning](https://developers.google.com/machine-learning)\n\n*   [ML Concepts](https://developers.google.com/machine-learning/crash-course)\n    \n    *   More\n    \n    *   [Home](https://developers.google.com/machine-learning/crash-course)\n    *   [Crash Course](https://developers.google.com/machine-learning/crash-course/prereqs-and-prework)\n*   [Foundational courses](https://developers.google.com/machine-learning/foundational-courses)\n*   [Advanced courses](https://developers.google.com/machine-learning/advanced-courses)\n*   [Guides](https://developers.google.com/machine-learning/guides)\n*   [Glossary](https://developers.google.com/machine-learning/glossary)\n    *   More",
             "url": "https://developers.google.com/machine-learning/crash-course/prereqs-and-prework",
-            "chunk_index": 13,
+            "chunk_index": 6,
             "total_chunks": 65
+        },
+        {
+            "id": -7271241207937006749,
+            "data": "Machine learning is now responsible for some of the most significant advancements in technology. It is being used for the new industry of [self-driving vehicles](https://www.caranddriver.com/features/a38138621/may-mobility-autonomous-shuttle-mcity/), and for exploring the galaxy as it helps in [identifying exoplanets](https://learningenglish.voanews.com/a/machine-learning-helps-nasa-confirm-301-new-exoplanets/6326342.html). Recently, Machine learning was defined by Stanford University as “the science of getting computers to act without being explicitly programmed.” Machine learning has prompted a new array of concepts and technologies, including supervised and unsupervised learning, new algorithms for robots, the [Internet of Things](http://www.dataversity.net/brief-history-internet-things/), analytics tools, chatbots, and more. Listed below are [seven common ways](https://readwrite.com/2018/04/06/7-ways-your-business-should-be-using-machine-learning-today/) the world of business is",
+            "url": "https://www.dataversity.net/a-brief-history-of-machine-learning/",
+            "chunk_index": 18,
+            "total_chunks": 31
+        },
+        {
+            "id": -1244418923968433242,
+            "data": "- [machine learning to grow and evolve with time](https://www.domo.com/domopalooza/resources/future-of-data-science-with-automated-machine-learning)\n- [marketing teams are beginning to adopt artificial intelligence and machine learning](https://www.domo.com/domopalooza/resources/transforming-healthcare-marketing)\n- [Predictive Analytics](https://www.domo.com/glossary/what-is-predictive-analytics)\n- [Business Intelligence](https://www.domo.com/business-intelligence)\n- [Data Integration](https://www.domo.com/data-integration)\n- [Business Apps](https://www.domo.com/intelligent-apps)\n- [Governance](https://www.domo.com/platform/governance)\n- [Security & Compliance](https://www.domo.com/platform/security)\n- [All Features](https://www.domo.com/features)\n- [New Releases](https://www.domo.com/product/new-features)\n- [Domo for Enterprise](https://www.domo.com/domo-for-enterprise)\n- [Domo for Business](https://www.domo.com/domo-for-business)\n- [Domo for AWS](https://www.domo.com/partners/aws)",
+            "url": "https://www.domo.com/glossary/what-are-machine-learning-basics#Howdoesmachinelearningwork",
+            "chunk_index": 16,
+            "total_chunks": 19
+        },
+        {
+            "id": 6783978372081175714,
+            "data": "Machine learning encompasses several different algorithmic models and statistical methods to solve problems without specialized programming \\[[19](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r19)\\]. Several machine learning models are single-layered, therefore, large components of feature extraction and data processing are performed prior to inputting the data into the algorithm \\[[20](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r20)\\]. Without the extra layers, these machine learning algorithms require intense data preprocessing in order for the algorithms to determine accurate predictions and to avoid over-fitting or under-fitting the training dataset. Deep learning is a more elaborate sub- form of machine learning that utilizes layered artificial neural networks and provides increased accuracy and specificity with decreased interpretability \\[21\\]. The neuronal network method is characterized as the multilayer network that supports the connection between the artificial",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/",
+            "chunk_index": 10,
+            "total_chunks": 181
         }
     ],
-    "query": "",
-    "processingTimeMs": 0,
-    "limit": 20,
+    "query": "Machine Learning",
+    "processingTimeMs": 8,
+    "limit": 30,
     "offset": 0,
     "estimatedTotalHits": 1000
 }

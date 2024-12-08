@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import meilisearch
+import json
 from urllib.parse import parse_qs
 import os
 
@@ -22,7 +23,9 @@ if __name__ == "__main__":
 
     # Search Meilisearch index
     try:
-        response = client.index("chunks").search(search_query)
+        response = client.index("chunks").search(search_query, {"limit": num_results})
+        with open("search_results.json", "w", encoding="utf-8") as f:
+            json.dump(response, f, ensure_ascii=False, indent=4)
     except:
         response = {}
     hits = response.get("hits", [])
