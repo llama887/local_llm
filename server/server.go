@@ -48,7 +48,7 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 		}
 		activePort = port
 
-		cmd = exec.Command("python3", "/home/yolo/local_llm/cgi/child/chat.py")
+		cmd = exec.Command("python3", "../cgi/child/chat.py")
 		cmd.Env = append(os.Environ(), fmt.Sprintf("PORT=%d", port))
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
