@@ -22,8 +22,17 @@ data_path = "data/"
 chunk_json_path = data_path + "chunks_json/"
 os.makedirs(data_path, exist_ok=True)
 os.makedirs(chunk_json_path, exist_ok=True)
-MODEL_NON_TPU = "Qwen2.5-1.5B-Instruct-GGUF"
-MODEL_TPU = "llama-3.2-3b-qnn"
+
+available_models = set()
+lms_ls_output = subprocess.run(["lms", "ls"], stdout=subprocess.PIPE, text=True)
+lms_ls_lines = lms_ls_output.stdout.splitlines()
+for line in lms_ls_lines:
+    if "/" in line:  # Filter lines that likely contain a model name
+        model_name = line.split()[0].split("/")[
+            1
+        ]  # Take the first element before the first space
+        available_models.add(model_name)
+
 
 def try_tpu(client, message, pydantic_model):
     if not hasattr(try_tpu, "tpu_failed"):
@@ -52,6 +61,20 @@ def try_tpu(client, message, pydantic_model):
     return response
 
 
+if not available_models:
+    raise Exception("You need model la")
+else:
+    print(len(available_models), "available models: ", available_models)
+MODEL_NON_TPU = "Qwen2.5-1.5B-Instruct-GGUF"
+MODEL_TPU = None
+if "llama-3.2-3b-qnn" in available_models:
+    MODEL_TPU = "llama-3.2-3b-qnn"
+    print("USING: llama-3.2-3b-qnn")
+else:
+    try_tpu.tpu_failed = True
+    print("Not using: llama-3.2-3b-qnn")
+
+
 def extract_title(link):
     try:
         response = requests.get(link)
@@ -74,20 +97,23 @@ def write_chunks(link, chunks):
 
 def scrape_link(link, topic, client, database_collection, recursive=False):
     global searched_links
-    if link in searched_links or len(searched_links) >= max_searched_links_size:
+    if (link in searched_links) or (len(searched_links) >= max_searched_links_size):
         return
-    print(f"Scraping {link}")  
+    print(f"Scraping {link}")
     if link in searched_links:
         return
     searched_links.add(link)
 
     title = extract_title(link)
     print(f"Titling {link} as: {title}")
-    
 
     class ImportantUrls(BaseModel):
-        '''For a list of links, pick the most important links to focus on'''
-        important_urls: List[str] = Field(..., min_items=3, description="Most important links to focus on next")
+        """For a list of links, pick the most important links to focus on"""
+
+        important_urls: List[str] = Field(
+            ..., min_items=3, description="Most important links to focus on next"
+        )
+
     headers = {"X-Retain-Images": "none", "X-With-Links-Summary": "true"}
     cleaned_markdown = requests.get(f"https://r.jina.ai/{link}", headers=headers)
     while cleaned_markdown.status_code != 200:
@@ -107,8 +133,14 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
                 url for url in all_urls if urlparse(url).netloc.endswith(domain)
             ]
             messages = [
-                {"role": "system", "content": "You are a professional researcher who picks the best links to click on next given a list of all links. You return data strictly in the requested format."},
-                {"role": "user", "content": f"Given these urls:\n\n '{domain_matching_urls}'\n\n return a python list that contains the most important urls to explore next given that the topic of interest is {topic}."}
+                {
+                    "role": "system",
+                    "content": "You are a professional researcher who picks the best links to click on next given a list of all links. You return data strictly in the requested format.",
+                },
+                {
+                    "role": "user",
+                    "content": f"Given these urls:\n\n '{domain_matching_urls}'\n\n return a python list that contains the most important urls to explore next given that the topic of interest is {topic}.",
+                },
             ]
             response = try_tpu(client, messages, ImportantUrls)
             for url in response.choices[0].message.parsed.important_urls:
@@ -118,8 +150,11 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
                     scrape_link(url, topic, client, database_collection, True)
 
     class ChunkValidation(BaseModel):
-        '''For the given markdown, determine if it answers the question'''
-        answers_the_question: bool = Field(..., description="Whether the article answers the question")
+        """For the given markdown, determine if it answers the question"""
+
+        answers_the_question: bool = Field(
+            ..., description="Whether the article answers the question"
+        )
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(cleaned_markdown.text)
@@ -216,6 +251,7 @@ def process_search_results(search_query, topic, client, database_name):
             valid_links.append(cleaned_link)
 
     db_client = chromadb.PersistentClient(path="data/chroma_db")
+    database_name.replace(" ", "_")
     collection = db_client.get_or_create_collection(f"{database_name}")
 
     for link in valid_links[:5]:
@@ -260,8 +296,8 @@ def main(topic, database_name):
 
 def set_max_link_size(params):
     global max_searched_links_size
-    max_links = params.get("max_links", [""])[0]
-    max_searched_links_size = max_links
+    max_links = params.get("max_links", ["10"])[0]
+    max_searched_links_size = int(max_links)
 
 
 if __name__ == "__main__":
@@ -270,10 +306,8 @@ if __name__ == "__main__":
 
     # Parse the query string
     params = parse_qs(query_str)
-    topic = params.get("topic", [""])[0]
-    topic = topic if topic else "Machine Learning"
-    database_name = params.get("database_name", [""])[0]
-    database_name = database_name if database_name else "database"
+    topic = params.get("topic", ["Machine Learning"])[0]
+    database_name = params.get("database_name", ["Machine_Learning"])[0]
     set_max_link_size(params)
 
     main(topic, database_name)

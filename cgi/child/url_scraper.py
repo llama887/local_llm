@@ -22,8 +22,8 @@ if __name__ == "__main__":
     url = params.get("url", [""])[0]
     topic = params.get("topic", [""])[0]
     database_name = params.get("database_name", [""])[0]
-    print(f"url:{url}, topic:{topic}, database_name:{database_name}")
-     
+    print(f"\nurl:{url}, topic:{topic}, database_name:{database_name}")
+
     db_client = chromadb.PersistentClient(path="data/chroma_db")
     collection = db_client.get_or_create_collection(f"{database_name}")
 
