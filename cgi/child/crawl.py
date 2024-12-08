@@ -60,7 +60,7 @@ def try_tpu(client, message, pydantic_model):
     return response
 
 
-model_non_tpu = "Qwen2.5-1.5B-Instruct-GGUF"
+model_non_tpu = "qwen2.5-1.5b-instruct"
 model_tpu = None
 
 

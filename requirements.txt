@@ -6,3 +6,4 @@ openai
 pydantic
 lxml
 bs4
+meilisearch
