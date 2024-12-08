@@ -1,11 +1,43 @@
-<h1>Search Documents</h1>
-<form id="submission-form" action="/cgi/meili.py" method="get" hx-target="#hidden">
-  <label for="search">Search:</label>
-  <input type="text" id="search" name="search" placeholder="Enter Query" required /><br />
-  <label for="topic">Results Desired:</label>
-  <input type="number" id="results" name="results" placeholder="10" required /><br />
-  <button type="submit">Submit</button>
-</form>
-<div id="hidden">
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Another Search Bar with Dropdown</title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchIcon = document.getElementById("search");
+        const form = document.getElementById("submission-form");
+        searchIcon.addEventListener("click", function () {
+          form.submit();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="waveWrapper waveAnimation">
+      <div class="waveWrapperInner bgTop">
+          <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+      </div>
+      <div class="waveWrapperInner bgMiddle">
+          <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+      </div>
+      <div class="waveWrapperInner bgBottom">
+          <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+      </div>
+    </div>
+    <div class="title">QUERY DOCS</div>
+    <form id="submission-form" action="/cgi/meili.py" method="get" hx-target="#hidden" class="wrapper">
+      <label for="topic">Results Desired:</label>
+      <input type="number" id="results" name="results" placeholder="10" required /><br />
+      <div class="search_field">
+        <input type="text" placeholder="Enter Query" required>
+        <i class="fas fa-search" id="search"></i>
+      </div>
+    </form>
+    <div id="hidden">
+  </body>
 </div>

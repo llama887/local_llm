@@ -8,7 +8,7 @@ from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from openai import OpenAI
 
-persist_directory = 'db'
+persist_directory = "db"
 retriever = None
 qa_chain = None
 
@@ -29,17 +29,19 @@ if retriever:
         llm=client,
         chain_type="stuff",
         retriever=retriever,
-        return_source_documents=True
+        return_source_documents=True,
     )
 
 connected_clients = set()
 client_states = {}  # To track the state of each connected client
+
 
 def find_free_port():
     """Find a free port to avoid conflicts."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("", 0))
         return s.getsockname()[1]
+
 
 def process_llm_response(llm_response):
     """Format the LLM response with sources."""
@@ -50,6 +52,7 @@ def process_llm_response(llm_response):
     else:
         result = f"Answer: {llm_response}"
     return result
+
 
 async def stream_response(websocket, text, delay=0.01):
     """Stream response to the WebSocket client character by character."""
@@ -64,6 +67,7 @@ async def stream_response(websocket, text, delay=0.01):
         await websocket.send("[END]")
     except websockets.exceptions.ConnectionClosed:
         print("WebSocket connection closed while sending [END].")
+
 
 async def handle_websocket(websocket, path=None):
     """Handle WebSocket connections."""
@@ -83,7 +87,9 @@ async def handle_websocket(websocket, path=None):
 
                 # Check if the client is already awaiting a response
                 if client_states[websocket]["awaiting_response"]:
-                    await websocket.send("Server is still processing your previous request. Please wait.")
+                    await websocket.send(
+                        "Server is still processing your previous request. Please wait."
+                    )
                     continue
 
                 client_states[websocket]["awaiting_response"] = True
@@ -93,9 +99,7 @@ async def handle_websocket(websocket, path=None):
                     response = process_llm_response(llm_response)
                 else:
                     llm_response = client.completions.create(
-                        model=MODEL,
-                        prompt=message,
-                        max_tokens=256
+                        model=MODEL, prompt=message, max_tokens=256
                     )
                     response = llm_response.choices[0].text.strip()
 
@@ -106,13 +110,18 @@ async def handle_websocket(websocket, path=None):
                 if e.code == 1000:
                     print("Client closed the connection normally.")
                 elif e.code == 1006:
-                    print("Abnormal WebSocket closure. Check client-server compatibility.")
+                    print(
+                        "Abnormal WebSocket closure. Check client-server compatibility."
+                    )
                 else:
-                    print(f"Connection closed unexpectedly with code {e.code}: {e.reason}")
+                    print(
+                        f"Connection closed unexpectedly with code {e.code}: {e.reason}"
+                    )
                 break
             except Exception as e:
                 print(f"Unhandled error: {e}")
                 import traceback
+
                 traceback.print_exc()
                 break
             finally:
@@ -122,6 +131,7 @@ async def handle_websocket(websocket, path=None):
         del client_states[websocket]
         print(f"Connection from {websocket.remote_address} closed")
         print(f"Remaining connected clients: {len(connected_clients)}")
+
 
 async def main():
     """Main function for starting the WebSocket server."""
@@ -137,6 +147,7 @@ async def main():
             await asyncio.Future()
     except Exception as e:
         print(f"Error starting WebSocket server: {e}")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
