@@ -12,7 +12,6 @@ import (
 	"os/exec"       // For executing commands
 	"path/filepath" // For manipulating file paths
 	"sync"          // For synchronizing access to shared resources
-	"syscall"       // For low-level system calls
 	"io"            // For general I/O operations
 )
 
@@ -90,9 +89,9 @@ func cleanup() {
 
 func main() {
 	// Register HTTP handlers
-	http.Handle("/cgi/sse/", http.StripPrefix("/cgi/sse/", sseHandler("../bin/sse")))
-	http.Handle("/cgi/child/", http.StripPrefix("/cgi/child/", childHandler("../bin/child")))
-	http.Handle("/cgi/", http.StripPrefix("/cgi/", cgiHandler("../bin")))
+	http.Handle("/cgi/sse/", http.StripPrefix("/cgi/sse/", sseHandler("../cgi/sse")))
+	http.Handle("/cgi/child/", http.StripPrefix("/cgi/child/", childHandler("../cgi/child")))
+	http.Handle("/cgi/", http.StripPrefix("/cgi/", cgiHandler("../cgi")))
 	http.HandleFunc("/cgi/child/chat", handleWebSocket)
 	http.Handle("/", http.FileServer(http.Dir("../public")))
 
@@ -247,43 +246,32 @@ func sseHandler(dir string) http.Handler {
 }
 
 func childHandler(dir string) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        path := filepath.Join(dir, r.URL.Path)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		path := filepath.Join(dir, r.URL.Path)
 
-        // Check if the script exists
-        if _, err := os.Stat(path); os.IsNotExist(err) {
-            http.NotFound(w, r)
-            return
-        }
+		// Check if the script exists
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			http.NotFound(w, r)
+			return
+		}
 
-        // Set headers for the HTTP response
-        w.Header().Set("Content-Type", "text/html")
-        w.Header().Set("Connection", "close") // Force the connection to close
-        w.WriteHeader(http.StatusAccepted) // Immediately return 202 Accepted
-        w.Write([]byte("<html><body><h1>Request Accepted</h1></body></html>"))
+		// Set headers for the HTTP response
+		w.Header().Set("Content-Type", "text/html")
+		w.Header().Set("Connection", "close") // Force the connection to close
+		w.WriteHeader(http.StatusAccepted)    // Immediately return 202 Accepted
+		w.Write([]byte("<html><body><h1>Request Accepted</h1></body></html>"))
 
-        // Ensure the response is sent before starting the long-running process
-        if f, ok := w.(http.Flusher); ok {
-            f.Flush()
-        }
+		// Ensure the response is sent before starting the long-running process
+		if f, ok := w.(http.Flusher); ok {
+			f.Flush()
+		}
 
-        // Run the CGI script in a detached process using a goroutine
-        go func() {
-			// Create the command to execute the script
+		// Run the CGI script in a detached process using a goroutine
+		go func() {
 			cmd := exec.Command(path)
-
+			
 			// Pass the query string to the CGI script
 			cmd.Env = append(os.Environ(), "QUERY_STRING="+r.URL.RawQuery)
-
-			// Set process attributes to create a new process group
-			cmd.SysProcAttr = &syscall.SysProcAttr{
-				Setpgid: true,
-				Pgid:    0,
-			}
-
-			// Open /dev/null for redirection (if needed)
-			devnull, _ := os.OpenFile(os.DevNull, os.O_WRONLY, 0)
-			defer devnull.Close() // Ensure it gets closed
 
 			// Create pipes for stdout and stderr
 			stdout, err := cmd.StdoutPipe()
@@ -298,27 +286,24 @@ func childHandler(dir string) http.Handler {
 				return
 			}
 
-			cmd.Stdout = devnull
-			cmd.Stderr = devnull
+			// Start the command
+			if err := cmd.Start(); err != nil {
+				log.Println("Error starting CGI script:", err)
+				return
+			}
 
-            // Start the command
-            if err := cmd.Start(); err != nil {
-                log.Println("Error starting CGI script:", err)
-                return
-            }
-
-            log.Println("CGI script started successfully with PID:", cmd.Process.Pid)
+			log.Println("CGI script started successfully with PID:", cmd.Process.Pid)
 
 			// Log the output of stdout and stderr
 			go logOutput(stdout, "STDOUT")
 			go logOutput(stderr, "STDERR")
 
-            // Detach from the process
-            if err := cmd.Process.Release(); err != nil {
-                log.Println("Error releasing process:", err)
-            }
-        }()
-    })
+			// Detach from the process
+			if err := cmd.Process.Release(); err != nil {
+				log.Println("Error releasing process:", err)
+			}
+		}()
+	})
 }
 
 // logOutput reads and logs the output from a reader

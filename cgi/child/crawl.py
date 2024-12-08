@@ -22,15 +22,15 @@ data_path = "data/"
 chunk_json_path = data_path + "chunks_json/"
 os.makedirs(data_path, exist_ok=True)
 os.makedirs(chunk_json_path, exist_ok=True)
-MODEL = "Qwen2.5-1.5B-Instruct-GGUF"
-
+MODEL_NON_TPU = "Qwen2.5-1.5B-Instruct-GGUF"
+MODEL_TPU = "llama-3.2-3b-qnn"
 
 def try_tpu(client, message, pydantic_model):
     if not hasattr(try_tpu, "tpu_failed"):
         try_tpu.tpu_failed = False
     if not try_tpu.tpu_failed:
         response = client.chat.completions.create(
-            model=MODEL,
+            model=MODEL_NON_TPU,
             messages=message,
             extra_body={"guided_json": pydantic_model.model_json_schema()},
         )
@@ -42,10 +42,10 @@ def try_tpu(client, message, pydantic_model):
             print(f"The following does not conform to the model:\n{raw_data}")
             print("Switching Models....")
             subprocess.run(["lms", "unload", "--all"])
-            subprocess.run(["lms", "load", MODEL, "-y"])
+            subprocess.run(["lms", "load", MODEL_NON_TPU, "-y"])
     if try_tpu.tpu_failed:
         response = client.beta.chat.completions.parse(
-            model=MODEL,
+            model=MODEL_NON_TPU,
             messages=message,
             response_format=pydantic_model,
         )
@@ -226,7 +226,7 @@ def main(topic, database_name):
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
     try:
         subprocess.run(["lms", "unload", "--all"])
-        subprocess.run(["lms", "load", MODEL, "-y"])
+        subprocess.run(["lms", "load", MODEL_NON_TPU, "-y"])
     except FileNotFoundError as e:
         print("Can't access lms cli, hope you set your model to not need it :)")
         try_tpu.tpu_failed = True
