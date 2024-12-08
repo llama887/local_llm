@@ -77,10 +77,7 @@
 
         .Chat-dot:nth-child(2) {
             animation-delay: 0.2s;
-        }
-
-        .Chat-dot:nth-child(3) {
-            animation-delay: 0.4s;
+            color: blue;
         }
 
         @keyframes Chat-dots {
@@ -100,7 +97,7 @@
             gap: 10px;
             position: relative;
             padding: 10px 0;
-            border-top: 2px solid #d7eaff; /* Move line above inputs */
+            border-top: 2px solid #d7eaff;
         }
 
         .Chat-inputField {
@@ -126,6 +123,73 @@
             text-decoration: underline;
         }
 
+        .darksoul-navbar {
+            position: fixed;
+            top: 0; 
+            width: 100%;
+            height: 60px;
+            display: flex;
+            z-index: 100;
+            margin-top: 10px;
+        }
+
+        .darksoul-navbar .brand {
+            margin: auto;
+            width: fit-content;
+            height: 60px;
+            margin-left: 20px;
+            margin-top: 5px;
+            display: flex;
+        }
+
+        .darksoul-navbar .brand h1 {
+            font-family: "Rubik", sans-serif;
+            margin: auto;
+            color: rgb(255, 255, 255);
+        }
+
+        .darksoul-navbar ul {
+            width: 50%;
+            height: 100%;
+            margin: auto;
+            margin-left: 0px;
+            display: flex;
+            color: blue;
+        }
+
+        .darksoul-navbar ul li {
+            margin: auto;
+            list-style: none;
+            font-weight: 700;
+            font-size: 1.2em;
+            color: blue;
+        }
+
+        .rect {
+            margin: auto;
+            margin-left: 0px;
+            width: 0%;
+            height: 2px;
+            background-color: rgb(0, 140, 255);
+        }
+
+        .darksoul-navbar ul li:hover .rect {
+            width: 100%;
+            transition: all 0.5s;
+        }
+
+        .darksoul-navbar ul li a {
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: rgb(0, 140, 255);
+        }
+
+        .darksoul-navbar ul li:nth-child(2) .rect{
+            width: 100%;
+            height: 2px;
+            color: rgb(0, 140, 255);
+        }
     </style>
     <script>
         let ws;
@@ -206,7 +270,7 @@
 
                 const dots = document.createElement('div');
                 dots.className = 'Chat-message Chat-message--bot';
-                dots.innerHTML = '<span class="Chat-bubble"><div class="Chat-dots"><div class="Chat-dot"></div><div class="Chat-dot"></div><div the="Chat-dot"></div></div></span>';
+                dots.innerHTML = '<span class="Chat-bubble"><div class="Chat-dots"><div class="Chat-dot"></div><div class="Chat-dot"></div><div class="Chat-dot"></div></div></span>';
                 document.querySelector('.Chat-messages').appendChild(dots);
             }
         }
@@ -220,6 +284,15 @@
     </script>
 </head>
 <body>
+    <div class="darksoul-navbar">
+        <div class="brand">
+        </div>
+        <ul>
+            <li><a href="learn.html">Learn</a><div class="rect"></div></li>
+            <li><a href="index.html">Chat</a><div class="rect"></div></li>
+        </ul>
+    </div>
+
     <div class="Chat">
         <div class="Chat-messages js-messageContainer"></div>
         <form class="Chat-input js-inputForm" autocomplete="off">

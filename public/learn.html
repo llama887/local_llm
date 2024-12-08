@@ -6,7 +6,442 @@
     <title>Search Bar with Dropdown</title>
     <script src="https://kit.fontawesome.com/b99e675b6e.js" defer></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #020202;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .title {
+            font-size: 10rem; 
+            font-weight: bold;
+            margin-bottom: 100px; 
+            color: #ffffff;
+            text-align: center;
+            position: relative;
+            margin-top: -150px; 
+            z-index: 30;
+        }
+
+        .title::before,
+        .title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 4px;
+            background: #ffffff;
+        }
+
+        .title::before {
+            left: -35%; 
+        }
+
+        .title::after {
+            right: -35%;
+        }
+
+        @keyframes color-shift {
+            0%, 100% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .waveWrapper {
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+        }
+
+        .waveWrapperInner {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            height: 100%;
+            bottom: -1px;
+            background-image: linear-gradient(to top, #e6ecff 20%, #0077ff 80%);
+        }
+
+        .bgTop {
+            z-index: 15;
+            opacity: 0.5;
+        }
+
+        .bgMiddle {
+            z-index: 10;
+            opacity: 0.75;
+        }
+
+        .bgBottom {
+            z-index: 5;
+        }
+
+        .wave {
+            position: absolute;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background-repeat: repeat no-repeat;
+            background-position: 0 bottom;
+            transform-origin: center bottom;
+        }
+
+        .waveTop {
+            background-size: 50% 100px;
+        }
+
+        .waveAnimation .waveTop {
+            animation: move_wave 3s ease-in-out infinite;
+        }
+
+        .waveMiddle {
+            background-size: 50% 120px;
+        }
+
+        .waveAnimation .waveMiddle {
+            animation: move_wave 10s linear infinite;
+        }
+
+        .waveBottom {
+            background-size: 50% 100px;
+        }
+
+        .waveAnimation .waveBottom {
+            animation: move_wave 15s linear infinite;
+        }
+
+        @keyframes move_wave {
+            0% {
+                transform: translateX(0) translateZ(0) scaleY(1)
+            }
+            50% {
+                transform: translateX(-25%) translateZ(0) scaleY(0.55)
+            }
+            100% {
+                transform: translateX(-50%) translateZ(0) scaleY(1)
+            }
+        }
+
+        .wrapper {
+            width: 700px; /* Keep wrapper size */
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 8px 6px -10px #07216d;
+            padding: 15px; /* Increased padding for breathing room */
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Increased gap between dropdown and search bar */
+            margin-top: 40px; /* Increased margin from the options */
+            z-index: 20;
+        }
+
+        .options {
+            display: flex;
+            justify-content: center;
+            margin-top: -90px; /* Adjusted spacing above options */
+            z-index: 30;
+        }
+
+        .options label {
+            display: inline-block;
+            margin: 0 30px; /* Increased spacing between options */
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 8px; 
+        }
+
+        .dropdown {
+            width: 200px; 
+            border-right: 1px solid #dde2f1;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown:before {
+            content: '\25BC'; 
+            position: absolute;
+            left: 0px; 
+            font-size: 10px;
+            color: #6f768d;
+            transform: translateY(-1px);
+        }
+
+        .dropdown .default_option {
+            text-transform: uppercase;
+            padding: 10px 10px 10px 20px; 
+            font-size: 14px;
+            color: #9fa3b1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown ul {
+            position: absolute;
+            top: 50px; 
+            left: 0;
+            background: #fff;
+            width: 100%;
+            max-height: calc(5 * 48px + 2px);
+            overflow-y: auto;
+            border-radius: 5px;
+            display: none;
+            box-shadow: 8px 8px 6px -10px #b3c6ff;
+            z-index: 100;
+            list-style: none;
+        }
+
+        .dropdown ul.active {
+            display: block;
+        }
+
+        .dropdown ul.scrollable {
+            overflow-y: auto;
+        }
+
+        .dropdown ul li {
+            height: 48px;
+            padding: 10px;
+            font-size: 14px;
+            color: #6f768d;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .dropdown ul li:hover {
+            background: #f1f4ff;
+        }
+
+        .dropdown ul li.new-expert {
+            border-top: 1px solid #dde2f1; /* Slimmer border */
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .new-expert:hover {
+            background: #f1f4ff;
+        }
+
+        .new-expert .add-button {
+            color: #5078ef;
+            background: none;
+            border: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .search_field {
+            flex-grow: 1;
+            margin-left: 5px; /* Reduce margin */
+            position: relative;
+        }
+
+        .search_field input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            font-size: 16px;
+            padding-left: 5px; /* Reduce padding */
+            color: #6f768d;
+            outline: none; /* Remove blue outline */
+        }
+
+        .search_field .fas {
+            position: absolute;
+            top: 50%;
+            right: -230px; /* Adjust position */
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #5078ef;
+            cursor: pointer;
+        }
+
+        .spinner {
+            display: none; /* Initially hidden */
+            position: absolute;
+            top: calc(100% + 20px); /* Right below the search bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 65px;
+            height: 65px;
+            animation: rotator 1.4s linear infinite;
+            z-index: 30; /* Ensure above waves */
+        }
+
+        @keyframes rotator {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(270deg); }
+        }
+
+        .path {
+            stroke-dasharray: 187;
+            stroke-dashoffset: 0;
+            transform-origin: center;
+            animation:
+                dash 1.4s ease-in-out infinite, 
+                colors 5.6s ease-in-out infinite;
+        }
+
+        @keyframes colors {
+            0% { stroke: #4285F4; }
+            25% { stroke: #DE3E35; }
+            50% { stroke: #F7C223; }
+            75% { stroke: #1B9A59; }
+            100% { stroke: #4285F4; }
+        }
+
+        @keyframes dash {
+            0% { stroke-dashoffset: 187; }
+            50% {
+                stroke-dashoffset: 46.75;
+                transform: rotate(135deg);
+            }
+            100% {
+                stroke-dashoffset: 187;
+                transform: rotate(450deg);
+            }
+        }
+
+        ::placeholder {
+            color: #9fa3b1;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 8px 6px -10px #b3c6ff;
+            padding: 30px; /* Increased padding around the popup */
+            z-index: 200;
+            text-align: center;
+        }
+
+        .popup h3 {
+            margin-bottom: 20px; /* Increased spacing below the heading */
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 15px; /* Increased padding for input */
+            margin-bottom: 20px; /* Increased margin below the input field */
+            border: 1px solid #dde2f1;
+            border-radius: 5px;
+        }
+
+        .popup button {
+            padding: 12px 25px; /* Increased padding for the button */
+            border: none;
+            background: #5078ef;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem; /* Larger font size for better visibility */
+        }
+
+        .darksoul-navbar {
+            position: fixed;
+            top: 0; 
+            width: 100%;
+            height: 60px;
+            display: flex;
+            z-index: 100;
+            margin-top: 10px;
+        }
+
+        .darksoul-navbar .brand {
+            margin: auto;
+            width: fit-content;
+            height: 60px;
+            margin-left: 20px;
+            margin-top: 5px;
+            display: flex;
+        }
+
+        .darksoul-navbar .brand h1 {
+            font-family: "Rubik", sans-serif;
+            margin: auto;
+            color: rgb(255, 255, 255);
+        }
+
+        .darksoul-navbar ul {
+            width: 50%;
+            height: 100%;
+            margin: auto;
+            margin-left: 0px;
+            display: flex;
+        }
+
+        .darksoul-navbar ul li {
+            margin: auto;
+            list-style: none;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .rect {
+            margin: auto;
+            margin-left: 0px;
+            width: 0%;
+            height: 2px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .darksoul-navbar ul li:hover .rect {
+            width: 100%;
+            transition: all 0.5s;
+        }
+
+        .darksoul-navbar ul li a {
+            font-family: "Rubik", sans-serif;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: rgb(255, 255, 255);
+        }
+
+        .darksoul-navbar ul li:first-child .rect {
+            width: 100%;
+            height: 2px;
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="waveWrapper waveAnimation">
@@ -20,33 +455,45 @@
             <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
         </div>
     </div>
+    <div class="darksoul-navbar">
+        <div class="brand">
+        </div>
+        <ul>
+            <li><a href="learn.html">Learn</a><div class="rect"></div></li>
+            <li><a href="index.html">Chat</a><div class="rect"></div></li>
+        </ul>
+    </div>
     <div class="title">LEARN</div>
+    <div class="options">
+        <label>
+            <input type="radio" name="searchOption" value="Search by Topic">
+            Search by Topic
+        </label>
+        <label>
+            <input type="radio" name="searchOption" value="Add URL">
+            Add URL
+        </label>
+    </div>
     <div class="wrapper">
-        <div class="options">
-            <label>
-                <input type="radio" name="searchOption" value="Add URL">
-                Add URL
-            </label>
-            <label>
-                <input type="radio" name="searchOption" value="Search By Topic">
-                Search By Topic
-            </label>
-        </div>
-        <div class="dropdown">
-            <div class="default_option">Experts</div>
-            <ul>
-                <li>Experts</li>
-                <li>LLM</li>
-                <li>LM Studio</li>
-                <li>Example 4</li>
-                <li>Example 5</li>
-                <li class="new-expert">New Expert <button class="add-button">+</button></li>
-            </ul>
-        </div>
-        <div class="search_field">
-            <input type="text" placeholder="Search">
-            <i class="fas fa-search" id="search-icon"></i>
-        </div>
+        <form id="searchForm" action="/cgi/child/url_scraper.py" method="get" style="display: flex; align-items: center;">
+            <div class="dropdown">
+                <div class="default_option">Experts</div>
+                <ul>
+                    <li>Experts</li>
+                    <li>LLM</li>
+                    <li>LM Studio</li>
+                    <li>Example 4</li>
+                    <li>Example 5</li>
+                    <li class="new-expert">New Expert <button class="add-button">+</button></li>
+                </ul>
+            </div>
+            <div class="search_field">
+                <input type="text" name="query" id="query" placeholder="Enter keyword, URL, or topic">
+                <button type="submit" style="border: none; background: none; cursor: pointer;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
     </div>
 
     <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -120,7 +567,7 @@
             spinner.style.display = 'block';
             setTimeout(() => {
                 spinner.style.display = 'none';
-            }, 5000); // Hide spinner after 5 seconds
+            }, 2000); // Adjusted spinner to hide after 2 seconds
         });
 
         document.addEventListener('click', function(event) {
