@@ -1,79 +1,79 @@
 {
     "hits": [
         {
-            "id": 6700897910064819762,
-            "data": "[Foundational courses](https://developers.google.com/machine-learning/foundational-courses) [Advanced courses](https://developers.google.com/machine-learning/advanced-courses) [Guides](https://developers.google.com/machine-learning/guides) [Glossary](https://developers.google.com/machine-learning/glossary)[](https://developers.google.com/machine-learning/crash-course/prereqs-and-prework#)",
-            "url": "https://developers.google.com/machine-learning/crash-course/prereqs-and-prework",
-            "chunk_index": 2,
-            "total_chunks": 65
+            "id": 351516345885428083,
+            "data": "Title: Britannica\n\nURL Source: https://www.britannica.com/topic/Eggplants\n\nWarning: Target URL returned error 404: Not Found\n\nMarkdown Content:\nBritannica\n===============\n\n   \n\n[](https://www.britannica.com/)\n\nSearch Britannica  Click here to search\n\n[](https://www.britannica.com/)\n\nSearch Britannica  Click here to search\n\n[Subscribe](https://premium.britannica.com/premium-membership/?utm_source=premium&utm_medium=global-nav&utm_campaign=evergreen)\n\n[Subscribe](https://premium.britannica.com/premium-membership/?utm_source=premium&utm_medium=global-nav-mobile&utm_campaign=evergreen)\n\nLogin\n\nhttps://premium.britannica.com/premium-membership/?utm\\_source=premium&utm\\_medium=nav-login-box&utm\\_campaign=evergreen\n\n[Subscribe Now](https://premium.britannica.com/premium-membership/?utm_source=premium&utm_medium=hamburger-menu&utm_campaign=evergreen)",
+            "url": "https://www.britannica.com/topic/Eggplants",
+            "chunk_index": 0,
+            "total_chunks": 14
         },
         {
-            "id": -654512961758348939,
-            "data": "*   [Top 10 Applications of Machine Learning in Healthcare](https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php)\n    *   [ICD Vs DSM - Key Differences and Similarities](https://www.flatworldsolutions.com/healthcare/articles/icd-vs-dsm-key-differences-and-similarities.php)\n    *   [Top 10 Healthcare Applications that Can Leverage Machine Learning](https://www.flatworldsolutions.com/healthcare/articles/healthcare-applications-that-leverage-machine-learning.php)\n    *   [Virtual Reality Applications in Healthcare](https://www.flatworldsolutions.com/healthcare/articles/virtual-reality-applications-in-healthcare.php)\n    *   [8 Telemedicine Trends to Look Out for in the Years Ahead](https://www.flatworldsolutions.com/healthcare/articles/telemedicine-trends.php)\n    *   [8 Key Benefits of ICD-10 Implementation](https://www.flatworldsolutions.com/healthcare/articles/icd-10-implementation-benefits.php)",
-            "url": "https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php",
-            "chunk_index": 61,
-            "total_chunks": 145
-        },
-        {
-            "id": -4134756699956865668,
-            "data": "### 1\\. Microsoft Azure Machine Learning\n\n**Website:** [https://azure.microsoft.com/en-gb/products/machine-learning#overview](https://azure.microsoft.com/en-gb/products/machine-learning#overview)\n\nMicrosoft Azure Machine Learning is a fully managed cloud service created to empower data scientists and developers to build, deploy, and manage the lifecycle of their machine learning projects faster and with greater confidence. Namely, the platform seeks to accelerate time to value with its machine learning operations (MLOps), open-source interoperability, and integrated tools. It’s also designed with responsible AI in mind and heavily emphasizes security.\n\n#### Key Features",
-            "url": "https://www.datacamp.com/blog/most-popular-machine-learning-tools#1.-microsoft-azure-machine-learning-%3Cstro",
-            "chunk_index": 14,
-            "total_chunks": 70
-        },
-        {
-            "id": -7137417965861192241,
-            "data": "- [Computational engineering](https://en.wikipedia.org/wiki/Computational_engineering)\n- [Differentiable computing](https://en.wikipedia.org/wiki/Template:Differentiable_computing)\n- [Computational healthcare](https://en.wikipedia.org/wiki/Health_informatics)\n- [Digital art](https://en.wikipedia.org/wiki/Digital_art)\n- [Electronic publishing](https://en.wikipedia.org/wiki/Electronic_publishing)\n- [Cyberwarfare](https://en.wikipedia.org/wiki/Cyberwarfare)\n- [Electronic voting](https://en.wikipedia.org/wiki/Electronic_voting)\n- [Video games](https://en.wikipedia.org/wiki/Video_game)\n- [Word processing](https://en.wikipedia.org/wiki/Word_processor)\n- [Educational technology](https://en.wikipedia.org/wiki/Educational_technology)\n- [Document management](https://en.wikipedia.org/wiki/Document_management_system)\n- [Category](https://en.wikipedia.org/wiki/Category:Computer_science)\n- [Outline](https://en.wikipedia.org/wiki/Outline_of_computer_science)",
-            "url": "https://en.wikipedia.org/wiki/Machine_learning",
-            "chunk_index": 481,
-            "total_chunks": 486
-        },
-        {
-            "id": -5799552755677264733,
-            "data": "- [All terms](https://developers.google.com/machine-learning/glossary)\n- [Clustering](https://developers.google.com/machine-learning/glossary/clustering)\n- [Decision Forests](https://developers.google.com/machine-learning/glossary/df)\n- [Fundamentals](https://developers.google.com/machine-learning/glossary/fundamentals)\n- [GCP](https://developers.google.com/machine-learning/glossary/googlecloud)\n- [Generative AI](https://developers.google.com/machine-learning/glossary/generative)\n- [Image](https://developers.google.com/machine-learning/glossary/image)\n- [Lang Eval](https://developers.google.com/machine-learning/glossary/language)\n- [Recommendation Systems](https://developers.google.com/machine-learning/glossary/recsystems)\n- [Reinforcement Learning](https://developers.google.com/machine-learning/glossary/rl)\n- [Sequence Models](https://developers.google.com/machine-learning/glossary/sequence)\n- [TensorFlow](https://developers.google.com/machine-learning/glossary/tensorflow)",
-            "url": "https://developers.google.com/machine-learning/crash-course/linear-regression",
-            "chunk_index": 43,
-            "total_chunks": 58
-        },
-        {
-            "id": -1396924542350126465,
-            "data": "- [make_circles](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_circles.html#sklearn.datasets.make_circles)\n- [make_classification](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification)\n- [make_friedman1](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman1.html#sklearn.datasets.make_friedman1)\n- [make_friedman2](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman2.html#sklearn.datasets.make_friedman2)\n- [make_friedman3](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman3.html#sklearn.datasets.make_friedman3)\n- [make_gaussian_quantiles](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles)\n- [make_hastie_10_2](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_hastie_10_2.html#sklearn.datasets.make_hastie_10_2)",
-            "url": "https://scikit-learn.org/1.5/api/index.html",
-            "chunk_index": 187,
-            "total_chunks": 284
-        },
-        {
-            "id": 512610031911035980,
-            "data": "Machine learning is a necessary aspect of modern business and research for many organizations today. It uses algorithms and neural network models to assist computer systems in progressively improving their performance. Machine learning algorithms automatically build a mathematical model using sample data – also known as “training data” – to make decisions without being specifically programmed to make those decisions.\n\n[](https://training.dataversity.net/courses/dmf0125-dmbok-and-cdmp-preparation-data-management-fundamentals?utm_source=dataversity&utm_medium=inline_ad&utm_campaign=DMF0125_ILT_temp3&utm_content=copy1)\n\nMachine learning is, in part, [based on a model](http://www.dataversity.net/what-is-machine-learning/) of brain cell interaction. The model was created in 1949 by Donald Hebb in a book titled “The Organization of Behavior.” The book presents Hebb’s theories on neuron excitement and communication between neurons.",
-            "url": "https://www.dataversity.net/a-brief-history-of-machine-learning/",
+            "id": -378482561296642901,
+            "data": "[Subscribe Now](https://premium.britannica.com/premium-membership/?utm_source=premium&utm_medium=hamburger-menu&utm_campaign=evergreen)\n\n*   [Home](https://www.britannica.com/)\n*   [History & Society](https://www.britannica.com/History-Society)\n*   [Science & Tech](https://www.britannica.com/Science-Tech)\n*   [Biographies](https://www.britannica.com/Biographies)\n*   [Animals & Nature](https://www.britannica.com/Animals-Nature)\n*   [Geography & Travel](https://www.britannica.com/Geography-Travel)\n*   [Arts & Culture](https://www.britannica.com/Arts-Culture)\n*   [ProCon](https://www.britannica.com/procon)\n*   [Money](https://www.britannica.com/money)",
+            "url": "https://www.britannica.com/topic/Eggplants",
             "chunk_index": 1,
-            "total_chunks": 31
+            "total_chunks": 14
         },
         {
-            "id": 621042273124238823,
-            "data": "*   [GitHub](https://github.com/scikit-learn/scikit-learn \"GitHub\")\n\nChoose version\n\n#### [Classification](https://scikit-learn.org/supervised_learning.html)\n\nIdentifying which category an object belongs to.\n\n**Applications:** Spam detection, image recognition.  \n**Algorithms:** [Gradient boosting](https://scikit-learn.org/modules/ensemble.html#histogram-based-gradient-boosting), [nearest neighbors](https://scikit-learn.org/modules/neighbors.html#classification), [random forest](https://scikit-learn.org/modules/ensemble.html#forest), [logistic regression](https://scikit-learn.org/modules/linear_model.html#logistic-regression), and [more...](https://scikit-learn.org/supervised_learning.html)\n\n[](https://scikit-learn.org/auto_examples/classification/plot_classifier_comparison.html)\n\n[Examples](https://scikit-learn.org/auto_examples/classification/index.html)\n\n#### [Regression](https://scikit-learn.org/supervised_learning.html)",
-            "url": "https://scikit-learn.org/",
+            "id": 4008218754707436767,
+            "data": "*   [Games & Quizzes](https://www.britannica.com/quiz/browse)\n*   [Videos](https://www.britannica.com/videos)\n*   [On This Day](https://www.britannica.com/on-this-day)\n*   [One Good Fact](https://www.britannica.com/one-good-fact)\n*   [Dictionary](https://www.britannica.com/dictionary)\n*   [New Articles](https://www.britannica.com/new-articles)\n\n[History & Society](https://www.britannica.com/History-Society)\n\n*   [Lifestyles & Social Issues](https://www.britannica.com/browse/Lifestyles-Social-Issues)\n*   [Philosophy & Religion](https://www.britannica.com/browse/Philosophy-Religion)\n*   [Politics, Law & Government](https://www.britannica.com/browse/Politics-Law-Government)\n*   [World History](https://www.britannica.com/browse/World-History)\n\n[Science & Tech](https://www.britannica.com/Science-Tech)",
+            "url": "https://www.britannica.com/topic/Eggplants",
+            "chunk_index": 2,
+            "total_chunks": 14
+        },
+        {
+            "id": -8258871006653405683,
+            "data": "[Science & Tech](https://www.britannica.com/Science-Tech)\n\n*   [Health & Medicine](https://www.britannica.com/browse/Health-Medicine)\n*   [Science](https://www.britannica.com/browse/Science)\n*   [Technology](https://www.britannica.com/browse/Technology)\n\n[Biographies](https://www.britannica.com/Biographies)\n\n*   [Browse Biographies](https://www.britannica.com/browse/biographies)\n\n[Animals & Nature](https://www.britannica.com/Animals-Nature)\n\n*   [Birds, Reptiles & Other Vertebrates](https://www.britannica.com/browse/Birds-Reptiles-Vertebrates)\n*   [Bugs, Mollusks & Other Invertebrates](https://www.britannica.com/browse/Bugs-Mollusks-Invertebrates)\n*   [Environment](https://www.britannica.com/browse/Environment)\n*   [Fossils & Geologic Time](https://www.britannica.com/browse/Fossil-Geologic-Time)\n*   [Mammals](https://www.britannica.com/browse/Mammals)\n*   [Plants](https://www.britannica.com/browse/Plants)\n\n[Geography & Travel](https://www.britannica.com/Geography-Travel)",
+            "url": "https://www.britannica.com/topic/Eggplants",
+            "chunk_index": 3,
+            "total_chunks": 14
+        },
+        {
+            "id": -7033668018958739758,
+            "data": "[Geography & Travel](https://www.britannica.com/Geography-Travel)\n\n*   [Geography & Travel](https://www.britannica.com/browse/Geography-Travel)\n\n[Arts & Culture](https://www.britannica.com/Arts-Culture)\n\n*   [Entertainment & Pop Culture](https://www.britannica.com/browse/Entertainment-Pop-Culture)\n*   [Literature](https://www.britannica.com/browse/Literature)\n*   [Sports & Recreation](https://www.britannica.com/browse/Sports-Recreation)\n*   [Visual Arts](https://www.britannica.com/browse/Visual-Arts)",
+            "url": "https://www.britannica.com/topic/Eggplants",
             "chunk_index": 4,
-            "total_chunks": 22
+            "total_chunks": 14
         },
         {
-            "id": 4898484796716835560,
-            "data": "*   [Video Testimonials](https://www.flatworldsolutions.com/customer-video-testimonials.php)\n    *   [Infographics](https://www.flatworldsolutions.com/infographics/)\n*   [Contact](https://www.flatworldsolutions.com/forms/healthcarecontactform.php?)",
-            "url": "https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php",
+            "id": -3456427741931543303,
+            "data": "*   [Companions](https://www.britannica.com/stories/companion)\n*   [Demystified](https://www.britannica.com/stories/demystified)\n*   [Image Galleries](https://www.britannica.com/gallery/browse)\n*   [Lists](https://www.britannica.com/list/browse)\n*   [Podcasts](https://www.britannica.com/podcasts)\n*   [Spotlight](https://www.britannica.com/stories/spotlight)\n*   [Summaries](https://www.britannica.com/summary)\n*   [The Forum](https://www.britannica.com/stories/the-forum)\n*   [Top Questions](https://www.britannica.com/question)\n*   [#WTFact](https://www.britannica.com/stories/wtfact)\n\n*   [Britannica Kids](https://kids.britannica.com/)",
+            "url": "https://www.britannica.com/topic/Eggplants",
+            "chunk_index": 5,
+            "total_chunks": 14
+        },
+        {
+            "id": -4956584695733149307,
+            "data": "*   [Britannica Kids](https://kids.britannica.com/)\n\n[Ask the Chatbot](https://www.britannica.com/chatbot) [Games & Quizzes](https://www.britannica.com/quiz/browse) [History & Society](https://www.britannica.com/History-Society) [Science & Tech](https://www.britannica.com/Science-Tech) [Biographies](https://www.britannica.com/Biographies) [Animals & Nature](https://www.britannica.com/Animals-Nature) [Geography & Travel](https://www.britannica.com/Geography-Travel) [Arts & Culture](https://www.britannica.com/Arts-Culture) [ProCon](https://www.britannica.com/procon) [Money](https://www.britannica.com/money) [Videos](https://www.britannica.com/videos)\n\n### Page Not Found\n\n#### We're sorry! This content is not available. Please visit the [Britannica homepage](https://www.britannica.com/) or use the search box below.\n\nSearch Britannica  Click here to search\n\n[](https://www.britannica.com/quiz/energy-fossil-fuels)",
+            "url": "https://www.britannica.com/topic/Eggplants",
+            "chunk_index": 6,
+            "total_chunks": 14
+        },
+        {
+            "id": -1917624901227918251,
+            "data": "Search Britannica  Click here to search\n\n[](https://www.britannica.com/quiz/energy-fossil-fuels)\n\n[Energy & Fossil Fuels](https://www.britannica.com/quiz/energy-fossil-fuels)\n\n[](https://www.britannica.com/list/8-birds-that-cant-fly)\n\n[8 Birds That Can’t Fly](https://www.britannica.com/list/8-birds-that-cant-fly)\n\n[](https://www.britannica.com/story/the-time-julius-caesar-was-captured-by-pirates)\n\n[The Time Julius Caesar Was Captured by Pirates](https://www.britannica.com/story/the-time-julius-caesar-was-captured-by-pirates)\n\n**History at your fingertips –** Sign up here to see what happened On This Day, every day in your inbox!\n\nEnter your email \n\nSubscribe\n\nBy signing up for this email, you are agreeing to news, offers, and information from Encyclopaedia Britannica.  \nClick here to view our [Privacy Notice](https://corporate.britannica.com/privacy-policy2). Easy unsubscribe links are provided in every email.\n\nThank you for subscribing!",
+            "url": "https://www.britannica.com/topic/Eggplants",
+            "chunk_index": 7,
+            "total_chunks": 14
+        },
+        {
+            "id": 745108612484796505,
+            "data": "Thank you for subscribing!\n\nBe on the lookout for your Britannica newsletter to get trusted stories delivered right to your inbox.\n\nStay Connected\n\n[Facebook](https://www.facebook.com/BRITANNICA/) [X](https://x.com/britannica) [YouTube](https://www.youtube.com/c/encyclopaediabritannica) [Instagram](https://www.instagram.com/britannica/)[](https://www.pinterest.com/britannica/)\n\n  \n\n*   [About Us & Legal Info](https://corporate.britannica.com/)\n*   [Contact Us](https://corporate.britannica.com/contact/)\n*   [Privacy Policy](https://corporate.britannica.com/privacy-policy2)\n*   [Terms of Use](https://corporate.britannica.com/termsofuse.html2)\n*   [Diversity](https://corporate.britannica.com/diversity)\n\n©2024 Encyclopædia Britannica, Inc.",
+            "url": "https://www.britannica.com/topic/Eggplants",
             "chunk_index": 8,
-            "total_chunks": 145
+            "total_chunks": 14
         },
         {
-            "id": -1908418240789283777,
-            "data": "- [Recommendation systems](https://www.tensorflow.org/resources/recommendation-systems)\n- [Community](https://www.tensorflow.org/community)\n- [Groups](https://www.tensorflow.org/community/groups)\n- [Contribute](https://www.tensorflow.org/community/contribute)\n- [Blog](https://blog.tensorflow.org/)\n- [Forum](https://discuss.tensorflow.org/)\n- [About](https://www.tensorflow.org/about)\n- [Case studies](https://www.tensorflow.org/about/case-studies)\n- [GitHub](https://github.com/tensorflow/)\n- [Migrate to TF2](https://www.tensorflow.org/guide/migrate)\n- [TF 1 ↗](https://github.com/tensorflow/docs/tree/master/site/en/r1)\n- [Beginner quickstart](https://www.tensorflow.org/tutorials/quickstart/beginner)\n- [Advanced quickstart](https://www.tensorflow.org/tutorials/quickstart/advanced)\n- [Keras basics](https://www.tensorflow.org/tutorials/keras/classification)\n- [Basic text classification](https://www.tensorflow.org/tutorials/keras/text_classification)",
-            "url": "https://www.tensorflow.org/tutorials",
-            "chunk_index": 35,
-            "total_chunks": 51
+            "id": 6309096310978585075,
+            "data": "Links/Buttons:\n- [Subscribe](https://premium.britannica.com/premium-membership/?utm_source=premium&utm_medium=global-nav-mobile&utm_campaign=evergreen)\n- [Subscribe Now](https://premium.britannica.com/premium-membership/?utm_source=premium&utm_medium=hamburger-menu&utm_campaign=evergreen)\n- [Britannica homepage](https://www.britannica.com/)\n- [History & Society](https://www.britannica.com/History-Society)\n- [Science & Tech](https://www.britannica.com/Science-Tech)\n- [Biographies](https://www.britannica.com/Biographies)\n- [Animals & Nature](https://www.britannica.com/Animals-Nature)\n- [Geography & Travel](https://www.britannica.com/browse/Geography-Travel)\n- [Arts & Culture](https://www.britannica.com/Arts-Culture)\n- [ProCon](https://www.britannica.com/procon)\n- [Money](https://www.britannica.com/money)\n- [Games & Quizzes](https://www.britannica.com/quiz/browse)\n- [Videos](https://www.britannica.com/videos)\n- [On This Day](https://www.britannica.com/on-this-day)",
+            "url": "https://www.britannica.com/topic/Eggplants",
+            "chunk_index": 9,
+            "total_chunks": 14
         }
     ],
-    "query": "",
-    "processingTimeMs": 10,
+    "query": "Eggplants",
+    "processingTimeMs": 36,
     "limit": 10,
     "offset": 0,
-    "estimatedTotalHits": 1000
+    "estimatedTotalHits": 77
 }

@@ -49,9 +49,9 @@
     <div class="title">QUERY DOCS</div>
     <form id="submission-form" action="/cgi/meili.py" method="get" hx-target="#hidden" class="wrapper">
       <label for="topic">Results Desired:</label>
-      <input type="number" id="results" name="results" placeholder="10" required /><br />
+      <input type="number" id="results" name="results" placeholder="10"required /><br />
       <div class="search_field">
-        <input type="text" placeholder="Enter Query" id="search" required>
+        <input type="text" id="search" name="search" placeholder="Enter Query" required>
         <i class="fas fa-search" id="search_icon"></i>
       </div>
     </form>

@@ -136,13 +136,13 @@
             50% {
                 transform: translateX(-25%) translateZ(0) scaleY(0.55)
             }
-            100% {
+        100% {
                 transform: translateX(-50%) translateZ(0) scaleY(1)
             }
         }
 
         .wrapper {
-            width: 700px; /* Keep wrapper size */
+            width: 800px; /* Keep wrapper size */
             background: #fff;
             border-radius: 5px;
             box-shadow: 0 8px 6px -10px #07216d;
@@ -266,8 +266,27 @@
 
         .search_field {
             flex-grow: 1;
-            margin-left: 5px; /* Reduce margin */
             position: relative;
+            display: inline-block;
+            align-items: center;
+            margin-left: 5px; /* Adjust based on your layout */
+        }
+        .search_field:nth-child(2) {
+            display: flex;
+            border-right: 1px solid #dde2f1; /* Separator to the right of the second search field */
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            margin-right: 5px;
+            font-size: 16px;
+            border: 1px solid #dde2f1;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .search_field.url_search {
+            margin-left: 0; /* No margin if it's a URL search field */
         }
 
         .search_field input {
@@ -283,7 +302,7 @@
         .search_field .fas {
             position: absolute;
             top: 50%;
-            right: -230px; /* Adjust position */
+            right: -75px; /* Adjust position */
             transform: translateY(-50%);
             font-size: 18px;
             color: #5078ef;
@@ -468,11 +487,11 @@
     <div class="title">LEARN</div>
     <div class="options">
         <label>
-            <input type="radio" name="searchOption" value="Search by Topic" checked onclick="handleOptionChange(this.value);">
+            <input type="radio" name="searchOption" value="Search by Topic" onclick="handleOptionChange(this.value);">
             Search by Topic
         </label>
         <label>
-            <input type="radio" name="searchOption" value="Add URL" onclick="handleOptionChange(this.value);">
+            <input type="radio" name="searchOption" value="Add URL" checked onclick="handleOptionChange(this.value);">
             Add URL
         </label>
     </div>
@@ -490,7 +509,13 @@
                 </ul>
             </div>
             <div class="search_field">
-                <input type="text" name="query" id="query" placeholder="Enter keyword, URL, or topic">
+                <input type="text" name="query" id="query" placeholder="Topic">
+                <button type="submit" style="border: none; background: none; cursor: pointer;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="search_field">
+                <input type="text" name="query" id="query" placeholder="Enter URL">
                 <button type="submit" style="border: none; background: none; cursor: pointer;">
                     <i class="fas fa-search"></i>
                 </button>
@@ -579,12 +604,23 @@
             }
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchOptions = document.querySelectorAll('input[name="searchOption"]');
+            searchOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    if (this.value === 'Search by Topic') {
+                        window.location.href = 'learn.html'; // Redirects to the new page for URL addition
+                    }
+                });
+            });
+        });
+
         function handleOptionChange(value) {
-            if (value === 'Add URL') {
-                window.location.href = 'learn2.html';
-            } else {
-                window.location.href = 'learn.html';
-            }
+        if (value === 'Search by Topic') {
+            window.location.href = 'learn.html';
+        } else {
+            window.location.href = 'learn2.html'; // Keeps the user on the same page when "Add URL" is selected again.
+        }
         }
     </script>
 </body>
