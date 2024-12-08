@@ -72,6 +72,7 @@ go.work.sum
 
 # env file
 .env
+lllm_venv/
 
 bin
 venv/

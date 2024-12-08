@@ -1,16 +1,73 @@
-<h1>Query</h1>
-<form id="submission-form" action="/cgi/child/crawl.py" method="get" hx-target="#hidden" hx-get="/cgi/child/crawl.py">
-  <label for="Topic">Topic:</label>
-  <input type="Topic" id="Topic" name="Topic" placeholder="Enter Topic" required /><br />
-
-  <label for="database_name">Database Name:</label>
-  <input type="text" id="database_name" name="database_name" placeholder="Enter Database Name" required /><br />
-
-  <label for="max_links">Max Links:</label>
-  <input type="text" id="max_links" name="max_links" placeholder="Enter max links" required /><br />
-
-  <button type="submit">Submit</button>
-</form>
-<div id="hidden" style="display:none">
-hi
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Another Search Bar with Dropdown</title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const searchIcon = document.getElementById("search");
+        const form = document.getElementById("submission-form");
+        searchIcon.addEventListener("click", function () {
+          form.submit();
+        });
+      });
+    </script>
+    <style>
+      .darksoul-navbar ul li:nth-child(2) .rect {
+          width: 100%;
+          height: 2px;
+          background-color: white;
+      }
+    </style>
+</head>
+<body>
+  <div class="darksoul-navbar">
+      <div class="brand">
+      </div>
+      <ul>
+          <li><a href="learn.html">Learn</a><div class="rect"></div></li>
+          <li><a href="query.html">Links</a><div class="rect"></div></li>
+          <li><a href="documents.html">Documents</a><div class="rect"></div></li>
+          <li><a href="index.html">Chat</a><div class="rect"></div></li>
+      </ul>
+  </div>
+  <div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+  </div>
+  <div class="title">GET LINKS</div>
+  <form id="submission-form" action="/cgi/child/crawl.py" method="get" hx-target="#hidden" hx-get="/cgi/child/crawl.py" class="wrapper">
+    <div class="search_field">
+    <input type="Topic" id="Topic" name="Topic" placeholder="Enter Topic" required /><br />
+    </div>
+    <div class="search_field">
+      <input type="text" id="database_name" name="database_name" placeholder="Enter Database Name" required /><br />
+    </div>
+    <div class="search_field">
+      <input type="text" placeholder="Enter max links" name="max_links" required id="max_links">
+      <i class="fas fa-search" id="search"></i>
+    </div>
+  </form>
+  <!-- <form id="submission-form" action="/cgi/meili.py" method="get" hx-target="#hidden" class="wrapper">
+    <label for="topic">Results Desired:</label>
+    <input type="number" id="results" name="results" placeholder="10" required /><br />
+    <div class="search_field">
+      <input type="text" placeholder="Enter Query" required>
+      <i class="fas fa-search" id="search"></i>
+    </div>
+  </form> -->
+  <div id="hidden" style="display:none">
+  hi
+  </div>
+</body>

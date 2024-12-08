@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -9,20 +10,39 @@ body {
     background: #020202;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Align content to the center */
+    justify-content: center;
     align-items: center;
     height: 100vh;
     overflow: hidden;
 }
 
 .title {
-    font-size: 10rem; /* Larger font size */
+    font-size: 10rem;
     font-weight: bold;
-    margin-bottom: 80px; /* Reduced spacing from the bar */
+    margin-bottom: 100px;
     color: #ffffff;
     text-align: center;
-    margin-top: -150px; /* Move the title higher */
+    position: relative;
+    margin-top: -150px;
     z-index: 30;
+}
+
+.title::before,
+.title::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 20%;
+    height: 4px;
+    background: #ffffff;
+}
+
+.title::before {
+    left: -25%;
+}
+
+.title::after {
+    right: -25%;
 }
 
 @keyframes color-shift {
@@ -117,34 +137,37 @@ body {
     width: 700px; /* Keep wrapper size */
     background: #fff;
     border-radius: 5px;
-    box-shadow: 0 8px 6px -10px #9fb0e1;
-    padding: 10px; /* Increased padding */
+    box-shadow: 0 8px 6px -10px #07216d;
+    padding: 15px; /* Increased padding for breathing room */
     display: flex;
     align-items: center;
-    gap: 5px; /* Reduce gap between dropdown and search bar */
-    margin-top: -30px; /* Move the bar higher */
-    z-index: 20; /* Ensure it's above the waves */
+    gap: 10px; /* Increased gap between dropdown and search bar */
+    margin-top: -10px; /* Increased margin from the options */
+    z-index: 20;
 }
 
 .options {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    justify-content: center;
+    margin-top: -90px; /* Adjusted spacing above options */
+    z-index: 30;
 }
 
 .options label {
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    margin: 0 30px; /* Increased spacing between options */
+    color: white;
+    font-size: 1rem;
     cursor: pointer;
 }
 
 .options input[type="radio"] {
-    margin-right: 5px;
+    margin-right: 8px;
 }
 
 .dropdown {
-    width: 200px; /* Reduce dropdown width */
-    border-right: 1px solid #dde2f1; /* Slimmer border */
+    width: 200px;
+    border-right: 1px solid #dde2f1;
     position: relative;
     cursor: pointer;
     display: flex;
@@ -152,9 +175,9 @@ body {
 }
 
 .dropdown:before {
-    content: '\25BC'; /* Reverse triangle */
+    content: '\25BC';
     position: absolute;
-    left: 0px; /* Move triangle further left */
+    left: 0px;
     font-size: 10px;
     color: #6f768d;
     transform: translateY(-1px);
@@ -162,7 +185,7 @@ body {
 
 .dropdown .default_option {
     text-transform: uppercase;
-    padding: 10px 10px 10px 20px; /* Adjust padding */
+    padding: 10px 10px 10px 20px;
     font-size: 14px;
     color: #9fa3b1;
     width: 100%;
@@ -172,7 +195,7 @@ body {
 
 .dropdown ul {
     position: absolute;
-    top: 50px; /* Adjust position */
+    top: 50px;
     left: 0;
     background: #fff;
     width: 100%;
@@ -252,7 +275,7 @@ body {
 .search_field .fas {
     position: absolute;
     top: 50%;
-    right: 10px; /* Adjust position */
+    right: 25px; /* Adjust position */
     transform: translateY(-50%);
     font-size: 18px;
     color: #5078ef;
@@ -281,7 +304,7 @@ body {
     stroke-dashoffset: 0;
     transform-origin: center;
     animation:
-        dash 1.4s ease-in-out infinite, 
+        dash 1.4s ease-in-out infinite,
         colors 5.6s ease-in-out infinite;
 }
 
@@ -318,23 +341,90 @@ body {
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 8px 6px -10px #b3c6ff;
-    padding: 20px;
+    padding: 30px; /* Increased padding around the popup */
     z-index: 200;
+    text-align: center;
+}
+
+.popup h3 {
+    margin-bottom: 20px; /* Increased spacing below the heading */
 }
 
 .popup input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 15px; /* Increased padding for input */
+    margin-bottom: 20px; /* Increased margin below the input field */
     border: 1px solid #dde2f1;
     border-radius: 5px;
 }
 
 .popup button {
-    padding: 10px 20px;
+    padding: 12px 25px; /* Increased padding for the button */
     border: none;
     background: #5078ef;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem; /* Larger font size for better visibility */
 }
+
+.darksoul-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    z-index: 100;
+    margin-top: 10px;
+}
+
+.darksoul-navbar .brand {
+    margin: auto;
+    width: fit-content;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 5px;
+    display: flex;
+}
+
+.darksoul-navbar .brand h1 {
+    font-family: "Rubik", sans-serif;
+    margin: auto;
+    color: rgb(255, 255, 255);
+}
+
+.darksoul-navbar ul {
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    margin-left: 0px;
+    display: flex;
+}
+
+.darksoul-navbar ul li {
+    margin: auto;
+    list-style: none;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.rect {
+    margin: auto;
+    margin-left: 0px;
+    width: 0%;
+    height: 2px;
+    background-color: rgb(255, 255, 255);
+}
+
+.darksoul-navbar ul li:hover .rect {
+    width: 100%;
+    transition: all 0.5s;
+}
+
+.darksoul-navbar ul li a {
+    font-family: "Rubik", sans-serif;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
