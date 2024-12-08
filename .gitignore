@@ -84,3 +84,4 @@ data/
 output_chunks.md
 
 meilisearch
+data.ms/*

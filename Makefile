@@ -12,5 +12,6 @@ run: server/server.go
 	fi
 
 install: requirements.txt
+	curl -L https://install.meilisearch.com | sh
 	pip install uv && uv pip install -r requirements.txt
 	curl -L https://install.meilisearch.com | sh
