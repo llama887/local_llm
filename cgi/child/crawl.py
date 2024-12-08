@@ -22,23 +22,13 @@ max_searched_links_size = 10
 data_path = "data/"
 os.makedirs(data_path, exist_ok=True)
 
-available_models = set()
-lms_ls_output = subprocess.run(["lms", "ls"], stdout=subprocess.PIPE, text=True)
-lms_ls_lines = lms_ls_output.stdout.splitlines()
-for line in lms_ls_lines:
-    if "/" in line:  # Filter lines that likely contain a model name
-        model_name = line.split()[0].split("/")[
-            1
-        ]  # Take the first element before the first space
-        available_models.add(model_name)
-
 
 def try_tpu(client, message, pydantic_model):
     if not hasattr(try_tpu, "tpu_failed"):
         try_tpu.tpu_failed = False
     if not try_tpu.tpu_failed:
         response = client.chat.completions.create(
-            model=model_non_tpu,
+            model=model_tpu,
             messages=message,
             extra_body={"guided_json": pydantic_model.model_json_schema()},
         )
@@ -65,6 +55,16 @@ model_tpu = None
 
 
 def setup_models():
+    available_models = set()
+    lms_ls_output = subprocess.run(["lms", "ls"], stdout=subprocess.PIPE, text=True)
+    lms_ls_lines = lms_ls_output.stdout.splitlines()
+    for line in lms_ls_lines:
+        if "/" in line:  # Filter lines that likely contain a model name
+            model_name = line.split()[0].split("/")[
+                1
+            ]  # Take the first element before the first space
+            available_models.add(model_name)
+
     global model_tpu, model_non_tpu
 
     if not available_models:
