@@ -135,6 +135,22 @@
             z-index: 20; /* Ensure it's above the waves */
         }
 
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 5px;
+        }
+
         .dropdown {
             width: 200px; /* Reduce dropdown width */
             border-right: 1px solid #dde2f1; /* Slimmer border */
@@ -347,6 +363,16 @@
     </div>
     <div class="title">LEARN</div>
     <div class="wrapper">
+        <div class="options">
+            <label>
+                <input type="radio" name="searchOption" value="Add URL">
+                Add URL
+            </label>
+            <label>
+                <input type="radio" name="searchOption" value="Search By Topic">
+                Search By Topic
+            </label>
+        </div>
         <div class="dropdown">
             <div class="default_option">Experts</div>
             <ul>
@@ -383,7 +409,15 @@
         const newExpertNameInput = document.getElementById('new-expert-name');
         const searchIcon = document.getElementById('search-icon');
         const spinner = document.querySelector('.spinner');
+        const searchOptions = document.querySelectorAll('input[name="searchOption"]');
         let lastSelectedOption = defaultOption.textContent; // Keep track of the last selected option
+
+        searchOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                searchOptions.forEach(o => o.checked = false); // Uncheck all
+                option.checked = true; // Check the clicked one
+            });
+        });
 
         defaultOption.addEventListener('click', function(event) {
             dropdown.classList.toggle('active');
