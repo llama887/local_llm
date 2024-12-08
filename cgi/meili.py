@@ -63,7 +63,6 @@ if __name__ == "__main__":
         function parseMarkdown(markdown) {
             let html = markdown;
 
-            html = html.replace(/^[-]{3,}$/gm, "<hr>");
             // Headings
             html = html.replace(/^### (.+)$/gm, "<h3>$1</h3>");
             html = html.replace(/^## (.+)$/gm, "<h2>$1</h2>");
