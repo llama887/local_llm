@@ -16,14 +16,15 @@ if __name__ == "__main__":
 
     # Get the query string from environment
     query_str = os.environ.get("QUERY_STRING", "")
-
+    print(f"QUERY STRING:{query_str}")
     # Parse the query string
     params = parse_qs(query_str)
     url = params.get("url", [""])[0]
     topic = params.get("topic", [""])[0]
     database_name = params.get("database_name", [""])[0]
+    print(f"url:{url}, topic:{topic}, database_name:{database_name}")
      
     db_client = chromadb.PersistentClient(path="data/chroma_db")
     collection = db_client.get_or_create_collection(f"{database_name}")
 
-    scrape_link(url, topic, client, collection)
+    scrape_link(url, topic, client, collection, True)

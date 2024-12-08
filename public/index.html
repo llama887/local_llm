@@ -8,14 +8,20 @@
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
   </head>
   <body>
-    <h1>Enter Your Name</h1>
-    <form hx-get="/cgi/hello.py" hx-target="#greeting">
-      <input type="text" name="name" placeholder="Your name" />
-      <button type="submit">Greet</button>
-    </form>
-
-    <div id="greeting" style="margin-top: 20px">
-      <!-- The greeting from the CGI script will appear here -->
+    <nav>
+      <a href="learn.html" hx-target="#main" hx-swap="innerHtml">learn</a>
+    </nav>
+    
+    <div id="main">
+      <h1>Enter Your Name</h1>
+      <form hx-get="/cgi/hello.py" hx-target="#greeting">
+        <input type="text" name="name" placeholder="Your name" />
+        <button type="submit">Greet</button>
+      </form>
+  
+      <div id="greeting" style="margin-top: 20px">
+        <!-- The greeting from the CGI script will appear here -->
+      </div>
     </div>
   </body>
 </html>

@@ -14,8 +14,10 @@ import urllib.request
 import lxml.html
 import json
 from urllib.parse import urlparse, parse_qs, quote
+import re
 
 searched_links = set()
+max_searched_links_size = 50
 
 data_path = "data/"
 chunk_json_path = data_path + "chunks_json/"
@@ -30,7 +32,7 @@ def try_tpu(client, message, pydantic_model):
             model="llama-3.2-3b-qnn",
             messages=message,
             extra_body={
-                pydantic_model.model_json_schema()
+                "guided_json": pydantic_model.model_json_schema()
             }
         )
         raw_data = response.choices[0].message
@@ -69,12 +71,14 @@ def write_chunks(link, chunks):
             md_file.write("---\n\n")
     print(f"Finished loading chunks for {link}")
 
-def scrap_link(link, topic, client, database_collection):
+def scrape_link(link, topic, client, database_collection, recursive=False):
+    global searched_links
+    if link in searched_links or len(searched_links) >= max_searched_links_size:
+        return
     class ChunkValidation(BaseModel):
         '''For the given markdown, determine if it answers the question'''
         answers_the_question: bool = Field(..., description="Whether the article answers the question")
     print(f"Scraping {link}")  
-    global searched_links
     if link in searched_links:
         return
     searched_links.add(link)
@@ -88,6 +92,23 @@ def scrap_link(link, topic, client, database_collection):
         print(f"Retrying {link} in 30 seconds...")
         time.sleep(30)
         cleaned_markdown = requests.get(f"https://r.jina.ai/{link}", headers=headers)
+    if recursive:
+        index = cleaned_markdown.text.find("Links/Buttons")
+        if index != -1:
+            print(len(searched_links))
+            md_links = cleaned_markdown.text[index:]
+            # Regular expression to find URLs
+            url_pattern = r'https?://[^\s\)]+'
+            all_urls = re.findall(url_pattern, md_links)
+            domain = urlparse(link).netloc
+            domain_matching_urls = [
+                url for url in all_urls if urlparse(url).netloc.endswith(domain)
+            ]
+            for url in domain_matching_urls:
+                if url in searched_links:
+                    continue
+                if len(searched_links) <= max_searched_links_size:
+                    scrape_link(url, topic, client, database_collection, True)
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(cleaned_markdown.text)
@@ -183,7 +204,7 @@ def process_search_results(search_query, topic, client, database_name):
     collection = db_client.get_or_create_collection(f"{database_name}")
 
     for link in valid_links[:5]:
-        scrap_link(link, topic, client, collection)
+        scrape_link(link, topic, client, collection)
 
 
 def main(topic, database_name):
@@ -211,7 +232,11 @@ def main(topic, database_name):
         process_search_results(q, topic, client, database_name)
 
 
-
+def set_max_link_size(params):
+    global max_searched_links_size
+    max_links = params.get("max_links", [""])[0]
+    max_searched_links_size = max_links
+    
 if __name__ == "__main__":
     # Get the query string from environment
     query_str = os.environ.get("QUERY_STRING", "")
@@ -222,5 +247,6 @@ if __name__ == "__main__":
     topic = topic if topic else "Machine Learning"
     database_name = params.get("database_name", [""])[0]
     database_name = database_name if database_name else "database"
+    set_max_link_size(params)
 
     main(topic, database_name)

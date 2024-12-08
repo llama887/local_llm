@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"bufio"
 	"log"
 	"net/http"
@@ -127,10 +128,22 @@ func childHandler(dir string) http.Handler {
 		// Run the CGI script in a detached process using a goroutine
 		go func() {
 			cmd := exec.Command(path)
-			devnull, _ := os.OpenFile(os.DevNull, os.O_WRONLY, 0)
+			
+			// Pass the query string to the CGI script
+			cmd.Env = append(os.Environ(), "QUERY_STRING="+r.URL.RawQuery)
 
-			cmd.Stdout = devnull
-			cmd.Stderr = devnull
+			// Create pipes for stdout and stderr
+			stdout, err := cmd.StdoutPipe()
+			if err != nil {
+				log.Println("Error creating stdout pipe:", err)
+				return
+			}
+
+			stderr, err := cmd.StderrPipe()
+			if err != nil {
+				log.Println("Error creating stderr pipe:", err)
+				return
+			}
 
 			// Start the command
 			if err := cmd.Start(); err != nil {
@@ -140,10 +153,25 @@ func childHandler(dir string) http.Handler {
 
 			log.Println("CGI script started successfully with PID:", cmd.Process.Pid)
 
+			// Log the output of stdout and stderr
+			go logOutput(stdout, "STDOUT")
+			go logOutput(stderr, "STDERR")
+
 			// Detach from the process
 			if err := cmd.Process.Release(); err != nil {
 				log.Println("Error releasing process:", err)
 			}
 		}()
 	})
+}
+
+// logOutput reads and logs the output from a reader
+func logOutput(reader io.ReadCloser, label string) {
+	scanner := bufio.NewScanner(reader)
+	for scanner.Scan() {
+		log.Printf("[%s] %s", label, scanner.Text())
+	}
+	if err := scanner.Err(); err != nil {
+		log.Printf("[%s] Error reading output: %v", label, err)
+	}
 }
