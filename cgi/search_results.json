@@ -72,7 +72,7 @@
         }
     ],
     "query": "",
-    "processingTimeMs": 9,
+    "processingTimeMs": 10,
     "limit": 10,
     "offset": 0,
     "estimatedTotalHits": 1000
