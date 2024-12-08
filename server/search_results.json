@@ -1,0 +1,149 @@
+{
+    "hits": [
+        {
+            "id": 6700897910064819762,
+            "data": "[Foundational courses](https://developers.google.com/machine-learning/foundational-courses) [Advanced courses](https://developers.google.com/machine-learning/advanced-courses) [Guides](https://developers.google.com/machine-learning/guides) [Glossary](https://developers.google.com/machine-learning/glossary)[](https://developers.google.com/machine-learning/crash-course/prereqs-and-prework#)",
+            "url": "https://developers.google.com/machine-learning/crash-course/prereqs-and-prework",
+            "chunk_index": 2,
+            "total_chunks": 65
+        },
+        {
+            "id": -654512961758348939,
+            "data": "*   [Top 10 Applications of Machine Learning in Healthcare](https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php)\n    *   [ICD Vs DSM - Key Differences and Similarities](https://www.flatworldsolutions.com/healthcare/articles/icd-vs-dsm-key-differences-and-similarities.php)\n    *   [Top 10 Healthcare Applications that Can Leverage Machine Learning](https://www.flatworldsolutions.com/healthcare/articles/healthcare-applications-that-leverage-machine-learning.php)\n    *   [Virtual Reality Applications in Healthcare](https://www.flatworldsolutions.com/healthcare/articles/virtual-reality-applications-in-healthcare.php)\n    *   [8 Telemedicine Trends to Look Out for in the Years Ahead](https://www.flatworldsolutions.com/healthcare/articles/telemedicine-trends.php)\n    *   [8 Key Benefits of ICD-10 Implementation](https://www.flatworldsolutions.com/healthcare/articles/icd-10-implementation-benefits.php)",
+            "url": "https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php",
+            "chunk_index": 61,
+            "total_chunks": 145
+        },
+        {
+            "id": -4134756699956865668,
+            "data": "### 1\\. Microsoft Azure Machine Learning\n\n**Website:** [https://azure.microsoft.com/en-gb/products/machine-learning#overview](https://azure.microsoft.com/en-gb/products/machine-learning#overview)\n\nMicrosoft Azure Machine Learning is a fully managed cloud service created to empower data scientists and developers to build, deploy, and manage the lifecycle of their machine learning projects faster and with greater confidence. Namely, the platform seeks to accelerate time to value with its machine learning operations (MLOps), open-source interoperability, and integrated tools. It’s also designed with responsible AI in mind and heavily emphasizes security.\n\n#### Key Features",
+            "url": "https://www.datacamp.com/blog/most-popular-machine-learning-tools#1.-microsoft-azure-machine-learning-%3Cstro",
+            "chunk_index": 14,
+            "total_chunks": 70
+        },
+        {
+            "id": -7137417965861192241,
+            "data": "- [Computational engineering](https://en.wikipedia.org/wiki/Computational_engineering)\n- [Differentiable computing](https://en.wikipedia.org/wiki/Template:Differentiable_computing)\n- [Computational healthcare](https://en.wikipedia.org/wiki/Health_informatics)\n- [Digital art](https://en.wikipedia.org/wiki/Digital_art)\n- [Electronic publishing](https://en.wikipedia.org/wiki/Electronic_publishing)\n- [Cyberwarfare](https://en.wikipedia.org/wiki/Cyberwarfare)\n- [Electronic voting](https://en.wikipedia.org/wiki/Electronic_voting)\n- [Video games](https://en.wikipedia.org/wiki/Video_game)\n- [Word processing](https://en.wikipedia.org/wiki/Word_processor)\n- [Educational technology](https://en.wikipedia.org/wiki/Educational_technology)\n- [Document management](https://en.wikipedia.org/wiki/Document_management_system)\n- [Category](https://en.wikipedia.org/wiki/Category:Computer_science)\n- [Outline](https://en.wikipedia.org/wiki/Outline_of_computer_science)",
+            "url": "https://en.wikipedia.org/wiki/Machine_learning",
+            "chunk_index": 481,
+            "total_chunks": 486
+        },
+        {
+            "id": -5799552755677264733,
+            "data": "- [All terms](https://developers.google.com/machine-learning/glossary)\n- [Clustering](https://developers.google.com/machine-learning/glossary/clustering)\n- [Decision Forests](https://developers.google.com/machine-learning/glossary/df)\n- [Fundamentals](https://developers.google.com/machine-learning/glossary/fundamentals)\n- [GCP](https://developers.google.com/machine-learning/glossary/googlecloud)\n- [Generative AI](https://developers.google.com/machine-learning/glossary/generative)\n- [Image](https://developers.google.com/machine-learning/glossary/image)\n- [Lang Eval](https://developers.google.com/machine-learning/glossary/language)\n- [Recommendation Systems](https://developers.google.com/machine-learning/glossary/recsystems)\n- [Reinforcement Learning](https://developers.google.com/machine-learning/glossary/rl)\n- [Sequence Models](https://developers.google.com/machine-learning/glossary/sequence)\n- [TensorFlow](https://developers.google.com/machine-learning/glossary/tensorflow)",
+            "url": "https://developers.google.com/machine-learning/crash-course/linear-regression",
+            "chunk_index": 43,
+            "total_chunks": 58
+        },
+        {
+            "id": -1396924542350126465,
+            "data": "- [make_circles](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_circles.html#sklearn.datasets.make_circles)\n- [make_classification](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification)\n- [make_friedman1](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman1.html#sklearn.datasets.make_friedman1)\n- [make_friedman2](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman2.html#sklearn.datasets.make_friedman2)\n- [make_friedman3](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_friedman3.html#sklearn.datasets.make_friedman3)\n- [make_gaussian_quantiles](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles)\n- [make_hastie_10_2](https://scikit-learn.org/1.5/modules/generated/sklearn.datasets.make_hastie_10_2.html#sklearn.datasets.make_hastie_10_2)",
+            "url": "https://scikit-learn.org/1.5/api/index.html",
+            "chunk_index": 187,
+            "total_chunks": 284
+        },
+        {
+            "id": 512610031911035980,
+            "data": "Machine learning is a necessary aspect of modern business and research for many organizations today. It uses algorithms and neural network models to assist computer systems in progressively improving their performance. Machine learning algorithms automatically build a mathematical model using sample data – also known as “training data” – to make decisions without being specifically programmed to make those decisions.\n\n[](https://training.dataversity.net/courses/dmf0125-dmbok-and-cdmp-preparation-data-management-fundamentals?utm_source=dataversity&utm_medium=inline_ad&utm_campaign=DMF0125_ILT_temp3&utm_content=copy1)\n\nMachine learning is, in part, [based on a model](http://www.dataversity.net/what-is-machine-learning/) of brain cell interaction. The model was created in 1949 by Donald Hebb in a book titled “The Organization of Behavior.” The book presents Hebb’s theories on neuron excitement and communication between neurons.",
+            "url": "https://www.dataversity.net/a-brief-history-of-machine-learning/",
+            "chunk_index": 1,
+            "total_chunks": 31
+        },
+        {
+            "id": 621042273124238823,
+            "data": "*   [GitHub](https://github.com/scikit-learn/scikit-learn \"GitHub\")\n\nChoose version\n\n#### [Classification](https://scikit-learn.org/supervised_learning.html)\n\nIdentifying which category an object belongs to.\n\n**Applications:** Spam detection, image recognition.  \n**Algorithms:** [Gradient boosting](https://scikit-learn.org/modules/ensemble.html#histogram-based-gradient-boosting), [nearest neighbors](https://scikit-learn.org/modules/neighbors.html#classification), [random forest](https://scikit-learn.org/modules/ensemble.html#forest), [logistic regression](https://scikit-learn.org/modules/linear_model.html#logistic-regression), and [more...](https://scikit-learn.org/supervised_learning.html)\n\n[](https://scikit-learn.org/auto_examples/classification/plot_classifier_comparison.html)\n\n[Examples](https://scikit-learn.org/auto_examples/classification/index.html)\n\n#### [Regression](https://scikit-learn.org/supervised_learning.html)",
+            "url": "https://scikit-learn.org/",
+            "chunk_index": 4,
+            "total_chunks": 22
+        },
+        {
+            "id": 4898484796716835560,
+            "data": "*   [Video Testimonials](https://www.flatworldsolutions.com/customer-video-testimonials.php)\n    *   [Infographics](https://www.flatworldsolutions.com/infographics/)\n*   [Contact](https://www.flatworldsolutions.com/forms/healthcarecontactform.php?)",
+            "url": "https://www.flatworldsolutions.com/healthcare/articles/top-10-applications-of-machine-learning-in-healthcare.php",
+            "chunk_index": 8,
+            "total_chunks": 145
+        },
+        {
+            "id": -1908418240789283777,
+            "data": "- [Recommendation systems](https://www.tensorflow.org/resources/recommendation-systems)\n- [Community](https://www.tensorflow.org/community)\n- [Groups](https://www.tensorflow.org/community/groups)\n- [Contribute](https://www.tensorflow.org/community/contribute)\n- [Blog](https://blog.tensorflow.org/)\n- [Forum](https://discuss.tensorflow.org/)\n- [About](https://www.tensorflow.org/about)\n- [Case studies](https://www.tensorflow.org/about/case-studies)\n- [GitHub](https://github.com/tensorflow/)\n- [Migrate to TF2](https://www.tensorflow.org/guide/migrate)\n- [TF 1 ↗](https://github.com/tensorflow/docs/tree/master/site/en/r1)\n- [Beginner quickstart](https://www.tensorflow.org/tutorials/quickstart/beginner)\n- [Advanced quickstart](https://www.tensorflow.org/tutorials/quickstart/advanced)\n- [Keras basics](https://www.tensorflow.org/tutorials/keras/classification)\n- [Basic text classification](https://www.tensorflow.org/tutorials/keras/text_classification)",
+            "url": "https://www.tensorflow.org/tutorials",
+            "chunk_index": 35,
+            "total_chunks": 51
+        },
+        {
+            "id": 4853371157297217150,
+            "data": "- [Weight Initialisation](https://www.javatpoint.com/weight-initialisation)\n- [Density Estimation](https://www.javatpoint.com/density-estimation)\n- [Overlay Network](https://www.javatpoint.com/overlay-network)\n- [Micro, Macro Weighted Averages of F1 Score](https://www.javatpoint.com/micro-macro-weighted-averages-of-f1-score)\n- [Assumptions of Linear Regression](https://www.javatpoint.com/assumptions-of-linear-regression)\n- [Evaluation Metrics for Clustering Algorithms](https://www.javatpoint.com/evaluation-metrics-for-clustering-algorithms)\n- [Frog Leap Algorithm](https://www.javatpoint.com/frog-leap-algorithm)\n- [Isolation Forest](https://www.javatpoint.com/isolation-forest)\n- [McNemar Test](https://www.javatpoint.com/mcnemar-test)\n- [Stochastic Optimization](https://www.javatpoint.com/stochastic-optimization)\n- [Geomagnetic Field Using Machine Learning](https://www.javatpoint.com/geomagnetic-field-using-machine-learning)",
+            "url": "https://www.javatpoint.com/regression-vs-classification-in-machine-learning",
+            "chunk_index": 76,
+            "total_chunks": 87
+        },
+        {
+            "id": 6236482403290629472,
+            "data": "Links/Buttons:\n- [Skip to main content](https://scikit-learn.org/1.5/api/index.html#main-content)\n- [document.write(`<img src=\"../_static/scikit-learn-logo-small.png\" class=\"logo__image only-dark\" alt=\"scikit-learn homepage\"/>`);](https://scikit-learn.org/1.5/index.html)\n- [Install](https://scikit-learn.org/1.5/install.html)\n- [User Guide](https://scikit-learn.org/1.5/user_guide.html)\n- [API](https://scikit-learn.org/1.5/api/index.html#)\n- [Examples](https://scikit-learn.org/1.5/auto_examples/index.html)\n- [Community](https://blog.scikit-learn.org/)\n- [Getting Started](https://scikit-learn.org/1.5/getting_started.html)\n- [Release History](https://scikit-learn.org/1.5/whats_new.html)\n- [Glossary](https://scikit-learn.org/1.5/glossary.html)\n- [Development](https://scikit-learn.org/dev/developers/index.html)\n- [FAQ](https://scikit-learn.org/1.5/faq.html)\n- [Support](https://scikit-learn.org/1.5/support.html)\n- [Related Projects](https://scikit-learn.org/1.5/related_projects.html)",
+            "url": "https://scikit-learn.org/1.5/api/index.html",
+            "chunk_index": 168,
+            "total_chunks": 284
+        },
+        {
+            "id": 780356566308634053,
+            "data": "32.  **[^](https://en.wikipedia.org/wiki/Machine_learning#cite_ref-32)** [\"Differentially private clustering for large-scale datasets\"](https://blog.research.google/2023/05/differentially-private-clustering-for.html). _blog.research.google_. 2023-05-25. Retrieved 2024-03-16.\n33.  **[^](https://en.wikipedia.org/wiki/Machine_learning#cite_ref-33)** Edwards, Benj (2023-09-28). [\"AI language models can exceed PNG and FLAC in lossless compression, says study\"](https://arstechnica.com/information-technology/2023/09/ai-language-models-can-exceed-png-and-flac-in-lossless-compression-says-study/). _Ars Technica_. Retrieved 2024-03-07.",
+            "url": "https://en.wikipedia.org/wiki/Machine_learning",
+            "chunk_index": 194,
+            "total_chunks": 486
+        },
+        {
+            "id": 6060754012426745618,
+            "data": "> Looking forward to a successful career in AI and Machine learning. Enrol in our [Post Graduate Program In AI and ML](https://www.simplilearn.com/artificial-intelligence-masters-program-training-course?source=GhPreviewCTAText \"Post Graduate Program In AI and ML\") in collaboration with Caltech.\n\nThe future of machine learning tools is poised to be both transformative and expansive, touching nearly every aspect of technology, industry, and our daily lives. As we look ahead, several key trends and developments are expected to shape the evolution of ML tools, making them more powerful, accessible, and integral to solving complex challenges.\n\n### Integration with Other Technologies\n\nMachine learning tools and techniques are increasingly being integrated with other cutting-edge technologies, such as:",
+            "url": "https://www.simplilearn.com/best-machine-learning-tools-article",
+            "chunk_index": 21,
+            "total_chunks": 48
+        },
+        {
+            "id": 6593618878131008193,
+            "data": "- [paired_euclidean_distances](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.paired_euclidean_distances.html#sklearn.metrics.pairwise.paired_euclidean_distances)\n- [paired_manhattan_distances](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.paired_manhattan_distances.html#sklearn.metrics.pairwise.paired_manhattan_distances)\n- [pairwise_kernels](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.pairwise_kernels.html#sklearn.metrics.pairwise.pairwise_kernels)\n- [polynomial_kernel](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.polynomial_kernel.html#sklearn.metrics.pairwise.polynomial_kernel)\n- [rbf_kernel](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.rbf_kernel.html#sklearn.metrics.pairwise.rbf_kernel)\n- [sigmoid_kernel](https://scikit-learn.org/1.5/modules/generated/sklearn.metrics.pairwise.sigmoid_kernel.html#sklearn.metrics.pairwise.sigmoid_kernel)",
+            "url": "https://scikit-learn.org/1.5/api/index.html",
+            "chunk_index": 241,
+            "total_chunks": 284
+        },
+        {
+            "id": 2466616943719596599,
+            "data": "From manufacturing to retail and banking to bakeries, even legacy companies are using machine learning to unlock new value or boost efficiency. “Machine learning is changing, or will change, every industry, and leaders need to understand the basic principles, the potential, and the limitations,” said MIT computer science professor [Aleksander Madry](https://people.csail.mit.edu/madry/), director of the [MIT Center for Deployable Machine Learning](https://www.csail.mit.edu/research/center-deployable-machine-learning-cdml).\n\nWhile not everyone needs to know the technical details, they should understand what the technology does and what it can and cannot do, Madry added. “I don’t think anyone can afford not to be aware of what’s happening.”",
+            "url": "https://mitsloan.mit.edu/ideas-made-to-matter/machine-learning-explained",
+            "chunk_index": 2,
+            "total_chunks": 45
+        },
+        {
+            "id": 5041667193365077629,
+            "data": "Save Cite[Cited by 146](https://scholar.google.com/scholar?cites=5579084922455744576&as_sdt=2005&sciodt=0,5&hl=en) [Related articles](https://scholar.google.com/scholar?q=related:QGC2fi3kbE0J:scholar.google.com/&scioq=The+role+of+machine+learning+in+autonomous+vehicles&hl=en&as_sdt=0,5&as_vis=1) [All 9 versions](https://scholar.google.com/scholar?cluster=5579084922455744576&hl=en&as_sdt=0,5&as_vis=1)\n\n[\\[PDF\\] redcrevistas.com](http://redcrevistas.com/index.php/Revista/article/download/218/235)\n\n### [AI-Driven Predictive Analytics for **Autonomous** Systems: A **Machine Learning** Approach](http://redcrevistas.com/index.php/Revista/article/view/218)\n\n[RG Goriparthi](https://scholar.google.com/citations?user=16Lmt10AAAAJ&hl=en&oi=sra) \\- Revista de Inteligencia Artificial en Medicina, 2024 - redcrevistas.com",
+            "url": "https://scholar.google.com/scholar?q=The+role+of+machine+learning+in+autonomous+vehicles&hl=en&as_sdt=0&as_vis=1&oi=scholart",
+            "chunk_index": 9,
+            "total_chunks": 30
+        },
+        {
+            "id": 7304071938626693265,
+            "data": "In a recent study, McKinney and colleagues have implemented a deep learning algorithm to detect tumors based on Mammograms in earlier stages of growth. In comparison to traditional screening techniques used to identify tumors, these deep learning-based screen techniques allow for the identification and location of tumors in earlier stages of breast cancer, allowing for a better rate of resection. In a direct comparison, the deep learning-based approach was able to outperform experienced radiologists by an AUC score of 11.5% \\[[49](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r49)\\]. Several other studies have also implemented ML-based approaches for breast cancer detection with variable success, including models by Wang and colleagues \\[[50](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r50)\\], Amrane and colleagues \\[[51](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r51)\\], and Ahmad and colleagues \\[[52](https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/#r52)\\].",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8822225/",
+            "chunk_index": 35,
+            "total_chunks": 181
+        },
+        {
+            "id": -8050162094332435479,
+            "data": "*   Poole, David; [Mackworth, Alan](https://en.wikipedia.org/wiki/Alan_Mackworth \"Alan Mackworth\"); Goebel, Randy (1998). [_Computational Intelligence: A Logical Approach_](https://archive.org/details/computationalint00pool). New York: Oxford University Press. [ISBN](https://en.wikipedia.org/wiki/ISBN_(identifier) \"ISBN (identifier)\") [978-0-19-510270-3](https://en.wikipedia.org/wiki/Special:BookSources/978-0-19-510270-3 \"Special:BookSources/978-0-19-510270-3\"). [Archived](https://web.archive.org/web/20200726131436/https://archive.org/details/computationalint00pool) from the original on 26 July 2020. Retrieved 22 August 2020.",
+            "url": "https://en.wikipedia.org/wiki/Machine_learning",
+            "chunk_index": 317,
+            "total_chunks": 486
+        },
+        {
+            "id": -3690266417324905001,
+            "data": "*   [Test your knowledge (10 min)](https://developers.google.com/machine-learning/crash-course/numerical-data/test-your-knowledge)\n    *   [Conclusion (2 min)](https://developers.google.com/machine-learning/crash-course/numerical-data/conclusion)\n    *   [What's next](https://developers.google.com/machine-learning/crash-course/numerical-data/conclusion#whats_next)\n    \n*   Working with categorical data (50 min)\n    \n    *   [Introduction (10 min)](https://developers.google.com/machine-learning/crash-course/categorical-data)\n    *   [Vocabulary and one-hot encoding (5 min)](https://developers.google.com/machine-learning/crash-course/categorical-data/one-hot-encoding)\n    *   [Common issues with categorical data (5 min)](https://developers.google.com/machine-learning/crash-course/categorical-data/issues)\n    *   [Feature crosses (5 min)](https://developers.google.com/machine-learning/crash-course/categorical-data/feature-crosses)",
+            "url": "https://developers.google.com/machine-learning/crash-course/prereqs-and-prework",
+            "chunk_index": 13,
+            "total_chunks": 65
+        }
+    ],
+    "query": "",
+    "processingTimeMs": 9,
+    "limit": 20,
+    "offset": 0,
+    "estimatedTotalHits": 1000
+}

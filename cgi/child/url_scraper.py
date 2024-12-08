@@ -6,6 +6,7 @@ import subprocess
 import chromadb
 from openai import OpenAI
 
+
 if __name__ == "__main__":
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
     try:

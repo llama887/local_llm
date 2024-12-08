@@ -14,14 +14,13 @@ import lxml.html
 import json
 from urllib.parse import urlparse, parse_qs, quote
 import re
+import meilisearch
 
 searched_links = set()
 max_searched_links_size = 10
 
 data_path = "data/"
-chunk_json_path = data_path + "chunks_json/"
 os.makedirs(data_path, exist_ok=True)
-os.makedirs(chunk_json_path, exist_ok=True)
 
 available_models = set()
 lms_ls_output = subprocess.run(["lms", "ls"], stdout=subprocess.PIPE, text=True)
@@ -96,6 +95,8 @@ def write_chunks(link, chunks):
 
 
 def scrape_link(link, topic, client, database_collection, recursive=False):
+    client = meilisearch.Client("http://localhost:7700", "aSampleMasterKey")
+
     global searched_links
     if (link in searched_links) or (len(searched_links) >= max_searched_links_size):
         return
@@ -193,10 +194,7 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
 
         chunk_dict = {"id": hash(link + str(idx)), "data": chunk}
         chunk_dict.update(chunk_metadata)
-        chunk_json = json.dumps(chunk_dict, indent=4)
-
-        with open(chunk_json_path + f"{title}_{idx}.json", "w") as outfile:
-            outfile.write(chunk_json)
+        client.index("chunks").add_documents(chunk_dict)
 
         # Add chunk to the collection with metadata and chunk-specific ID
         database_collection.add(

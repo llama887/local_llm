@@ -182,7 +182,8 @@ func cgiHandler(dir string) http.Handler {
 
 		h := &cgi.Handler{
 			Path: path,
-			Root: dir,
+			Root: "/",
+			Env:  append(os.Environ(), "QUERY_STRING="+r.URL.RawQuery),
 		}
 		h.ServeHTTP(w, r)
 	})
@@ -259,7 +260,7 @@ func childHandler(dir string) http.Handler {
 		w.Header().Set("Content-Type", "text/html")
 		w.Header().Set("Connection", "close") // Force the connection to close
 		w.WriteHeader(http.StatusAccepted)    // Immediately return 202 Accepted
-		w.Write([]byte("<html><body><h1>Request Accepted</h1></body></html>"))
+		w.Write([]byte("<h1>Request Accepted</h1>"))
 
 		// Ensure the response is sent before starting the long-running process
 		if f, ok := w.(http.Flusher); ok {
