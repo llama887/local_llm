@@ -2,6 +2,7 @@
 import os
 from urllib.parse import parse_qs
 from crawl import scrape_link, try_tpu
+import crawl
 import subprocess
 import chromadb
 from openai import OpenAI
@@ -22,6 +23,9 @@ if __name__ == "__main__":
     url = params.get("url", [""])[0]
     topic = params.get("topic", [""])[0]
     database_name = params.get("database_name", [""])[0]
+    number_of_links = params.get("number_of_links", [""])[0]
+    if number_of_links:
+        crawl.max_searched_links_size=number_of_links
     print(f"url:{url}, topic:{topic}, database_name:{database_name}")
      
     db_client = chromadb.PersistentClient(path="data/chroma_db")

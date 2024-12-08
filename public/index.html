@@ -89,16 +89,10 @@
 </head>
 <body>
     <nav>
+      <a href="chat.html" hx-get="chat.html" hx-target="#main" hx-swap="innerHTML">chat</a>
       <a href="learn.html" hx-get="learn.html" hx-target="#main" hx-swap="innerHTML">learn</a>
     </nav>
-    <div id="main">
-      <h1>WebSocket Test</h1>
-      <div>
-        <input type="text" id="messageInput" placeholder="Enter your message">
-        <button onclick="sendMessage()">Send</button>
-      </div>
-      <p id="serverResponse">Connection lost. Please refresh the page.</p>
-      <div id="messages"></div>
+    <div id="main" hx-trigger="load" hx-get="chat.html" hx-swap="outerHTML">
     </div>
 </body>
 </html>

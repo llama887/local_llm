@@ -87,3 +87,4 @@ dumps/
 
 meilisearch
 data.ms/*
+__pycache__

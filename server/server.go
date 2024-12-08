@@ -183,6 +183,7 @@ func cgiHandler(dir string) http.Handler {
 		h := &cgi.Handler{
 			Path: path,
 			Root: dir,
+			Env:  append(os.Environ(), "QUERY_STRING="+r.URL.RawQuery),
 		}
 		h.ServeHTTP(w, r)
 	})
