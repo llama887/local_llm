@@ -142,7 +142,7 @@
         }
     ],
     "query": "Machine Learning",
-    "processingTimeMs": 13,
+    "processingTimeMs": 9,
     "limit": 20,
     "offset": 0,
     "estimatedTotalHits": 1000

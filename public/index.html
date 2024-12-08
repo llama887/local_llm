@@ -97,6 +97,8 @@
             background-color: #ffa726;
         }
     </style>
+    <title>WebSocket Test</title>
+    <script src="https://unpkg.com/htmx.org"></script>
     <script>
         let ws;
         let heartbeatInterval;
@@ -202,6 +204,9 @@
     </script>
 </head>
 <body>
+    <nav>
+        <a href="learn.html" hx-get="learn.html" hx-target="#main" hx-swap="innerHTML">learn</a>
+    </nav>
     <div class="chat-container">
         <div class="header">Chatbot</div>
         <div id="messages" class="messages"></div>
