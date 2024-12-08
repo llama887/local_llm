@@ -69,8 +69,75 @@ def write_chunks(link, chunks):
             md_file.write("---\n\n")
     print(f"Finished loading chunks for {link}")
 
+def scrap_link(link, topic, client, database_collection):
+    class ChunkValidation(BaseModel):
+        '''For the given markdown, determine if it answers the question'''
+        answers_the_question: bool = Field(..., description="Whether the article answers the question")
+    print(f"Scraping {link}")  
+    global searched_links
+    if link in searched_links:
+        return
+    searched_links.add(link)
 
-def process_search_results(search_query, topic, client, database_title):
+    title = extract_title(link)
+    print(f"Titling {link} as: {title}")
+
+    headers = {"X-Retain-Images": "none", "X-With-Links-Summary": "true"}
+    cleaned_markdown = requests.get(f"https://r.jina.ai/{link}", headers=headers)
+    while cleaned_markdown.status_code != 200:
+        print(f"Retrying {link} in 30 seconds...")
+        time.sleep(30)
+        cleaned_markdown = requests.get(f"https://r.jina.ai/{link}", headers=headers)
+
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    chunks = text_splitter.split_text(cleaned_markdown.text)
+    invalid_chunk_ids = []
+    print("Evaluating chunks...")
+    for id, chunk in enumerate(chunks):
+        messages = [
+            {"role": "system", "content": "You are a research manager that will strictly evaluate the quality of the text based on the topic. You return data strictly in the requested format."},
+            {"role": "user", "content": f"Given the topic '{topic}' and the markdown below, determine if it contains useful information for the topic.\n\n{chunk}"}
+        ]
+        response = try_tpu(client, messages, ChunkValidation)
+        if not response.choices[0].message.parsed.answers_the_question:
+            invalid_chunk_ids.append(id)
+
+    print("Deleting invalid chunks...")
+    chunks = [item for id, item in enumerate(chunks) if id not in invalid_chunk_ids]
+
+    # Split the document into chunks using LangChain's RecursiveTextSplitter
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=200
+    )
+    chunks = text_splitter.split_text(cleaned_markdown.text)
+    # write_chunks(link, chunks)
+
+    # Store each chunk
+    for idx, chunk in enumerate(chunks):
+        chunk_metadata = {
+            "url": link,
+            "chunk_index": idx,
+            "total_chunks": len(chunks),
+        }
+
+        chunk_dict = {"data": chunk}
+        chunk_dict.update(chunk_metadata)
+        chunk_json = json.dumps(chunk_dict, indent=4)
+
+        with open(chunk_json_path + f"{title}_{idx}.json", "w") as outfile:
+            outfile.write(chunk_json)
+
+        # Add chunk to the collection with metadata and chunk-specific ID
+        database_collection.add(
+            documents=[chunk],
+            metadatas=[chunk_metadata],
+            ids=[f"{link}_{idx}"],  # Unique ID combining link and chunk index
+        )
+
+        # Notify the client about progress
+        print(f"Stored chunk {idx+1}/{len(chunks)} for {link} in ChromaDB")
+
+def process_search_results(search_query, topic, client, database_name):
     valid_links = []
     encoded_query = quote(search_query)
     print("Getting valid links....")
@@ -112,77 +179,11 @@ def process_search_results(search_query, topic, client, database_title):
             valid_links.append(cleaned_link)
             
     
-    class ChunkValidation(BaseModel):
-        '''For the given markdown, determine if it answers the question'''
-        answers_the_question: bool = Field(..., description="Whether the article answers the question")
-    
     db_client = chromadb.PersistentClient(path="data/chroma_db")
     collection = db_client.get_or_create_collection(f"{database_name}")
 
     for link in valid_links[:5]:
-        print(f"Scraping {link}")  
-        global searched_links
-        if link in searched_links:
-            continue
-        searched_links.add(link)
-
-        title = extract_title(link)
-        print(f"Titling {link} as: {title}")
-
-        headers = {"X-Retain-Images": "none", "X-With-Links-Summary": "true"}
-        cleaned_markdown = requests.get(f"https://r.jina.ai/{link}", headers=headers)
-        while cleaned_markdown.status_code != 200:
-            print(f"Retrying {link} in 30 seconds...")
-            time.sleep(30)
-            cleaned_markdown = requests.get(f"https://r.jina.ai/{link}", headers=headers)
-
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-        chunks = text_splitter.split_text(cleaned_markdown.text)
-        invalid_chunk_ids = []
-        print("Evaluating chunks...")
-        for id, chunk in enumerate(chunks):
-            messages = [
-                {"role": "system", "content": "You are a research manager that will strictly evaluate the quality of the text based on the topic. You return data strictly in the requested format."},
-                {"role": "user", "content": f"Given the topic '{topic}' and the markdown below, determine if it contains useful information for the topic.\n\n{chunk}"}
-            ]
-            response = try_tpu(client, messages, ChunkValidation)
-            if not response.choices[0].message.parsed.answers_the_question:
-                invalid_chunk_ids.append(id)
-
-        print("Deleting invalid chunks...")
-        chunks = [item for id, item in enumerate(chunks) if id not in invalid_chunk_ids]
-
-        # Split the document into chunks using LangChain's RecursiveTextSplitter
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000, chunk_overlap=200
-        )
-        chunks = text_splitter.split_text(cleaned_markdown.text)
-        # write_chunks(link, chunks)
-
-        # Store each chunk
-        for idx, chunk in enumerate(chunks):
-            chunk_metadata = {
-                "url": link,
-                "chunk_index": idx,
-                "total_chunks": len(chunks),
-            }
-
-            chunk_dict = {"data": chunk}
-            chunk_dict.update(chunk_metadata)
-            chunk_json = json.dumps(chunk_dict, indent=4)
-
-            with open(chunk_json_path + f"{title}_{idx}.json", "w") as outfile:
-                outfile.write(chunk_json)
-
-            # Add chunk to the collection with metadata and chunk-specific ID
-            collection.add(
-                documents=[chunk],
-                metadatas=[chunk_metadata],
-                ids=[f"{link}_{idx}"],  # Unique ID combining link and chunk index
-            )
-
-            # Notify the client about progress
-            print(f"Stored chunk {idx+1}/{len(chunks)} for {link} in ChromaDB")
+        scrap_link(link, topic, client, collection)
 
 
 def main(topic, database_name):
@@ -212,10 +213,6 @@ def main(topic, database_name):
 
 
 if __name__ == "__main__":
-    # Print HTTP response headers
-    print("Content-Type: text/html")
-    print()  # blank line to end headers
-
     # Get the query string from environment
     query_str = os.environ.get("QUERY_STRING", "")
 
@@ -225,4 +222,5 @@ if __name__ == "__main__":
     topic = topic if topic else "Machine Learning"
     database_name = params.get("database_name", [""])[0]
     database_name = database_name if database_name else "database"
+
     main(topic, database_name)
