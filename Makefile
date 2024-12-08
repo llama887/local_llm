@@ -1,6 +1,7 @@
 run: server/server.go
 	chmod -R +x cgi/
-	./meilisearch --master-key="aSampleMasterKey" > /dev/null;\
+	./meilisearch --master-key="aSampleMasterKey" > /dev/null 2>&1 & \
+	meilisearch_pid=$$;
 	@response=$$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:1234/v1/models/); \
 	if [ $$response -eq 200 ]; then \
 		echo "Lm Studio Running on Port 1234"; \
@@ -12,3 +13,4 @@ run: server/server.go
 
 install: requirements.txt
 	pip install uv && uv pip install -r requirements.txt
+	curl -L https://install.meilisearch.com | sh

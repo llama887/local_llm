@@ -14,7 +14,6 @@ import (
 	"sync"          // For synchronizing access to shared resources
 	"syscall"       // For low-level system calls
 	"io"            // For general I/O operations
-	"github.com/meilisearch/meilisearch-go",
 )
 
 type WebSocketResponse struct {
