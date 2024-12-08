@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebSocket Test</title>
+    <script src="https://unpkg.com/htmx.org"></script>
     <script>
         let ws;
         let heartbeatInterval;
@@ -87,12 +88,17 @@
     </script>
 </head>
 <body>
-    <h1>WebSocket Test</h1>
-    <div>
+    <nav>
+      <a href="learn.html" hx-get="learn.html" hx-target="#main" hx-swap="innerHTML">learn</a>
+    </nav>
+    <div id="main">
+      <h1>WebSocket Test</h1>
+      <div>
         <input type="text" id="messageInput" placeholder="Enter your message">
         <button onclick="sendMessage()">Send</button>
+      </div>
+      <p id="serverResponse">Connection lost. Please refresh the page.</p>
+      <div id="messages"></div>
     </div>
-    <p id="serverResponse">Connection lost. Please refresh the page.</p>
-    <div id="messages"></div>
 </body>
 </html>
