@@ -82,3 +82,5 @@ chroma_db/
 # data dir
 data/
 output_chunks.md
+
+meilisearch

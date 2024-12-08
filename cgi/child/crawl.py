@@ -23,17 +23,17 @@ data_path = "data/"
 chunk_json_path = data_path + "chunks_json/"
 os.makedirs(data_path, exist_ok=True)
 os.makedirs(chunk_json_path, exist_ok=True)
+MODEL = "Qwen2.5-1.5B-Instruct-GGUF"
+
 
 def try_tpu(client, message, pydantic_model):
     if not hasattr(try_tpu, "tpu_failed"):
         try_tpu.tpu_failed = False
     if not try_tpu.tpu_failed:
         response = client.chat.completions.create(
-            model="llama-3.2-3b-qnn",
+            model=MODEL,
             messages=message,
-            extra_body={
-                "guided_json": pydantic_model.model_json_schema()
-            }
+            extra_body={"guided_json": pydantic_model.model_json_schema()},
         )
         raw_data = response.choices[0].message
         try:
@@ -43,14 +43,15 @@ def try_tpu(client, message, pydantic_model):
             print(f"The following does not conform to the model:\n{raw_data}")
             print("Switching Models....")
             subprocess.run(["lms", "unload", "--all"])
-            subprocess.run(["lms", "load", "qwen2.5-1.5b-instruct", "-y"])
+            subprocess.run(["lms", "load", MODEL, "-y"])
     if try_tpu.tpu_failed:
         response = client.beta.chat.completions.parse(
-            model="qwen2.5-1.5b-instruct",
+            model=MODEL,
             messages=message,
-            response_format=pydantic_model
+            response_format=pydantic_model,
         )
     return response
+
 
 def extract_title(link):
     try:
@@ -71,14 +72,20 @@ def write_chunks(link, chunks):
             md_file.write("---\n\n")
     print(f"Finished loading chunks for {link}")
 
+
 def scrape_link(link, topic, client, database_collection, recursive=False):
     global searched_links
     if link in searched_links or len(searched_links) >= max_searched_links_size:
         return
+
     class ChunkValidation(BaseModel):
-        '''For the given markdown, determine if it answers the question'''
-        answers_the_question: bool = Field(..., description="Whether the article answers the question")
-    print(f"Scraping {link}")  
+        """For the given markdown, determine if it answers the question"""
+
+        answers_the_question: bool = Field(
+            ..., description="Whether the article answers the question"
+        )
+
+    print(f"Scraping {link}")
     if link in searched_links:
         return
     searched_links.add(link)
@@ -98,7 +105,7 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
             print(len(searched_links))
             md_links = cleaned_markdown.text[index:]
             # Regular expression to find URLs
-            url_pattern = r'https?://[^\s\)]+'
+            url_pattern = r"https?://[^\s\)]+"
             all_urls = re.findall(url_pattern, md_links)
             domain = urlparse(link).netloc
             domain_matching_urls = [
@@ -116,8 +123,14 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
     print("Evaluating chunks...")
     for id, chunk in enumerate(chunks):
         messages = [
-            {"role": "system", "content": "You are a research manager that will strictly evaluate the quality of the text based on the topic. You return data strictly in the requested format."},
-            {"role": "user", "content": f"Given the topic '{topic}' and the markdown below, determine if it contains useful information for the topic.\n\n{chunk}"}
+            {
+                "role": "system",
+                "content": "You are a research manager that will strictly evaluate the quality of the text based on the topic. You return data strictly in the requested format.",
+            },
+            {
+                "role": "user",
+                "content": f"Given the topic '{topic}' and the markdown below, determine if it contains useful information for the topic.\n\n{chunk}",
+            },
         ]
         response = try_tpu(client, messages, ChunkValidation)
         if not response.choices[0].message.parsed.answers_the_question:
@@ -127,9 +140,7 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
     chunks = [item for id, item in enumerate(chunks) if id not in invalid_chunk_ids]
 
     # Split the document into chunks using LangChain's RecursiveTextSplitter
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=200
-    )
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(cleaned_markdown.text)
     # write_chunks(link, chunks)
 
@@ -141,7 +152,7 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
             "total_chunks": len(chunks),
         }
 
-        chunk_dict = {"data": chunk}
+        chunk_dict = {"id": hash(link + str(idx)), "data": chunk}
         chunk_dict.update(chunk_metadata)
         chunk_json = json.dumps(chunk_dict, indent=4)
 
@@ -157,6 +168,7 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
 
         # Notify the client about progress
         print(f"Stored chunk {idx+1}/{len(chunks)} for {link} in ChromaDB")
+
 
 def process_search_results(search_query, topic, client, database_name):
     valid_links = []
@@ -198,8 +210,7 @@ def process_search_results(search_query, topic, client, database_name):
             substring in cleaned_link for substring in invalid_substrings
         ):
             valid_links.append(cleaned_link)
-            
-    
+
     db_client = chromadb.PersistentClient(path="data/chroma_db")
     collection = db_client.get_or_create_collection(f"{database_name}")
 
@@ -210,17 +221,26 @@ def process_search_results(search_query, topic, client, database_name):
 def main(topic, database_name):
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
     try:
-        subprocess.run(["lms", "load", "llama-3.2-3b-qnn", "-y"])
+        subprocess.run(["lms", "unload", "--all"])
+        subprocess.run(["lms", "load", MODEL, "-y"])
     except FileNotFoundError as e:
         print("Can't access lms cli, hope you set your model to not need it :)")
         try_tpu.tpu_failed = True
+
     class QuerySchema(BaseModel):
-        '''Expects a list of queries and a topic summary phrase'''
-        queries: List[str] = Field(..., min_items=1, max_items=10)        
+        """Expects a list of queries and a topic summary phrase"""
+
+        queries: List[str] = Field(..., min_items=1, max_items=10)
 
     messages = [
-        {"role": "system", "content": "You are a research assistant that focuses on generating search queries that are important for further exploring a topic. You return data strictly in the requested format."},
-        {"role": "user", "content": f"Given the topic '{topic}' create a Python list of Google search queries that would help you to learn more about it."}
+        {
+            "role": "system",
+            "content": "You are a research assistant that focuses on generating search queries that are important for further exploring a topic. You return data strictly in the requested format.",
+        },
+        {
+            "role": "user",
+            "content": f"Given the topic '{topic}' create a Python list of Google search queries that would help you to learn more about it.",
+        },
     ]
 
     response = try_tpu(client, messages, QuerySchema)
@@ -231,12 +251,15 @@ def main(topic, database_name):
         print(f"Searching {q}")
         process_search_results(q, topic, client, database_name)
 
+    subprocess.run(["lms", "unload", "--all"])
+
 
 def set_max_link_size(params):
     global max_searched_links_size
     max_links = params.get("max_links", [""])[0]
     max_searched_links_size = max_links
-    
+
+
 if __name__ == "__main__":
     # Get the query string from environment
     query_str = os.environ.get("QUERY_STRING", "")

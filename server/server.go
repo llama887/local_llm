@@ -1,19 +1,20 @@
 package main
 
 import (
-	"bufio"        
-	"encoding/json"
-	"fmt"          
-	"log"          
-	"net"          
-	"net/http"     
-	"net/http/cgi" 
-	"os"           
-	"os/exec"      
-	"path/filepath"
-	"sync"         
-	"syscall"      
-	"io"           
+	"bufio"        // For buffered I/O operations
+	"encoding/json" // For JSON encoding
+	"fmt"           // For formatted I/O
+	"log"           // For logging
+	"net"           // For networking (finding available ports)
+	"net/http"      // For HTTP server
+	"net/http/cgi"  // For CGI handling
+	"os"            // For OS functions
+	"os/exec"       // For executing commands
+	"path/filepath" // For manipulating file paths
+	"sync"          // For synchronizing access to shared resources
+	"syscall"       // For low-level system calls
+	"io"            // For general I/O operations
+	"github.com/meilisearch/meilisearch-go",
 )
 
 type WebSocketResponse struct {
@@ -23,7 +24,7 @@ type WebSocketResponse struct {
 var (
 	activePort int
 	cmd        *exec.Cmd
-	mutex      sync.Mutex 
+	mutex      sync.Mutex
 )
 
 func findFreePort() (int, error) {

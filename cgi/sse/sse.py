@@ -15,7 +15,7 @@ sys.stdout.flush()
 
 for i in range(1, 10):
     # Get the current time
-    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Send data in SSE format
     print(f"data: {now}\n")
