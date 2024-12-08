@@ -53,10 +53,13 @@ def try_tpu(client, message, pydantic_model):
 model_non_tpu = "qwen2.5-1.5b-instruct"
 model_tpu = None
 
-
+WINDOWS_LMS_PATH = "/mnt/c/Users/qc_wo/.cache/lm-studio/bin/lms.exe"
 def setup_models():
     available_models = set()
-    lms_ls_output = subprocess.run(["lms", "ls"], stdout=subprocess.PIPE, text=True)
+    try:
+        lms_ls_output = subprocess.run(["lms", "ls"], stdout=subprocess.PIPE, text=True)
+    except:
+        lms_ls_output = subprocess.run([WINDOWS_LMS_PATH, "ls"], stdout=subprocess.PIPE, text=True)
     lms_ls_lines = lms_ls_output.stdout.splitlines()
     for line in lms_ls_lines:
         if "/" in line:  # Filter lines that likely contain a model name
@@ -84,9 +87,15 @@ def load_models():
     try: 
         setup_models()
         print("Loading model...")
-        subprocess.run(["lms", "unload", "--all"])
+        try:
+            subprocess.run(["lms", "unload", "--all"])
+        except: 
+            subprocess.run([WINDOWS_LMS_PATH, "unload", "--all"])
         model_to_use = model_non_tpu if try_tpu.tpu_failed else model_tpu
-        subprocess.run(["lms", "load", model_to_use, "-y"])
+        try:
+            subprocess.run(["lms", "load", model_to_use, "-y"])
+        except:
+            subprocess.run([WINDOWS_LMS_PATH, "load", model_to_use, "-y"])
         print("Using:", model_to_use)
     except Exception as e:
         try_tpu.tpu_failed = True
@@ -409,9 +418,10 @@ def main(topic, database_name):
     for q in queries:
         print(f"Searching {q}")
         process_search_results(q, topic, client, database_name)
-
-    subprocess.run(["lms", "unload", "--all"])
-
+    try:
+        subprocess.run(["lms", "unload", "--all"])
+    except Exception as e:
+        subprocess.run([WINDOWS_LMS_PATH, "unload", "--all"])
 
 def set_max_link_size(params):
     global max_searched_links_size
