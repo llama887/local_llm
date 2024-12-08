@@ -35,7 +35,7 @@
                             console.log('WebSocket connection closed:', event.code, event.reason);
                             document.getElementById('serverResponse').innerText = 'Connection lost. Reconnecting...';
                             stopHeartbeat();
-                            setTimeout(connect, 5000); // Attempt reconnection after 5 seconds
+                            setTimeout(connect, 5000); 
                         };
 
                         ws.onerror = function(error) {
@@ -72,7 +72,7 @@
                     console.warn('WebSocket is not open. Stopping heartbeat.');
                     stopHeartbeat();
                 }
-            }, 5000); // Send a heartbeat every 5 seconds
+            }, 5000); 
         }
 
         function stopHeartbeat() {

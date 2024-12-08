@@ -1,19 +1,19 @@
 package main
 
 import (
-	"bufio"        // For buffered I/O operations
-	"encoding/json" // For JSON encoding
-	"fmt"           // For formatted I/O
-	"log"           // For logging
-	"net"           // For networking (finding available ports)
-	"net/http"      // For HTTP server
-	"net/http/cgi"  // For CGI handling
-	"os"            // For OS functions
-	"os/exec"       // For executing commands
-	"path/filepath" // For manipulating file paths
-	"sync"          // For synchronizing access to shared resources
-	"syscall"       // For low-level system calls
-	"io"            // For general I/O operations
+	"bufio"        
+	"encoding/json"
+	"fmt"          
+	"log"          
+	"net"          
+	"net/http"     
+	"net/http/cgi" 
+	"os"           
+	"os/exec"      
+	"path/filepath"
+	"sync"         
+	"syscall"      
+	"io"           
 )
 
 type WebSocketResponse struct {
@@ -23,7 +23,7 @@ type WebSocketResponse struct {
 var (
 	activePort int
 	cmd        *exec.Cmd
-	mutex      sync.Mutex // To handle concurrent access to activePort and cmd
+	mutex      sync.Mutex 
 )
 
 func findFreePort() (int, error) {
@@ -297,7 +297,7 @@ func childHandler(dir string) http.Handler {
 				log.Println("Error creating stderr pipe:", err)
 				return
 			}
-			
+
 			cmd.Stdout = devnull
 			cmd.Stderr = devnull
 
