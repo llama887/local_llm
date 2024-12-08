@@ -18,9 +18,12 @@ if __name__ == "__main__":
     search_query = params.get("search", [""])[
         0
     ]  # Adjusted to match form input "search"
+    num_results = int(params.get("results", [10])[0])
 
     # Search Meilisearch index
     response = client.index("chunks").search(search_query)
+    hits = response.get("hits", [])
+    num_results = min(len(hits), num_results)
 
     # HTML output
     print("<!DOCTYPE html>")
@@ -83,13 +86,12 @@ if __name__ == "__main__":
     print("</head>")
     print("<body>")
     print("<h1>Search Results</h1>")
-    print(
-        f"<h3>Displaying {len(response.get("hits", []))} Documents For: {search_query}</h2>"
-    )
+    print(f"<h3>Displaying {num_results} Documents For: {search_query}</h2>")
 
     # Generate dropdowns for each chunk
-    for idx, result in enumerate(response.get("hits", [])):
+    for idx in range(num_results):
         chunk_id = f"chunk-{idx}"  # Unique ID for each chunk
+        result = hits[idx]
         print(f"<div class='chunk'>")
         print(f"<div class='chunk-header' onclick='toggleData(\"{chunk_id}\");'>")
         print(
