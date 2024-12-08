@@ -102,6 +102,7 @@
             top: 10px;
             left: 10px;
         }
+
         nav a {
             color: #ffae42;
             text-decoration: none;
@@ -111,6 +112,7 @@
             border-radius: 5px;
             transition: background-color 0.3s;
         }
+
         nav a:hover {
             background-color: #ffa726;
         }
@@ -120,11 +122,11 @@
             height: 100%;
         }
     </style>
-    <title>WebSocket Test</title>
-    <script src="https://unpkg.com/htmx.org"></script>
     <script>
         let ws;
         let heartbeatInterval;
+        let awaitingResponse = false; // Prevent sending new messages while awaiting a response
+        let currentResponseElement = null; // For handling chunked responses
 
         function setupWebSocket() {
             function connect() {
@@ -145,13 +147,23 @@
                             startHeartbeat();
                         };
 
-                        ws.onmessage = function(event) {
-                            const messages = document.getElementById('messages');
-                            const message = document.createElement('div');
-                            message.className = 'message server';
-                            message.textContent = event.data;
-                            messages.appendChild(message);
-                            messages.scrollTop = messages.scrollHeight;
+                        ws.onmessage = function (event) {
+                            if (event.data === "[END]") {
+                                console.log("Streaming completed.");
+                                awaitingResponse = false; // Allow new messages
+                                currentResponseElement = null; // Reset the response element
+                            } else {
+                                const messages = document.getElementById('messages');
+
+                                if (!currentResponseElement) {
+                                    currentResponseElement = document.createElement('div');
+                                    currentResponseElement.className = 'message server';
+                                    messages.appendChild(currentResponseElement);
+                                }
+
+                                currentResponseElement.textContent += event.data; // Append new data
+                                messages.scrollTop = messages.scrollHeight; // Scroll to the bottom
+                            }
                         };
 
                         ws.onclose = function(event) {
@@ -161,7 +173,7 @@
                             serverResponse.className = 'message server';
                             serverResponse.textContent = 'Connection lost. Reconnecting...';
                             document.getElementById('messages').appendChild(serverResponse);
-                            setTimeout(connect, 5000); 
+                            setTimeout(connect, 5000);
                         };
 
                         ws.onerror = function(error) {
@@ -179,24 +191,27 @@
                         serverResponse.textContent = 'Failed to connect to the server.';
                         document.getElementById('messages').appendChild(serverResponse);
                     });
-            }
-
+                }
             connect();
         }
 
         function sendMessage() {
+            if (awaitingResponse) {
+                console.warn("Cannot send a new message while awaiting a response.");
+                return;
+            }
+
             const messageInput = document.getElementById('messageInput');
             const message = messageInput.value;
-            if (ws && ws.readyState === WebSocket.OPEN) {
-                console.log('Sending message:', message);
-                ws.send(message);
 
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(message);
                 const userMessage = document.createElement('div');
                 userMessage.className = 'message user';
                 userMessage.textContent = message;
                 document.getElementById('messages').appendChild(userMessage);
-                document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
                 messageInput.value = '';
+                awaitingResponse = true; // Prevent new messages
             } else {
                 console.warn('WebSocket is not open. Unable to send message.');
             }

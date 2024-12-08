@@ -1,31 +1,39 @@
-#!/usr/bin/env python3
-
+# Updated `chat.py`
 import asyncio
 import websockets
 import os
 import socket
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
-from openai import OpenAI  
+from openai import OpenAI
 
-persist_directory = 'db'  
-embedding = OpenAIEmbeddings()
-vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
+persist_directory = 'db'
+retriever = None
+qa_chain = None
+
+# Check if the database exists
+if os.path.exists(persist_directory):
+    print(f"Database found at {persist_directory}. Using Chroma retriever.")
+    embedding = OpenAIEmbeddings()
+    vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
+    retriever = vectordb.as_retriever(search_kwargs={"k": 2})
+else:
+    print(f"Database not found at {persist_directory}. Using Qwen model only.")
 
 MODEL = "Qwen2.5-1.5B-Instruct-GGUF"
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
 
-retriever = vectordb.as_retriever(search_kwargs={"k": 2}) 
-
-qa_chain = RetrievalQA.from_chain_type(
-    llm=client,  
-    chain_type="stuff",
-    retriever=retriever,
-    return_source_documents=True
-)
+if retriever:
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=client,
+        chain_type="stuff",
+        retriever=retriever,
+        return_source_documents=True
+    )
 
 connected_clients = set()
+client_states = {}  # To track the state of each connected client
 
 def find_free_port():
     """Find a free port to avoid conflicts."""
@@ -35,46 +43,83 @@ def find_free_port():
 
 def process_llm_response(llm_response):
     """Format the LLM response with sources."""
-    result = f"Answer: {llm_response['result']}\n\nSources:\n"
-    for source in llm_response["source_documents"]:
-        result += f"- {source.metadata['source']}\n"
+    if "source_documents" in llm_response:
+        result = f"Answer: {llm_response['result']}\n\nSources:\n"
+        for source in llm_response["source_documents"]:
+            result += f"- {source.metadata['source']}\n"
+    else:
+        result = f"Answer: {llm_response}"
     return result
+
+async def stream_response(websocket, text, delay=0.01):
+    """Stream response to the WebSocket client character by character."""
+    for char in text:
+        try:
+            await websocket.send(char)
+            await asyncio.sleep(delay)
+        except websockets.exceptions.ConnectionClosed:
+            print("WebSocket connection closed during streaming.")
+            return
+    try:
+        await websocket.send("[END]")
+    except websockets.exceptions.ConnectionClosed:
+        print("WebSocket connection closed while sending [END].")
 
 async def handle_websocket(websocket, path=None):
     """Handle WebSocket connections."""
     print(f"New WebSocket connection from {websocket.remote_address}, Path: {path}")
     connected_clients.add(websocket)
+    client_states[websocket] = {"awaiting_response": False}
     try:
-        async for message in websocket:
-            print(f"Received: {message}")
-            if message == "heartbeat":
-                response = "heartbeat acknowledged"
-                print(f"Responding to heartbeat: {response}")
-                await websocket.send(response)
-            else:
-                try:
-                    print(f"Processing RAG query: {message}")
+        while True:
+            try:
+                message = await websocket.recv()
+                print(f"Received message: {message}")
 
+                # Ignore heartbeat messages
+                if message == "heartbeat":
+                    print("Heartbeat received, ignoring.")
+                    continue
+
+                # Check if the client is already awaiting a response
+                if client_states[websocket]["awaiting_response"]:
+                    await websocket.send("Server is still processing your previous request. Please wait.")
+                    continue
+
+                client_states[websocket]["awaiting_response"] = True
+
+                if qa_chain:
                     llm_response = qa_chain.run(message)
-
                     response = process_llm_response(llm_response)
+                else:
+                    llm_response = client.completions.create(
+                        model=MODEL,
+                        prompt=message,
+                        max_tokens=256
+                    )
+                    response = llm_response.choices[0].text.strip()
 
-                    print(f"Generated response:\n{response}")
-                except Exception as e:
-                    response = f"Error processing your request: {str(e)}"
-                    print(f"Error during RAG processing: {e}")
-                
-                print(f"Sending response: {response}")
-                await websocket.send(response)
-    except websockets.exceptions.ConnectionClosed as e:
-        print(f"Connection closed: {e}")
-    except Exception as e:
-        print(f"Unhandled error: {e}")
-        import traceback
-        traceback.print_exc()
-        await websocket.close(code=1011, reason="Internal server error")
+                print(f"Generated response:\n{response}")
+                await stream_response(websocket, response)
+
+            except websockets.exceptions.ConnectionClosed as e:
+                if e.code == 1000:
+                    print("Client closed the connection normally.")
+                elif e.code == 1006:
+                    print("Abnormal WebSocket closure. Check client-server compatibility.")
+                else:
+                    print(f"Connection closed unexpectedly with code {e.code}: {e.reason}")
+                break
+            except Exception as e:
+                print(f"Unhandled error: {e}")
+                import traceback
+                traceback.print_exc()
+                break
+            finally:
+                client_states[websocket]["awaiting_response"] = False
     finally:
         connected_clients.remove(websocket)
+        del client_states[websocket]
         print(f"Connection from {websocket.remote_address} closed")
         print(f"Remaining connected clients: {len(connected_clients)}")
 
@@ -85,7 +130,9 @@ async def main():
     print(f"Starting WebSocket server on ws://localhost:{port}")
 
     try:
-        async with websockets.serve(handle_websocket, "localhost", port):
+        async with websockets.serve(
+            handle_websocket, "localhost", port, ping_interval=20, ping_timeout=10
+        ):
             print(f"WebSocket server successfully bound to ws://localhost:{port}")
             await asyncio.Future()
     except Exception as e:
