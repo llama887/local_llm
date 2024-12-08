@@ -21,7 +21,10 @@ if __name__ == "__main__":
     num_results = int(params.get("results", [10])[0])
 
     # Search Meilisearch index
-    response = client.index("chunks").search(search_query)
+    try:
+        response = client.index("chunks").search(search_query)
+    except:
+        response = {}
     hits = response.get("hits", [])
     num_results = min(len(hits), num_results)
 
