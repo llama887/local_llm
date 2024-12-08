@@ -3,109 +3,439 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrape URL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Search Bar with Dropdown</title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Rubik', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a;
-            color: #ffffff;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #020202;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: center; /* Align content to the center */
             align-items: center;
             height: 100vh;
-        }
-
-        .form-container {
-            width: 90%;
-            max-width: 600px;
-            background-color: #2c2c2c;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
             overflow: hidden;
-            padding: 20px;
         }
 
-        .header {
-            background-color: #3a3a3a;
-            padding: 15px;
-            text-align: center;
-            font-size: 20px;
+        .title {
+            font-size: 10rem; /* Larger font size */
             font-weight: bold;
-            color: #ffae42;
-            border-radius: 10px 10px 0 0;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 15px 0;
-        }
-
-        label {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        input {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #ffae42;
-            color: #1a1a1a;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #ffa726;
-        }
-
-        #hidden {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #3a3a3a;
-            border-radius: 5px;
+            margin-bottom: 80px; /* Reduced spacing from the bar */
+            color: #ffffff;
             text-align: center;
+            margin-top: -150px; /* Move the title higher */
+            z-index: 30;
+        }
+
+        @keyframes color-shift {
+            0%, 100% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
+        }
+
+        .waveWrapper {
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+        }
+
+        .waveWrapperInner {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            height: 100%;
+            bottom: -1px;
+            background-image: linear-gradient(to top, #e6ecff 20%, #008cff 80%);
+        }
+
+        .bgTop {
+            z-index: 15;
+            opacity: 0.5;
+        }
+
+        .bgMiddle {
+            z-index: 10;
+            opacity: 0.75;
+        }
+
+        .bgBottom {
+            z-index: 5;
+        }
+
+        .wave {
+            position: absolute;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background-repeat: repeat no-repeat;
+            background-position: 0 bottom;
+            transform-origin: center bottom;
+        }
+
+        .waveTop {
+            background-size: 50% 100px;
+        }
+
+        .waveAnimation .waveTop {
+            animation: move_wave 3s ease-in-out infinite;
+        }
+
+        .waveMiddle {
+            background-size: 50% 120px;
+        }
+
+        .waveAnimation .waveMiddle {
+            animation: move_wave 10s linear infinite;
+        }
+
+        .waveBottom {
+            background-size: 50% 100px;
+        }
+
+        .waveAnimation .waveBottom {
+            animation: move_wave 15s linear infinite;
+        }
+
+        @keyframes move_wave {
+            0% {
+                transform: translateX(0) translateZ(0) scaleY(1)
+            }
+            50% {
+                transform: translateX(-25%) translateZ(0) scaleY(0.55)
+            }
+            100% {
+                transform: translateX(-50%) translateZ(0) scaleY(1)
+            }
+        }
+
+        .wrapper {
+            width: 700px; /* Keep wrapper size */
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 8px 6px -10px #9fb0e1;
+            padding: 10px; /* Increased padding */
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Reduce gap between dropdown and search bar */
+            margin-top: -30px; /* Move the bar higher */
+            z-index: 20; /* Ensure it's above the waves */
+        }
+
+        .dropdown {
+            width: 200px; /* Reduce dropdown width */
+            border-right: 1px solid #dde2f1; /* Slimmer border */
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown:before {
+            content: '\25BC'; /* Reverse triangle */
+            position: absolute;
+            left: 0px; /* Move triangle further left */
+            font-size: 10px;
+            color: #6f768d;
+            transform: translateY(-1px);
+        }
+
+        .dropdown .default_option {
+            text-transform: uppercase;
+            padding: 10px 10px 10px 20px; /* Adjust padding */
+            font-size: 14px;
+            color: #9fa3b1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown ul {
+            position: absolute;
+            top: 50px; /* Adjust position */
+            left: 0;
+            background: #fff;
+            width: 100%;
+            max-height: calc(5 * 48px + 2px);
+            overflow-y: auto;
+            border-radius: 5px;
+            display: none;
+            box-shadow: 8px 8px 6px -10px #b3c6ff;
+            z-index: 100;
+            list-style: none;
+        }
+
+        .dropdown ul.active {
+            display: block;
+        }
+
+        .dropdown ul.scrollable {
+            overflow-y: auto;
+        }
+
+        .dropdown ul li {
+            height: 48px;
+            padding: 10px;
+            font-size: 14px;
+            color: #6f768d;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .dropdown ul li:hover {
+            background: #f1f4ff;
+        }
+
+        .dropdown ul li.new-expert {
+            border-top: 1px solid #dde2f1; /* Slimmer border */
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .new-expert:hover {
+            background: #f1f4ff;
+        }
+
+        .new-expert .add-button {
+            color: #5078ef;
+            background: none;
+            border: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .search_field {
+            flex-grow: 1;
+            margin-left: 5px; /* Reduce margin */
+            position: relative;
+        }
+
+        .search_field input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            font-size: 16px;
+            padding-left: 5px; /* Reduce padding */
+            color: #6f768d;
+            outline: none; /* Remove blue outline */
+        }
+
+        .search_field .fas {
+            position: absolute;
+            top: 50%;
+            right: 10px; /* Adjust position */
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #5078ef;
+            cursor: pointer;
+        }
+
+        .spinner {
+            display: none; /* Initially hidden */
+            position: absolute;
+            top: calc(100% + 20px); /* Right below the search bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 65px;
+            height: 65px;
+            animation: rotator 1.4s linear infinite;
+            z-index: 30; /* Ensure above waves */
+        }
+
+        @keyframes rotator {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(270deg); }
+        }
+
+        .path {
+            stroke-dasharray: 187;
+            stroke-dashoffset: 0;
+            transform-origin: center;
+            animation:
+                dash 1.4s ease-in-out infinite, 
+                colors 5.6s ease-in-out infinite;
+        }
+
+        @keyframes colors {
+            0% { stroke: #4285F4; }
+            25% { stroke: #DE3E35; }
+            50% { stroke: #F7C223; }
+            75% { stroke: #1B9A59; }
+            100% { stroke: #4285F4; }
+        }
+
+        @keyframes dash {
+            0% { stroke-dashoffset: 187; }
+            50% {
+                stroke-dashoffset: 46.75;
+                transform: rotate(135deg);
+            }
+            100% {
+                stroke-dashoffset: 187;
+                transform: rotate(450deg);
+            }
+        }
+
+        ::placeholder {
+            color: #9fa3b1;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 8px 6px -10px #b3c6ff;
+            padding: 20px;
+            z-index: 200;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #dde2f1;
+            border-radius: 5px;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            border: none;
+            background: #5078ef;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <div class="header">Scrape URL</div>
-        <form id="submission-form" action="/cgi/child/url_scraper.py" method="get" hx-target="#hidden">
-            <div>
-                <label for="url">URL:</label>
-                <input type="url" id="url" name="url" placeholder="Enter URL" required />
-            </div>
-            <div>
-                <label for="topic">Topic:</label>
-                <input type="text" id="topic" name="topic" placeholder="Enter Topic" required />
-            </div>
-            <div>
-                <label for="database_name">Database Name:</label>
-                <input type="text" id="database_name" name="database_name" placeholder="Enter Database Name" required />
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-        <div id="hidden">
-            hi
+    <div class="waveWrapper waveAnimation">
+        <div class="waveWrapperInner bgTop">
+            <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgMiddle">
+            <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+        </div>
+        <div class="waveWrapperInner bgBottom">
+            <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
         </div>
     </div>
+    <div class="title">LEARN</div>
+    <div class="wrapper">
+        <div class="dropdown">
+            <div class="default_option">Experts</div>
+            <ul>
+                <li>Experts</li>
+                <li>LLM</li>
+                <li>LM Studio</li>
+                <li>Example 4</li>
+                <li>Example 5</li>
+                <li class="new-expert">New Expert <button class="add-button">+</button></li>
+            </ul>
+        </div>
+        <div class="search_field">
+            <input type="text" placeholder="Search">
+            <i class="fas fa-search" id="search-icon"></i>
+        </div>
+    </div>
+
+    <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+    </svg>
+
+    <div class="popup" id="popup">
+        <h3>Add New Expert</h3>
+        <input type="text" id="new-expert-name" placeholder="Enter name">
+        <button id="add-new-expert">Add</button>
+    </div>
+
+    <script>
+        const dropdown = document.querySelector('.dropdown ul');
+        const defaultOption = document.querySelector('.default_option');
+        const newExpertTab = document.querySelector('.new-expert');
+        const popup = document.getElementById('popup');
+        const addButton = document.getElementById('add-new-expert');
+        const newExpertNameInput = document.getElementById('new-expert-name');
+        const searchIcon = document.getElementById('search-icon');
+        const spinner = document.querySelector('.spinner');
+        let lastSelectedOption = defaultOption.textContent; // Keep track of the last selected option
+
+        defaultOption.addEventListener('click', function(event) {
+            dropdown.classList.toggle('active');
+            event.stopPropagation();
+        });
+
+        document.querySelectorAll('.dropdown ul li').forEach(item => {
+            item.addEventListener('click', function() {
+                defaultOption.textContent = this.textContent;
+                lastSelectedOption = this.textContent; // Update the last selected option
+                dropdown.classList.remove('active');
+            });
+        });
+
+        newExpertTab.addEventListener('click', function(event) {
+            popup.style.display = 'block';
+            defaultOption.textContent = lastSelectedOption; // Revert back to the last selected option
+            event.stopPropagation();
+        });
+
+        addButton.addEventListener('click', function() {
+            const newName = newExpertNameInput.value.trim();
+            if (newName) {
+                const li = document.createElement('li');
+                li.textContent = newName;
+                li.style.cursor = 'pointer';
+                li.addEventListener('click', function() {
+                    defaultOption.textContent = li.textContent;
+                    lastSelectedOption = li.textContent; // Update the last selected option
+                    dropdown.classList.remove('active');
+                });
+                dropdown.insertBefore(li, document.querySelector('.new-expert'));
+
+                newExpertNameInput.value = '';
+                popup.style.display = 'none';
+                defaultOption.textContent = newName; // Immediately update the default option
+            }
+        });
+
+        searchIcon.addEventListener('click', function() {
+            spinner.style.display = 'block';
+            setTimeout(() => {
+                spinner.style.display = 'none';
+            }, 5000); // Hide spinner after 5 seconds
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown') && !event.target.closest('.popup')) {
+                dropdown.classList.remove('active');
+                popup.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>

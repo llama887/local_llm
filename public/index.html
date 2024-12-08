@@ -6,127 +6,131 @@
     <title>Chatbot</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Rubik', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            box-sizing: border-box;
         }
 
-        .chat-container {
-            width: 90%;
-            max-width: 600px;
-            background-color: #2c2c2c;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
+        html, body {
+            height: 100%;
+            font-family: 'Rubik', sans-serif;
+            background: linear-gradient(to top, #008cff 20%, #cee2fc 80%);
             overflow: hidden;
         }
 
-        .header {
-            background-color: #3a3a3a;
-            padding: 15px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffae42;
+        .Chat {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+            padding: 20px;
         }
 
-        .messages {
-            flex: 1;
-            padding: 15px;
+        .Chat-messages {
+            flex-grow: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 30px;
         }
 
-        .message {
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #444;
-            max-width: 75%;
+        .Chat-message {
+            display: flex;
+            align-items: center;
+        }
+
+        .Chat-message--user {
+            justify-content: flex-end;
+        }
+
+        .Chat-bubble {
+            max-width: 70%;
+            padding: 20px 25px;
+            font-size: 20px;
+            border-radius: 20px;
+            background: #0d73e0;
+            color: #ffffff;
+            text-align: left;
             word-wrap: break-word;
         }
 
-        .message.user {
-            align-self: flex-end;
-            background-color: #007bff;
-            color: white;
+        .Chat-message--bot .Chat-bubble {
+            background: #b0d2f5;
+            color: #003f7f;
         }
 
-        .message.server {
-            align-self: flex-start;
-            background-color: #555;
-            color: white;
-        }
-
-        .input-container {
+        .Chat-message--dots .Chat-bubble {
             display: flex;
-            background-color: #3a3a3a;
-            padding: 10px;
+            gap: 12px;
+            align-items: center;
+            padding: 20px 25px;
         }
 
-        .input-container input {
+        .Chat-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #0056b3;
+            border-radius: 50%;
+            animation: Chat-dots 1.2s infinite;
+        }
+
+        .Chat-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .Chat-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes Chat-dots {
+            0%, 100% {
+                opacity: 0;
+                transform: translateX(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(8px);
+            }
+        }
+
+        .Chat-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            padding: 10px 0;
+            border-top: 2px solid #d7eaff; /* Move line above inputs */
+        }
+
+        .Chat-inputField {
             flex: 1;
-            padding: 10px;
             border: none;
-            border-radius: 5px;
-            margin-right: 10px;
-            font-size: 16px;
-        }
-
-        .input-container button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #ffae42;
-            color: #1a1a1a;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .input-container button:hover {
-            background-color: #ffa726;
-        }
-
-        nav {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-
-        nav a {
-            color: #ffae42;
-            text-decoration: none;
             font-size: 18px;
-            padding: 5px 10px;
-            background-color: #3a3a3a;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 10px;
+            outline: none;
+            background: transparent;
+            color: #ffffff;
         }
 
-        nav a:hover {
-            background-color: #ffa726;
+        .Chat-sendButton {
+            background: none;
+            color: #eaf8ff;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        #main {
-            width: 100%;
-            height: 100%;
+        .Chat-sendButton:hover {
+            text-decoration: underline;
         }
+
     </style>
     <script>
         let ws;
-        let heartbeatInterval;
-        let awaitingResponse = false; // Prevent sending new messages while awaiting a response
-        let currentResponseElement = null; // For handling chunked responses
+        let awaitingResponse = false;
+        let currentResponseElement = null;
 
         function setupWebSocket() {
             function connect() {
@@ -134,124 +138,94 @@
                     .then(response => response.json())
                     .then(data => {
                         const websocketUrl = data.websocket_url;
-                        console.log("Connecting to WebSocket server at:", websocketUrl);
-
                         ws = new WebSocket(websocketUrl);
 
-                        ws.onopen = function(event) {
-                            console.log('WebSocket connection established.');
+                        ws.onopen = function() {
                             const serverResponse = document.createElement('div');
-                            serverResponse.className = 'message server';
-                            serverResponse.textContent = 'Connection established.';
-                            document.getElementById('messages').appendChild(serverResponse);
-                            startHeartbeat();
+                            serverResponse.className = 'Chat-message Chat-message--bot';
+                            serverResponse.innerHTML = '<span class="Chat-bubble">Connection established.</span>';
+                            document.querySelector('.Chat-messages').appendChild(serverResponse);
                         };
 
-                        ws.onmessage = function (event) {
+                        ws.onmessage = function(event) {
                             if (event.data === "[END]") {
-                                console.log("Streaming completed.");
-                                awaitingResponse = false; // Allow new messages
-                                currentResponseElement = null; // Reset the response element
+                                awaitingResponse = false;
+                                currentResponseElement = null;
                             } else {
-                                const messages = document.getElementById('messages');
-
+                                const messages = document.querySelector('.Chat-messages');
                                 if (!currentResponseElement) {
                                     currentResponseElement = document.createElement('div');
-                                    currentResponseElement.className = 'message server';
+                                    currentResponseElement.className = 'Chat-message Chat-message--bot';
+                                    currentResponseElement.innerHTML = '<span class="Chat-bubble"></span>';
                                     messages.appendChild(currentResponseElement);
                                 }
-
-                                currentResponseElement.textContent += event.data; // Append new data
-                                messages.scrollTop = messages.scrollHeight; // Scroll to the bottom
+                                currentResponseElement.querySelector('.Chat-bubble').textContent += event.data;
+                                messages.scrollTop = messages.scrollHeight;
                             }
                         };
 
-                        ws.onclose = function(event) {
-                            console.log('WebSocket connection closed:', event.code, event.reason);
-                            stopHeartbeat();
+                        ws.onclose = function() {
                             const serverResponse = document.createElement('div');
-                            serverResponse.className = 'message server';
-                            serverResponse.textContent = 'Connection lost. Reconnecting...';
-                            document.getElementById('messages').appendChild(serverResponse);
+                            serverResponse.className = 'Chat-message Chat-message--bot';
+                            serverResponse.innerHTML = '<span class="Chat-bubble">Connection lost. Reconnecting...</span>';
+                            document.querySelector('.Chat-messages').appendChild(serverResponse);
                             setTimeout(connect, 5000);
                         };
 
-                        ws.onerror = function(error) {
-                            console.error('WebSocket error observed:', error);
+                        ws.onerror = function() {
                             const serverResponse = document.createElement('div');
-                            serverResponse.className = 'message server';
-                            serverResponse.textContent = 'An error occurred. Please refresh the page.';
-                            document.getElementById('messages').appendChild(serverResponse);
+                            serverResponse.className = 'Chat-message Chat-message--bot';
+                            serverResponse.innerHTML = '<span class="Chat-bubble">An error occurred. Please refresh the page.</span>';
+                            document.querySelector('.Chat-messages').appendChild(serverResponse);
                         };
                     })
-                    .catch(error => {
-                        console.error('Error fetching WebSocket URL:', error);
+                    .catch(() => {
                         const serverResponse = document.createElement('div');
-                        serverResponse.className = 'message server';
-                        serverResponse.textContent = 'Failed to connect to the server.';
-                        document.getElementById('messages').appendChild(serverResponse);
+                        serverResponse.className = 'Chat-message Chat-message--bot';
+                        serverResponse.innerHTML = '<span class="Chat-bubble">Failed to connect to the server.</span>';
+                        document.querySelector('.Chat-messages').appendChild(serverResponse);
                     });
-                }
+            }
             connect();
         }
 
         function sendMessage() {
-            if (awaitingResponse) {
-                console.warn("Cannot send a new message while awaiting a response.");
-                return;
-            }
+            if (awaitingResponse) return;
 
-            const messageInput = document.getElementById('messageInput');
-            const message = messageInput.value;
+            const inputField = document.querySelector('.Chat-inputField');
+            const message = inputField.value;
 
             if (ws && ws.readyState === WebSocket.OPEN) {
                 ws.send(message);
                 const userMessage = document.createElement('div');
-                userMessage.className = 'message user';
-                userMessage.textContent = message;
-                document.getElementById('messages').appendChild(userMessage);
-                messageInput.value = '';
-                awaitingResponse = true; // Prevent new messages
-            } else {
-                console.warn('WebSocket is not open. Unable to send message.');
+                userMessage.className = 'Chat-message Chat-message--user';
+                userMessage.innerHTML = `<span class="Chat-bubble">${message}</span>`;
+                document.querySelector('.Chat-messages').appendChild(userMessage);
+                inputField.value = '';
+                awaitingResponse = true;
+
+                const dots = document.createElement('div');
+                dots.className = 'Chat-message Chat-message--bot';
+                dots.innerHTML = '<span class="Chat-bubble"><div class="Chat-dots"><div class="Chat-dot"></div><div class="Chat-dot"></div><div the="Chat-dot"></div></div></span>';
+                document.querySelector('.Chat-messages').appendChild(dots);
             }
         }
 
-        function startHeartbeat() {
-            console.log('Starting heartbeat...');
-            heartbeatInterval = setInterval(() => {
-                if (ws && ws.readyState === WebSocket.OPEN) {
-                    console.log('Sending heartbeat');
-                    ws.send('heartbeat');
-                } else {
-                    console.warn('WebSocket is not open. Stopping heartbeat.');
-                    stopHeartbeat();
-                }
-            }, 5000); 
-        }
+        document.addEventListener('DOMContentLoaded', setupWebSocket);
 
-        function stopHeartbeat() {
-            console.log('Stopping heartbeat...');
-            if (heartbeatInterval) {
-                clearInterval(heartbeatInterval);
-                heartbeatInterval = null;
-            }
-        }
-
-        window.onload = setupWebSocket;
+        document.querySelector('.Chat-input').addEventListener('submit', (e) => {
+            e.preventDefault();
+            sendMessage();
+        });
     </script>
 </head>
 <body>
-    <nav>
-        <a href="learn.html">Learn</a>
-    </nav>
-    <div class="chat-container">
-        <div class="header">Chatbot</div>
-        <div id="messages" class="messages"></div>
-        <div class="input-container">
-            <input type="text" id="messageInput" placeholder="Enter your message">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+    <div class="Chat">
+        <div class="Chat-messages js-messageContainer"></div>
+        <form class="Chat-input js-inputForm" autocomplete="off">
+            <input type="text" class="Chat-inputField js-inputField" placeholder="Write a reply...">
+            <button type="button" class="Chat-sendButton" onclick="sendMessage()">Send</button>
+        </form>
     </div>
 </body>
 </html>
