@@ -8,3 +8,4 @@ lxml
 bs4
 langchain-community
 langchain-openai
+tensorflow_hub

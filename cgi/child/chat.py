@@ -6,23 +6,42 @@ import socket
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
-from openai import OpenAI
+from langchain.llms import OpenAI
+import subprocess
+from tools import tools
+from chromadb.utils import embedding_functions
 
-persist_directory = 'db'
+
+WINDOWS_LMS_PATH = "/mnt/c/Users/qc_wo/.cache/lm-studio/bin/lms.exe"
+
+persist_directory = 'data/chroma_db'
 retriever = None
 qa_chain = None
 
 # Check if the database exists
 if os.path.exists(persist_directory):
     print(f"Database found at {persist_directory}. Using Chroma retriever.")
-    embedding = OpenAIEmbeddings()
+    embedding = embedding_functions.DefaultEmbeddingFunction()
     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
     retriever = vectordb.as_retriever(search_kwargs={"k": 2})
 else:
     print(f"Database not found at {persist_directory}. Using Qwen model only.")
 
-MODEL = "Qwen2.5-1.5B-Instruct-GGUF"
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
+
+MODEL = "Llama-3.2-3B-Instruct-4bit"
+try:
+    try:
+        subprocess.run([WINDOWS_LMS_PATH, "load", "llama-3.2-3b-qnn", "-y"])
+    except:
+        subprocess.run(["lms", "load", "llama-3.2-3b-qnn", "-y"])
+    MODEL = "llama-3.2-3b-qnn"
+except:
+    try:
+        subprocess.run([WINDOWS_LMS_PATH, "load", "Llama-3.2-3B-Instruct-4bit", "-y"])
+    except:
+        subprocess.run(["lms", "load", "Llama-3.2-3B-Instruct-4bit", "-y"])
+    MODEL = "Llama-3.2-3B-Instruct-4bit"
 
 if retriever:
     qa_chain = RetrievalQA.from_chain_type(
@@ -95,7 +114,7 @@ async def handle_websocket(websocket, path=None):
                     llm_response = client.completions.create(
                         model=MODEL,
                         prompt=message,
-                        max_tokens=256
+                        tools=tools
                     )
                     response = llm_response.choices[0].text.strip()
 
