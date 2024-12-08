@@ -4,11 +4,10 @@ import time
 import chromadb
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from bs4 import BeautifulSoup
-import sys
 import subprocess
 from openai import OpenAI
 import os
-from pydantic import BaseModel, constr, Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError
 from typing import List
 import urllib.request
 import lxml.html
@@ -17,7 +16,7 @@ from urllib.parse import urlparse, parse_qs, quote
 import re
 
 searched_links = set()
-max_searched_links_size = 50
+max_searched_links_size = 10
 
 data_path = "data/"
 chunk_json_path = data_path + "chunks_json/"
@@ -77,22 +76,18 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
     global searched_links
     if link in searched_links or len(searched_links) >= max_searched_links_size:
         return
-
-    class ChunkValidation(BaseModel):
-        """For the given markdown, determine if it answers the question"""
-
-        answers_the_question: bool = Field(
-            ..., description="Whether the article answers the question"
-        )
-
-    print(f"Scraping {link}")
+    print(f"Scraping {link}")  
     if link in searched_links:
         return
     searched_links.add(link)
 
     title = extract_title(link)
     print(f"Titling {link} as: {title}")
+    
 
+    class ImportantUrls(BaseModel):
+        '''For a list of links, pick the most important links to focus on'''
+        important_urls: List[str] = Field(..., min_items=3, description="Most important links to focus on next")
     headers = {"X-Retain-Images": "none", "X-With-Links-Summary": "true"}
     cleaned_markdown = requests.get(f"https://r.jina.ai/{link}", headers=headers)
     while cleaned_markdown.status_code != 200:
@@ -102,7 +97,7 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
     if recursive:
         index = cleaned_markdown.text.find("Links/Buttons")
         if index != -1:
-            print(len(searched_links))
+            print(f"Searched through: {len(searched_links)}")
             md_links = cleaned_markdown.text[index:]
             # Regular expression to find URLs
             url_pattern = r"https?://[^\s\)]+"
@@ -111,11 +106,20 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
             domain_matching_urls = [
                 url for url in all_urls if urlparse(url).netloc.endswith(domain)
             ]
-            for url in domain_matching_urls:
+            messages = [
+                {"role": "system", "content": "You are a professional researcher who picks the best links to click on next given a list of all links. You return data strictly in the requested format."},
+                {"role": "user", "content": f"Given these urls:\n\n '{domain_matching_urls}'\n\n return a python list that contains the most important urls to explore next given that the topic of interest is {topic}."}
+            ]
+            response = try_tpu(client, messages, ImportantUrls)
+            for url in response.choices[0].message.parsed.important_urls:
                 if url in searched_links:
                     continue
                 if len(searched_links) <= max_searched_links_size:
                     scrape_link(url, topic, client, database_collection, True)
+
+    class ChunkValidation(BaseModel):
+        '''For the given markdown, determine if it answers the question'''
+        answers_the_question: bool = Field(..., description="Whether the article answers the question")
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_text(cleaned_markdown.text)
