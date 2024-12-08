@@ -38,7 +38,7 @@ def try_tpu(client, message, pydantic_model):
         try_tpu.tpu_failed = False
     if not try_tpu.tpu_failed:
         response = client.chat.completions.create(
-            model=MODEL_NON_TPU,
+            model=model_non_tpu,
             messages=message,
             extra_body={"guided_json": pydantic_model.model_json_schema()},
         )
@@ -50,28 +50,43 @@ def try_tpu(client, message, pydantic_model):
             print(f"The following does not conform to the model:\n{raw_data}")
             print("Switching Models....")
             subprocess.run(["lms", "unload", "--all"])
-            subprocess.run(["lms", "load", MODEL_NON_TPU, "-y"])
+            subprocess.run(["lms", "load", model_non_tpu, "-y"])
     if try_tpu.tpu_failed:
         response = client.beta.chat.completions.parse(
-            model=MODEL_NON_TPU,
+            model=model_non_tpu,
             messages=message,
             response_format=pydantic_model,
         )
     return response
 
 
-if not available_models:
-    raise Exception("You need model la")
-else:
-    print(len(available_models), "available models: ", available_models)
-MODEL_NON_TPU = "Qwen2.5-1.5B-Instruct-GGUF"
-MODEL_TPU = None
-if "llama-3.2-3b-qnn" in available_models:
-    MODEL_TPU = "llama-3.2-3b-qnn"
-    print("USING: llama-3.2-3b-qnn")
-else:
-    try_tpu.tpu_failed = True
-    print("Not using: llama-3.2-3b-qnn")
+model_non_tpu = "Qwen2.5-1.5B-Instruct-GGUF"
+model_tpu = None
+
+
+def setup_models():
+    global model_tpu, model_non_tpu
+
+    if not available_models:
+        raise Exception("You need model la")
+    else:
+        print(len(available_models), "available models: ", available_models)
+
+    if "llama-3.2-3b-qnn" in available_models:
+        model_tpu = "llama-3.2-3b-qnn"
+        print("USING: llama-3.2-3b-qnn")
+    else:
+        try_tpu.tpu_failed = True
+        print("Not using: llama-3.2-3b-qnn")
+
+
+def load_models():
+    setup_models()
+    print("Loading model...")
+    subprocess.run(["lms", "unload", "--all"])
+    model_to_use = model_non_tpu if try_tpu.tpu_failed else model_tpu
+    subprocess.run(["lms", "load", model_to_use, "-y"])
+    print("Using:", model_to_use)
 
 
 def extract_title(link):
@@ -95,7 +110,7 @@ def write_chunks(link, chunks):
 
 
 def scrape_link(link, topic, client, database_collection, recursive=False):
-    client = meilisearch.Client("http://localhost:7700", "aSampleMasterKey")
+    meilisearch_client = meilisearch.Client("http://localhost:7700", "aSampleMasterKey")
 
     global searched_links
     if (link in searched_links) or (len(searched_links) >= max_searched_links_size):
@@ -194,7 +209,7 @@ def scrape_link(link, topic, client, database_collection, recursive=False):
 
         chunk_dict = {"id": hash(link + str(idx)), "data": chunk}
         chunk_dict.update(chunk_metadata)
-        client.index("chunks").add_documents(chunk_dict)
+        meilisearch_client.index("chunks").add_documents(chunk_dict)
 
         # Add chunk to the collection with metadata and chunk-specific ID
         database_collection.add(
@@ -257,13 +272,8 @@ def process_search_results(search_query, topic, client, database_name):
 
 
 def main(topic, database_name):
+    load_models()
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
-    try:
-        subprocess.run(["lms", "unload", "--all"])
-        subprocess.run(["lms", "load", MODEL_NON_TPU, "-y"])
-    except FileNotFoundError as e:
-        print("Can't access lms cli, hope you set your model to not need it :)")
-        try_tpu.tpu_failed = True
 
     class QuerySchema(BaseModel):
         """Expects a list of queries and a topic summary phrase"""

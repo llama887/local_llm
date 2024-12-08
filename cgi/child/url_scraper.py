@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 from urllib.parse import parse_qs
-from crawl import scrape_link, try_tpu
+from crawl import scrape_link, load_models
 import subprocess
 import chromadb
 from openai import OpenAI
@@ -9,12 +9,8 @@ from openai import OpenAI
 
 if __name__ == "__main__":
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
-    try:
-        subprocess.run(["lms", "load", "llama-3.2-3b-qnn", "-y"])
-    except FileNotFoundError as e:
-        print("Can't access lms cli, hope you set your model to not need it :)")
-        try_tpu.tpu_failed = True
 
+    load_models()
     # Get the query string from environment
     query_str = os.environ.get("QUERY_STRING", "")
     print(f"QUERY STRING:{query_str}")
