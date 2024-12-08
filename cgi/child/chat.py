@@ -6,13 +6,61 @@ import socket
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI
 import subprocess
 from tools import tools
 from chromadb.utils import embedding_functions
+from langchain.embeddings.base import Embeddings
+from typing import List
+from langchain.llms.base import LLM
+from pydantic import Field, PrivateAttr
+from typing import Optional, List, Any
 
+print("running...")
+
+class OpenAIClientWrapper(LLM):
+    # Pydantic attributes
+    model: str = Field(...)
+    tools: Optional[List[Any]] = Field(default_factory=list)  # Use `Any` to allow complex structures
+
+    # Private attribute for non-serializable fields
+    _client: Any = PrivateAttr()
+
+    def __init__(self, client: Any, model: str, tools: Optional[List[Any]] = None):
+        super().__init__(model=model, tools=tools or [])
+        self._client = client  # Set private attribute
+
+    @property
+    def _llm_type(self) -> str:
+        return "openai-client"
+
+    def _call(self, prompt: str, stop: Optional[List[str]] = None, **kwargs) -> str:
+        # Use the OpenAI client to generate a response
+        response = self._client.completions.create(
+            model=self.model,
+            prompt=prompt,
+            tools=self.tools,
+            **kwargs
+        )
+        return response.get("choices")[0].get("text", "").strip()
+
+class ChromaDefaultEmbeddings(Embeddings):
+    def __init__(self):
+        self.model = embedding_functions.DefaultEmbeddingFunction()
+
+    def embed_query(self, query: str) -> List[float]:
+        # Implement embedding for query
+        return self.model([query])[0]
+
+    def embed_documents(self, documents: List[str]) -> List[List[float]]:
+        # Implement embedding for documents
+        return self.model(documents)
 
 WINDOWS_LMS_PATH = "/mnt/c/Users/qc_wo/.cache/lm-studio/bin/lms.exe"
+try:
+    subprocess.run(["lms", "unload", "--all"])
+except: 
+    subprocess.run([WINDOWS_LMS_PATH, "unload", "--all"])
 
 persist_directory = 'data/chroma_db'
 retriever = None
@@ -21,7 +69,7 @@ qa_chain = None
 # Check if the database exists
 if os.path.exists(persist_directory):
     print(f"Database found at {persist_directory}. Using Chroma retriever.")
-    embedding = embedding_functions.DefaultEmbeddingFunction()
+    embedding = ChromaDefaultEmbeddings()
     vectordb = Chroma(persist_directory=persist_directory, embedding_function=embedding)
     retriever = vectordb.as_retriever(search_kwargs={"k": 2})
 else:
@@ -32,10 +80,10 @@ client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
 MODEL = "Llama-3.2-3B-Instruct-4bit"
 try:
     try:
-        subprocess.run([WINDOWS_LMS_PATH, "load", "llama-3.2-3b-qnn", "-y"])
+        subprocess.run([WINDOWS_LMS_PATH, "load", "Llama-3.2-3B-Instruct-4bit", "-y"])
     except:
-        subprocess.run(["lms", "load", "llama-3.2-3b-qnn", "-y"])
-    MODEL = "llama-3.2-3b-qnn"
+        subprocess.run(["lms", "load", "Llama-3.2-3B-Instruct-4bit", "-y"])
+    MODEL = "Llama-3.2-3B-Instruct-4bit"
 except:
     try:
         subprocess.run([WINDOWS_LMS_PATH, "load", "Llama-3.2-3B-Instruct-4bit", "-y"])
@@ -45,7 +93,7 @@ except:
 
 if retriever:
     qa_chain = RetrievalQA.from_chain_type(
-        llm=client,
+        llm=OpenAIClientWrapper(client=client, model=MODEL, tools=tools),
         chain_type="stuff",
         retriever=retriever,
         return_source_documents=True
@@ -62,11 +110,18 @@ def find_free_port():
 
 def process_llm_response(llm_response):
     """Format the LLM response with sources."""
-    if "source_documents" in llm_response:
-        result = f"Answer: {llm_response['result']}\n\nSources:\n"
+    if isinstance(llm_response, dict) and "source_documents" in llm_response:
+        # Handle case with source documents
+        result = f"Answer: {llm_response.get('result', 'No result found')}\n\nSources:\n"
         for source in llm_response["source_documents"]:
-            result += f"- {source.metadata['source']}\n"
+            # Safely access metadata and source to avoid KeyError
+            source_info = source.metadata.get('source', 'Unknown source')
+            result += f"- {source_info}\n"
+    elif isinstance(llm_response, dict) and "result" in llm_response:
+        # Handle case with result but no source documents
+        result = f"Answer: {llm_response.get('result', 'No result found')}"
     else:
+        # Handle unexpected structure or plain text response
         result = f"Answer: {llm_response}"
     return result
 
@@ -108,8 +163,16 @@ async def handle_websocket(websocket, path=None):
                 client_states[websocket]["awaiting_response"] = True
 
                 if qa_chain:
-                    llm_response = qa_chain.run(message)
-                    response = process_llm_response(llm_response)
+                    try:
+                        llm_response = qa_chain.invoke({"query":message})
+                        response = process_llm_response(llm_response)
+                    except:
+                        llm_response = client.completions.create(
+                            model=MODEL,
+                            prompt=message,
+                            tools=tools
+                        )
+                        response = llm_response.choices[0].text.strip()
                 else:
                     llm_response = client.completions.create(
                         model=MODEL,

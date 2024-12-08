@@ -75,12 +75,12 @@ def setup_models():
     else:
         print(len(available_models), "available models: ", available_models)
 
-    if "llama-3.2-3b-qnn" in available_models:
-        model_tpu = "llama-3.2-3b-qnn"
-        print("USING: llama-3.2-3b-qnn")
+    if "qwen2.5-1.5b-instruct" in available_models:
+        model_tpu = "qwen2.5-1.5b-instruct"
+        print("USING: qwen2.5-1.5b-instruct")
     else:
         try_tpu.tpu_failed = True
-        print("Not using: llama-3.2-3b-qnn")
+        print("Not using: qwen2.5-1.5b-instruct")
 
 
 def load_models():
